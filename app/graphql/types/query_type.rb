@@ -13,5 +13,8 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :get_user, resolver: Queries::UserQueries::GetUser
+    field :get_users, resolver: Queries::UserQueries::GetUsers
   end
 end
