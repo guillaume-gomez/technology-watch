@@ -16,7 +16,7 @@ module Queries
 
     class GetUsers < GraphQL::Schema::Resolver
       description 'Get all Users'
-      type [Types::UserType], null: false
+      type Types::UserType.connection_type, null: false
 
       def resolve()
         #scope = policy_scope(User)
