@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Resolvers::Mutations::UserMutations, type: :graphql do
+RSpec.describe Mutations::UserMutations, type: :graphql do
 
 end
