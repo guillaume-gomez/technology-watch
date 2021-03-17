@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Mutations::UserMutations, type: :graphql do
   let(:mutation) do
     <<~GQL
-      mutation($input: UserInputType!) {
+      mutation($input: UserInput!) {
         createUser(input: { user: $input }) {
           id
         }
@@ -11,23 +11,21 @@ RSpec.describe Mutations::UserMutations, type: :graphql do
     GQL
   end
 
-  it 'should success' do
-    result = execute_graphql(
-      mutation,
-      variables: { input: { email: "test@test.net", password: 'password', first_name: "john", last_name: "dump" } },
-    )
+  describe "resolve" do
+    subject{ execute_graphql(mutation, variables: {input: params}) }
 
-    aggregate_failures do
-      expect(result['data']['create_user']['id']).not_to eq nil
+    context "when inputs are valid" do
+      let(:params) do
+        { email: "test@test.net", password: 'password', firstName: "john", lastName: "dump" }
+      end
+      it { expect{subject}.to change { User.count }.by(1) }
     end
-  end
 
-  it 'should fails' do
-    result = execute_graphql(
-      mutation,
-      variables: { input: { email: 'test@test.net', password: 'whatever' } },
-    )
-
-    expect(result['data']['create_user']['id']).to eq nil
+    context "when input are invalid" do
+      let(:params) do
+        { email: 'test@test.net', password: 'whatever' }
+      end
+      it { expect{subject}.not_to change { User.count } }
+    end
   end
 end
