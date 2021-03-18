@@ -3,7 +3,11 @@ class TechnologyWatchSchema < GraphQL::Schema
     query:            Types::QueryType,
     mutation:         Types::MutationType,
     resource_loaders: [
-      GraphqlDevise::ResourceLoader.new('User'),
+      GraphqlDevise::ResourceLoader.new('User', {
+        operations: {
+          sign_up: Mutations::UserMutations::SignUp
+        }
+      })
     ]
   )
   mutation(Types::MutationType)
