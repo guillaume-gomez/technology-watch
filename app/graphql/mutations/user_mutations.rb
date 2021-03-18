@@ -13,12 +13,12 @@ module Mutations
         description 'User password'
       end
 
-      argument :first_name, String, required: true do
-        description 'First name'
+      argument :name, String, required: true do
+        description 'full name'
       end
 
-      argument :last_name, String, required: true do
-        description 'Last name'
+      argument :nickname, String, required: true do
+        description 'nickname'
       end
     end
 
