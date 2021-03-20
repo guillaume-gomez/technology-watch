@@ -13,12 +13,12 @@ module Mutations
         description 'User password'
       end
 
-      argument :first_name, String, required: true do
-        description 'First name'
+      argument :name, String, required: true do
+        description 'full name'
       end
 
-      argument :last_name, String, required: true do
-        description 'Last name'
+      argument :nickname, String, required: true do
+        description 'nickname'
       end
     end
 
@@ -32,6 +32,17 @@ module Mutations
         record = User.new(user.to_h)
         record.save!
         record
+      end
+    end
+
+    class SignUp < GraphqlDevise::Mutations::SignUp
+      argument :name, String, required: true
+      argument :nickname, String, required: true
+      field :user, Types::UserType, null: true
+
+      def resolve(email:, **attrs)
+        original_payload = super
+        original_payload.merge(user: original_payload[:authenticatable])
       end
     end
   end
