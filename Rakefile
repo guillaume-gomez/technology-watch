@@ -10,3 +10,5 @@ Rails.application.load_tasks
 GraphQL::RakeTask.new(
   schema_name: 'TechnologyWatchSchema', # this needs to be your generated schema class name
 )
+
+#run on command rake graphql:schema:dump

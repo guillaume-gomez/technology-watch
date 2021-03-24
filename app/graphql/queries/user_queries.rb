@@ -8,8 +8,6 @@ module Queries
       argument :id, ID, required: true
 
       def resolve(id:)
-        #scope = policy_scope(User)
-        #Auth::Authorize.authorize context, to: :show?, with: scope.find(id)
         User.find(id)
       end
     end
@@ -19,8 +17,6 @@ module Queries
       type Types::UserType.connection_type, null: false
 
       def resolve()
-        #scope = policy_scope(User)
-        #Auth::Authorize.authorize context, to: :show?, with: scope.find(id)
         User.all
       end
     end

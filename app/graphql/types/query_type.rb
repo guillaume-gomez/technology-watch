@@ -8,13 +8,13 @@ module Types
     # They will be entry points for queries on your schema.
 
     # TODO: remove me
-    field :test_field, String, null: false,
+    field :test_field, String, null: false, authenticate: false,
       description: "An example field added by the generator"
     def test_field
       "Hello World!"
     end
 
-    field :get_user, resolver: Queries::UserQueries::GetUser
-    field :get_users, resolver: Queries::UserQueries::GetUsers
+    field :get_user, resolver: Queries::UserQueries::GetUser, authenticate: true
+    field :get_users, resolver: Queries::UserQueries::GetUsers, authenticate: true
   end
 end
