@@ -16,7 +16,7 @@ RSpec.describe Mutations::UserMutations, type: :graphql do
 
     context "when inputs are valid" do
       let(:params) do
-        { email: "test@test.net", password: 'password', nickname: "jojo", name: " john dump" }
+        { email: "test@test.net", password: 'password', nickname: "jojo", name: "john dump" }
       end
       it { expect{subject}.to change { User.count }.by(1) }
     end
