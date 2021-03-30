@@ -7,6 +7,6 @@ module Types
       "Hello World"
     end
 
-    field :create_user, resolver: Mutations::UserMutations::CreateUser, null: false, authenticate: false
+    field :create_user, resolver: Mutations::UserMutations::CreateUser, null: false, authenticate: true
   end
 end

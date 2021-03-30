@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::UserMutations, type: :graphql do
-  let(:mutation) do
+  include_context 'with graphql query request'
+  let(:query) do
     <<~GQL
       mutation($input: UserInput!) {
         createUser(input: { user: $input }) {
@@ -12,7 +13,9 @@ RSpec.describe Mutations::UserMutations, type: :graphql do
   end
 
   describe "resolve" do
-    subject{ execute_graphql(mutation, variables: {input: params}) }
+    let!(:current_user) { create(:user) }
+    let!(:variables) { {input: params } }
+    subject{ execute_graphql }
 
     context "when inputs are valid" do
       let(:params) do

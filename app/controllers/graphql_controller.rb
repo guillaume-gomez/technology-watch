@@ -1,4 +1,5 @@
 class GraphqlController < ApplicationController
+  include GraphqlDevise::Concerns::SetUserByToken
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
@@ -10,7 +11,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     result = TechnologyWatchSchema.execute(query, variables: variables, context: graphql_context(:user), operation_name: operation_name)
-    render json: result
+    render json: result unless performed?
   rescue => e
     raise e unless Rails.env.development?
     handle_error_in_development e
