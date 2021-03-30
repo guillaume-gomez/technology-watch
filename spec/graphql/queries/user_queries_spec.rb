@@ -48,10 +48,17 @@ RSpec.describe Queries::UserQueries, type: :graphql do
     end
     subject{ execute_graphql }
 
-    context "when user id exist" do
+    context "when user id exist and super admin" do
+      let!(:current_user) { create(:user, :super_admin) }
       let!(:users) { create_list(:user, 5) }
 
       it { expect(subject.to_h["data"]["getUsers"]["edges"].map{|node| node["node"]["id"].to_i }).to contain_exactly(*users.pluck(:id), current_user.id) }
+    end
+
+    context "when user id exist and NOT super admin" do
+      let!(:users) { create_list(:user, 5) }
+
+      it { expect(subject.to_h["data"]["getUsers"]["edges"].map{|node| node["node"]["id"].to_i }).to contain_exactly(current_user.id) }
     end
   end
 end

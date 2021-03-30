@@ -17,7 +17,8 @@ module Queries
       type Types::UserType.connection_type, null: false
 
       def resolve()
-        User.all
+        return User.all if context[:current_resource].is_super_admin?
+        return [context[:current_resource]]
       end
     end
 
@@ -26,7 +27,7 @@ module Queries
       type Types::UserType, null: false
 
       def resolve
-        context[:current_user]
+        context[:current_resource]
       end
     end
 
