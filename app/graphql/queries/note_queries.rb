@@ -8,7 +8,7 @@ module Queries
       argument :id, ID, required: true
 
       def resolve(id:)
-        Note.find(id)
+        context[:current_resource].notes.find(id)
       end
     end
 
@@ -17,7 +17,7 @@ module Queries
       type Types::NoteType.connection_type, null: false
 
       def resolve()
-        context[:current_user].notes
+        context[:current_resource].notes
       end
     end
   end

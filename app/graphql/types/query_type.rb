@@ -16,5 +16,8 @@ module Types
 
     field :get_user, resolver: Queries::UserQueries::GetUser, authenticate: true
     field :get_users, resolver: Queries::UserQueries::GetUsers, authenticate: true
+
+    field :get_note, resolver: Queries::NoteQueries::GetNote, authenticate: true
+    field :get_notes, resolver: Queries::NoteQueries::GetNotes, authenticate: true
   end
 end
