@@ -72,6 +72,69 @@ type Mutation {
   userUpdatePasswordWithToken(password: String!, passwordConfirmation: String!, resetPasswordToken: String!): UserUpdatePasswordWithTokenPayload
 }
 
+type Note implements ActiveRecord {
+  """
+  Active Record cache key
+  """
+  cacheKey: String
+
+  """
+  created_at field from ActiveRecord
+  """
+  createdAt: ISO8601DateTime!
+  description: String
+
+  """
+  ID from ActiveRecord
+  """
+  id: ID!
+  link: String!
+  name: String!
+  rating: Int
+  timeToRead: String
+
+  """
+  update_at field from ActiveRecord
+  """
+  updatedAt: ISO8601DateTime!
+  user: User!
+}
+
+"""
+The connection type for Note.
+"""
+type NoteConnection {
+  """
+  A list of edges.
+  """
+  edges: [NoteEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Note]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type NoteEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Note
+}
+
 """
 Information about pagination in a connection.
 """
@@ -98,6 +161,36 @@ type PageInfo {
 }
 
 type Query {
+  """
+  Get a Note
+  """
+  getNote(id: ID!): Note!
+
+  """
+  Get all Notes
+  """
+  getNotes(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): NoteConnection!
+
   """
   Get a User
   """
