@@ -8,5 +8,6 @@ module Types
     end
 
     field :create_user, resolver: Mutations::UserMutations::CreateUser, null: false, authenticate: true
+    field :create_note, resolver: Mutations::NoteMutations::CreateNote, null: false, authenticate: false
   end
 end

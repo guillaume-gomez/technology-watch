@@ -14,7 +14,7 @@ RSpec.describe Mutations::UserMutations, type: :graphql do
 
   describe "resolve" do
     let!(:current_user) { create(:user) }
-    let!(:variables) { {input: params } }
+    let(:variables) { {input: params } }
     subject{ execute_graphql }
 
     context "when inputs are valid" do
