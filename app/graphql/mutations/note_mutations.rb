@@ -99,9 +99,7 @@ module Mutations
 
       def resolve(id:)
         record = context[:current_resource].notes.find(id)
-        debugger
         record.destroy
-        record
       end
     end
   end
