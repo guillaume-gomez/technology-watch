@@ -1,13 +1,18 @@
 import React, { ReactElement, ReactChild } from 'react';
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@apollo/client";
+
 import { Box, Form, FormField, TextInput, Button } from 'grommet';
 
+import { userSignUp, userSignUpVariables } from "../../graphql/types/userSignUp";
+import { SignUp as SignUpQuery } from "../../graphql/userQueries";
 
 export interface SignUpProps {
 }
 
 export default function SignUp({  } : SignUpProps) : ReactElement {
   const { t } = useTranslation();
+  const [signUp, { data }] = useMutation<userSignUp, userSignUpVariables>(SignUpQuery);
   const [value, setValue] = React.useState({});
   return (
     <Form
