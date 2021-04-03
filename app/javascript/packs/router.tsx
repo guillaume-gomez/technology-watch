@@ -1,26 +1,36 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, Suspense } from 'react';
 import { useTranslation } from "react-i18next";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import { theme } from "./theme";
-import { Grommet, Box, Main, ResponsiveContext, Heading } from 'grommet';
+import { Grommet, ResponsiveContext } from 'grommet';
 import { FormClose } from "grommet-icons";
 
-import Header from "./components/header";
-import Footer from "./components/footer";
+import PublicRoute from "./components/router/publicRoute";
+
+import SignUp from "./views/users/signUp";
+
 
 export default function Router() : ReactElement {
   const { t } = useTranslation();
   return (
-  <Grommet theme={theme} full themeMode="light">
-    <ResponsiveContext.Consumer>
-      {size => (
-         <Box fill>
-           <Header />
-           <Main pad="small">
-             <Heading>{t("wave-hand")}</Heading>
-           </Main>
-           <Footer/>
-        </Box>
-     )}
-   </ResponsiveContext.Consumer>
-  </Grommet>);
+    <Grommet theme={theme} full themeMode="light">
+      <ResponsiveContext.Consumer>
+        {size => (
+          <BrowserRouter>
+            <Suspense fallback={<FormClose size="medium" />}>
+              <Switch>
+                 <PublicRoute component={SignUp}/>
+               </Switch>
+             </Suspense>
+          </BrowserRouter>
+       )}
+     </ResponsiveContext.Consumer>
+    </Grommet>
+    );
 };
+

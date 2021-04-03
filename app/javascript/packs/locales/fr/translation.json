@@ -1,3 +1,11 @@
 {
-  "wave-hand": "Coucou tout le monde"
+  "wave-hand": "Coucou tout le monde",
+  "sign-up": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "password-confirmation": "Mot de passe confirmé",
+    "name": "Nom",
+    "nickname": "Surnom",
+    "submit": "S'inscrire"
+  }
 }
