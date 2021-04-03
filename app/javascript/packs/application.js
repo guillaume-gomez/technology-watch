@@ -15,6 +15,30 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+import React from 'react';
+import { render } from 'react-dom';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import "./i18n";
 
-import "./hello_react";
+import Router from "./router";
+
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache()
+});
+
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Router/>
+    </ApolloProvider>
+  );
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  render(
+    <App />,
+    document.body.appendChild(document.createElement('div')),
+  )
+})
