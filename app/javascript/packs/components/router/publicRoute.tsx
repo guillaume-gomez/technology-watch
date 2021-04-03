@@ -4,7 +4,6 @@ import  { Route, RouteComponentProps } from "react-router-dom";
 import Layout from "../../views/layout/layout";
 
 export default function PublicRoute({ component, path, exact }: any) : ReactElement {
-  console.log("mach")
   return (
     <Route
       path={path}
