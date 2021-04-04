@@ -11,10 +11,15 @@
   "sign-in": {
     "email": "Email",
     "password": "Password",
-    "submit": "Log in"
+    "submit": "Log in",
+    "sign-up": "Sign up"
   },
   "confirm-sign-up": {
     "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
     "go-to-login": "Go to login"
+  },
+  "header": {
+    "logout": "Logout",
+    "edit": "Edit Profile"
   }
 }

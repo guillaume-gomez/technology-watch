@@ -22,7 +22,7 @@ module Queries
       end
     end
 
-    class GetCurrentUser < GraphQL::Schema::Resolver
+    class CurrentUser < GraphQL::Schema::Resolver
       description 'Get the current user'
       type Types::UserType, null: false
 

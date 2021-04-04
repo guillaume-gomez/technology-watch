@@ -1,38 +1,41 @@
-import React, { ReactElement, ReactChild } from "react";
+import React, { ReactElement, ReactChild, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button,
+  Box, Form, FormField, TextInput, Button, Text
 } from "grommet";
 
-import { setToken } from "../../authentication";
+import { setToken, setUID, setClient } from "../../authentication";
 
 import { userLogin, userLoginVariables } from "../../graphql/types/userLogin";
 import { Login as LoginQuery } from "../../graphql/userQueries";
 
 import {
-  signUpMessagePath
+  privateRootPath
 } from "../../routesPath";
 
 export default function Login() : ReactElement {
   const { t } = useTranslation();
   let history = useHistory();
+  const [networkError, setNetworkError] = useState<string>("");
   const [signUp, { data }] = useMutation<userLogin, userLoginVariables>(LoginQuery, {
     onCompleted: ({userLogin}) => {
       if(userLogin) {
-        const { accessToken, expiry } = userLogin.credentials;
+        const { accessToken, expiry, client, uid } = userLogin.credentials;
         const expiresInDays = expiry / (24*60*60);
         setToken(accessToken, expiry);
-        //history.push(signUpMessagePath);
+        setClient(client, expiry);
+        setUID(uid, expiry);
+        history.push(privateRootPath);
       }else {
         //set error
-       console.error("error");
+        //console.error(errors);
       }
     },
     onError: (errors) => {
-      console.error(errors);
+      setNetworkError(errors.toString());
     },
   });
   const [values, setValues] = React.useState<userLoginVariables>(
@@ -42,20 +45,25 @@ export default function Login() : ReactElement {
     },
   );
   return (
+    <Box>
+      {networkError !== "" && <Text>{networkError}</Text>}
     <Form
       value={values}
       onChange={(nextValues) => setValues(nextValues)}
       onSubmit={({ value }) => signUp({ variables: value })}
     >
-      <FormField name="email" htmlFor="text-input-id" label={t("sign-up.email")}>
-        <TextInput id="text-input-id" name="email" />
+      <FormField name="email" htmlFor="email" label={t("sign-in.email")} required>
+        <TextInput id="email" name="email" />
       </FormField>
-      <FormField name="password" htmlFor="text-input-id" label={t("sign-up.password")}>
-        <TextInput id="text-input-id" name="password" />
+      <FormField name="password" htmlFor="password" label={t("sign-in.password")} required>
+        <TextInput type="password" id="password" name="password" />
       </FormField>
-      <Box direction="row" justify="end" gap="medium">
-        <Button type="submit" primary label={t("sign-up.submit")} />
+      <Box direction="row" justify="between" gap="medium">
+        <Button primary label={t("sign-in.sign-up")} />
+        <Button type="submit" primary label={t("sign-in.submit")} />
       </Box>
+      
     </Form>
+    </Box>
   );
 }

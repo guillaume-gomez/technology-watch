@@ -17,19 +17,33 @@ export const SignUp = gql`
   }
 `;
 
-
 export const Login = gql`
   mutation userLogin($email: String!, $password: String!) {
     userLogin(email: $email, password: $password) {
       credentials {
         accessToken
+        client
         expiry
+        uid
       }
+    }
+  }
+`;
+
+export const UserHeader = gql`
+  query currentUserHeader {
+    currentUser {
+      id
+      nickname
+    }
+  }
+`;
+
+export const Logout =  gql`
+  mutation userLogout {
+    userLogout {
       authenticatable {
         id
-        name
-        nickname
-        email
       }
     }
   }

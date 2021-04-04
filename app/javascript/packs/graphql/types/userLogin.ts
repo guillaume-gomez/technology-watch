@@ -10,24 +10,14 @@
 export interface userLogin_userLogin_credentials {
   __typename: "Credential";
   accessToken: string;
+  client: string;
   expiry: number;
-}
-
-export interface userLogin_userLogin_authenticatable {
-  __typename: "User";
-  /**
-   * ID from ActiveRecord
-   */
-  id: string;
-  name: string;
-  nickname: string;
-  email: string;
+  uid: string;
 }
 
 export interface userLogin_userLogin {
   __typename: "UserLoginPayload";
   credentials: userLogin_userLogin_credentials;
-  authenticatable: userLogin_userLogin_authenticatable;
 }
 
 export interface userLogin {

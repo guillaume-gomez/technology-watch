@@ -300,6 +300,11 @@ type PageInfo {
 
 type Query {
   """
+  Get the current user
+  """
+  currentUser: User!
+
+  """
   Get a Note
   """
   getNote(id: ID!): Note!

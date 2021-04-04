@@ -3,7 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
-import { getToken } from "./authentication";
+import { getToken, getUID, getClient } from "./authentication";
 import "./i18n";
 
 import Router from "./router";
@@ -12,8 +12,12 @@ const client = new ApolloClient({
   uri: "/graphql",
   cache: new InMemoryCache(),
   headers: {
-    authorization: getToken(),
-  },
+    accept: "application/json",
+    "Content-Type": "application/json",
+    "access-token": getToken(),
+    "uid": getUID(),
+    "client": getClient()
+  }
 });
 
 function App() {

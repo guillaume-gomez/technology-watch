@@ -14,6 +14,8 @@ module Types
       "Hello World!"
     end
 
+
+    field :current_user, resolver: Queries::UserQueries::CurrentUser, authenticate: true
     field :get_user, resolver: Queries::UserQueries::GetUser, authenticate: true
     field :get_users, resolver: Queries::UserQueries::GetUsers, authenticate: true
 
