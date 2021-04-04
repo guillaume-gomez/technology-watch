@@ -7,15 +7,29 @@ export const SignUp = gql`
       password: $password,
       passwordConfirmation: $passwordConfirmation,
       name: $name,
+      confirmSuccessUrl: "/login",
       nickname: $nickname
     ) {
       user {
         id
       }
+    }
+  }
+`;
+
+
+export const Login = gql`
+  mutation userLogin($email: String!, $password: String!) {
+    userLogin(email: $email, password: $password) {
       credentials {
         accessToken
         expiry
-        tokenType
+      }
+      authenticatable {
+        id
+        name
+        nickname
+        email
       }
     }
   }

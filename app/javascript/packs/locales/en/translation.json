@@ -7,5 +7,14 @@
     "name": "Full name",
     "nickname": "Nickname",
     "submit": "Sign Up"
+  },
+  "sign-in": {
+    "email": "Email",
+    "password": "Password",
+    "submit": "Log in"
+  },
+  "confirm-sign-up": {
+    "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
+    "go-to-login": "Go to login"
   }
 }

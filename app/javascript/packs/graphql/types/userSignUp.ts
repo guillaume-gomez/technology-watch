@@ -15,20 +15,9 @@ export interface userSignUp_userSignUp_user {
   id: string;
 }
 
-export interface userSignUp_userSignUp_credentials {
-  __typename: "Credential";
-  accessToken: string;
-  expiry: number;
-  tokenType: string;
-}
-
 export interface userSignUp_userSignUp {
   __typename: "UserSignUpPayload";
   user: userSignUp_userSignUp_user | null;
-  /**
-   * Authentication credentials. Null if after signUp resource is not active for authentication (e.g. Email confirmation required).
-   */
-  credentials: userSignUp_userSignUp_credentials | null;
 }
 
 export interface userSignUp {

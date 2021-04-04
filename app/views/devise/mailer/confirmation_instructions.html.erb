@@ -1,0 +1,5 @@
+<p>Welcome <%= @name %>!</p>
+
+<p>You can confirm your account email through the link below:</p>
+<% # link from front side routing %>
+<p><%= link_to 'Confirm my account', "#{root_url}users/password/confirm?confirmation_token=#{@token}" %></p>

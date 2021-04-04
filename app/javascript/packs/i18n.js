@@ -1,18 +1,17 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import translationFR from './locales/fr/translation.json';
-import translationEN from './locales/en/translation.json';
+import translationFR from "./locales/fr/translation.json";
+import translationEN from "./locales/en/translation.json";
 
 const resources = {
   en: {
-    translation: translationEN
+    translation: translationEN,
   },
   fr: {
-    translation: translationFR
-  }
+    translation: translationFR,
+  },
 };
-
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -21,8 +20,8 @@ i18n
     lng: "fr",
     fallbackLng: "fr", // use en if detected lng is not available
     interpolation: {
-      escapeValue: false // react already safes from xss
-    }
-});
+      escapeValue: false, // react already safes from xss
+    },
+  });
 
 export default i18n;

@@ -1,10 +1,9 @@
-import React, { ReactElement } from 'react';
-import { Footer, Heading, Text, Anchor } from "grommet";
-interface footerProps {
+import React, { ReactElement } from "react";
+import {
+  Footer, Text, Anchor,
+} from "grommet";
 
-}
-
-export default function footer( {}: footerProps) : ReactElement {
+export default function footer() : ReactElement {
   return (
     <Footer background="brand" pad="medium">
       <Text>Copyright</Text>
