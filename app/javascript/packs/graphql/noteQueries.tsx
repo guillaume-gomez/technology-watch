@@ -32,15 +32,22 @@ export const GetNotes = gql`
   }
 ${NoteFragment.fragments.note}`;
 
+export const GetNote = gql`
+  query getNote($id: ID!) {
+    getNote(id: $id) {
+      ...NoteFragment
+    }
+  }
+${NoteFragment.fragments.note}`;
+
 export const CreateNote = gql`
-  mutation createNote($userId: ID!, $name: String!, $link: String!, $description: String, $rating: Int, $timeToRead: ISO8601DateTime) {
+  mutation createNote($userId: ID!, $name: String!, $link: String!, $description: String, $rating: Int) {
     createNote(input: { note: {
       userId: $userId,
       name: $name,
       link: $link,
       description: $description,
       rating: $rating
-      timeToRead: $timeToRead
     }}) {
       ...NoteFragment
     }
@@ -63,3 +70,17 @@ export const MarkAsRead = gql`
     }
   }
 `;
+
+export const EditNote = gql`
+  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int) {
+    editNote(input: { note: {
+      id: $id,
+      name: $name,
+      link: $link,
+      description: $description,
+      rating: $rating
+    }}) {
+      ...NoteFragment
+    }
+  }
+${NoteFragment.fragments.note}`;

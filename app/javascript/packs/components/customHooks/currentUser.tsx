@@ -1,14 +1,25 @@
-import React from "react";
-import {  useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
   UserHeader as UserQuery,
 } from "../../graphql/userQueries";
 
+import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
-export default function CurrentUser() {
-  const { loading, error, data } = useQuery(UserQuery);
+interface CurrentUserProps {
+  onCompletedCallback?: (data: currentUserHeader) => void
+}
 
-  if(error) {
+export default function CurrentUser({ onCompletedCallback } : CurrentUserProps ) {
+  const { loading, error, data } = useQuery(UserQuery, {
+    onCompleted:(data : currentUserHeader) => {
+      if(onCompletedCallback) {
+        console.log("fdjkfdj")
+        onCompletedCallback(data);
+      }
+    }
+  });
+
+  if (error) {
     console.error(error);
   }
   return { loading, error, data };

@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createNote
+// GraphQL mutation operation: editNote
 // ====================================================
 
-export interface createNote_createNote {
+export interface editNote_editNote {
   __typename: "Note";
   /**
    * ID from ActiveRecord
@@ -21,17 +21,17 @@ export interface createNote_createNote {
   markAsRead: boolean;
 }
 
-export interface createNote {
+export interface editNote {
   /**
-   * Create a Note
+   * Edit a Note
    */
-  createNote: createNote_createNote;
+  editNote: editNote_editNote;
 }
 
-export interface createNoteVariables {
-  userId: string;
-  name: string;
-  link: string;
+export interface editNoteVariables {
+  id: string;
+  name?: string | null;
+  link?: string | null;
   description?: string | null;
   rating?: number | null;
 }

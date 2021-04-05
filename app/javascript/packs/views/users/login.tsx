@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Text,
+  Box, Form, FormField, TextInput, Button,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -21,7 +21,7 @@ export default function Login() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
-  const [signUp, { data }] = useMutation<userLogin, userLoginVariables>(LoginQuery, {
+  const [signUp] = useMutation<userLogin, userLoginVariables>(LoginQuery, {
     onCompleted: ({ userLogin }) => {
       if (userLogin) {
         const {
@@ -48,7 +48,7 @@ export default function Login() : ReactElement {
   );
   return (
     <Box>
-      {networkError !== "" && <ServerError messages={networkError}/>}
+      {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}

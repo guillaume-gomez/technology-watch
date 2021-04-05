@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Text,
+  Box, Form, FormField, TextInput, Button,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -20,8 +20,8 @@ export default function SignUp() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
-  const [signUp, { data }] = useMutation<userSignUp, userSignUpVariables>(SignUpQuery, {
-    onCompleted: (data) => {
+  const [signUp] = useMutation<userSignUp, userSignUpVariables>(SignUpQuery, {
+    onCompleted: () => {
       history.push(signUpMessagePath);
     },
     onError: (errors) => {

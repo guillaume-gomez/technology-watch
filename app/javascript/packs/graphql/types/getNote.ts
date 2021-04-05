@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createNote
+// GraphQL query operation: getNote
 // ====================================================
 
-export interface createNote_createNote {
+export interface getNote_getNote {
   __typename: "Note";
   /**
    * ID from ActiveRecord
@@ -21,17 +21,13 @@ export interface createNote_createNote {
   markAsRead: boolean;
 }
 
-export interface createNote {
+export interface getNote {
   /**
-   * Create a Note
+   * Get a Note
    */
-  createNote: createNote_createNote;
+  getNote: getNote_getNote;
 }
 
-export interface createNoteVariables {
-  userId: string;
-  name: string;
-  link: string;
-  description?: string | null;
-  rating?: number | null;
+export interface getNoteVariables {
+  id: string;
 }

@@ -4,10 +4,12 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput, Heading
+  Box, Heading, Spinner,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
+
+import CurrentUser from "../../components/customHooks/currentUser";
 
 import NoteForm from "./noteForm";
 
@@ -15,8 +17,8 @@ import { createNote, createNoteVariables } from "../../graphql/types/createNote"
 import { getNotes } from "../../graphql/types/getNotes";
 import {
   CreateNote as CreateNoteQuery,
-  GetNotes as GetNotesQuery
- } from "../../graphql/noteQueries";
+  GetNotes as GetNotesQuery,
+} from "../../graphql/noteQueries";
 
 import {
   notePath,
@@ -27,8 +29,18 @@ import { nbItems } from "./noteConstants";
 export default function NewNote() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
+  CurrentUser({
+    onCompletedCallback: (data) => {
+      setValues(
+        {
+          ...values,
+          userId: data.currentUser.id,
+        },
+      );
+    }
+  });
   const [networkError, setNetworkError] = useState<string>("");
-  const [createNoteFunction, { data }] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
+  const [createNoteFunction] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
     onCompleted: () => {
       history.push(notePath);
     },
@@ -38,7 +50,7 @@ export default function NewNote() : ReactElement {
     },
     update: (cache, { data }) => {
       const elemToAdd = data!.createNote;
-      const dataInCache: getNotes | null = cache.readQuery({ query: GetNotesQuery, variables: {first: nbItems} });
+      const dataInCache: getNotes | null = cache.readQuery({ query: GetNotesQuery, variables: { first: nbItems } });
       if (!dataInCache) {
         return;
       }
@@ -50,17 +62,27 @@ export default function NewNote() : ReactElement {
           __typename: dataInCache.getNotes.__typename,
         },
       };
-      cache.writeQuery({ query: GetNotesQuery, variables: {first: nbItems}, data: newCache });
+      cache.writeQuery({ query: GetNotesQuery, variables: { first: nbItems }, data: newCache });
     },
   });
 
-
+  const [values, setValues] = React.useState<createNoteVariables>(
+    {
+      userId: "-1", // flag
+      name: "",
+      link: "",
+      description: "",
+      rating: 1
+    },
+  );
 
   return (
     <Box>
       <Heading level="3">{t("new-note.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
-      <NoteForm mutation={createNoteFunction} />
+      {
+        values.userId === "-1" ? <Spinner /> : <NoteForm initialValues={values} mutation={createNoteFunction} />
+      }
     </Box>
   );
 }

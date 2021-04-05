@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import {
   Header, Heading, Spinner, Menu,
 } from "grommet";
-import { useApolloClient, useQuery, useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
   Logout as LogoutQuery,
 } from "../graphql/userQueries";
 
-import CurrentUser from "../components/customHooks/currentUser";
+import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
 import { publicRootPath } from "../routesPath";
@@ -21,7 +21,7 @@ export default function PrivateHeader() : ReactElement {
   const history = useHistory();
   const { t } = useTranslation();
   const client = useApolloClient();
-  const { loading, error, data } = CurrentUser();
+  const { loading, data } = CurrentUser({});
   const [logout] = useMutation<userLogout>(LogoutQuery, {
     onCompleted: () => {
       client.resetStore().then(() => {

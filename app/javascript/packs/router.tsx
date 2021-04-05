@@ -13,7 +13,7 @@ import {
   publicRootPath,
   privateRootPath,
   addNotePath,
-  editNotePath
+  editNotePath,
 } from "./routesPath";
 
 import PublicRoute from "./components/router/publicRoute";

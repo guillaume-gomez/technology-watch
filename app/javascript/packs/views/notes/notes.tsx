@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, InfiniteScroll, Button
+  Box, Heading, Spinner, Text, InfiniteScroll, Button,
 } from "grommet";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
@@ -22,11 +22,10 @@ interface FetchMoreResultQuery {
   variables: Object
 }
 
-
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
   const {
-    loading, error, data, fetchMore,
+    loading, data, fetchMore,
   } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems } });
 
   function displayNotes() {
@@ -82,8 +81,8 @@ export default function Notes() : ReactElement {
   return (
     <Box>
       <Heading level="3">{t("notes.title")}</Heading>
-      <Link to={addNotePath} >
-        <Button label={t("notes.create-note")}/>
+      <Link to={addNotePath}>
+        <Button label={t("notes.create-note")} />
       </Link>
 
       <Box overflow="auto">

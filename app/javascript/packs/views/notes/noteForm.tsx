@@ -1,64 +1,28 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput, Heading, Spinner
+  Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput,
 } from "grommet";
 
-import ServerError from "../../components/serverError";
-
-import CurrentUser from "../../components/customHooks/currentUser";
-
-import { createNote, createNoteVariables } from "../../graphql/types/createNote";
-import { getNotes } from "../../graphql/types/getNotes";
-import {
-  CreateNote as CreateNoteQuery,
-  GetNotes as GetNotesQuery
- } from "../../graphql/noteQueries";
+import { createNoteVariables } from "../../graphql/types/createNote";
+import { editNoteVariables } from "../../graphql/types/editNote";
 
 import {
   notePath,
 } from "../../routesPath";
 
-import { nbItems } from "./noteConstants";
-
 interface NoteFormProps {
- initialValues?: createNoteVariables;
+ initialValues: createNoteVariables | editNoteVariables;
  mutation: Function;
 }
 
-const defaultInitialValues = {
-  userId: "_",
-  name: "",
-  link: "",
-  description: "",
-  rating: 1,
-  timeToRead: new Date(),
-};
 
-
-export default function NoteForm({ initialValues = defaultInitialValues, mutation }: NoteFormProps) : ReactElement {
-  const { data: dataCurrentUser, loading } = CurrentUser();
+export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
-  const [values, setValues] = React.useState<createNoteVariables>(initialValues);
-
-  useEffect(() => {
-    if(dataCurrentUser && dataCurrentUser.currentUser) {
-     setValues(
-       { 
-         ...values,
-         userId: dataCurrentUser.currentUser.id
-       }
-     )
-    }
-  }, [dataCurrentUser]);
-
-  if(loading) {
-    return <Spinner />;
-  }
+  const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
 
   return (
     <Form
@@ -76,7 +40,7 @@ export default function NoteForm({ initialValues = defaultInitialValues, mutatio
         <TextArea id="description" name="description" />
       </FormField>
       <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
-        <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({...values, rating: parseInt(e.target.value, 10)})} />
+        <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
         <Text>{values.rating}</Text>
       </FormField>
       <Box direction="row" justify="end" gap="medium">
