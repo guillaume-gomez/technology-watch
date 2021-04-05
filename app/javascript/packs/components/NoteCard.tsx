@@ -13,6 +13,7 @@ import { Bookmark, View, Trash } from 'grommet-icons';
 import { getNotes_getNotes_edges_node } from "../graphql/types/getNotes";
 
 import DestroyNote from "./DestroyNote";
+import MarkAsReadNote from "./MarkAsReadNote";
 
 interface NoteCardProps {
   note: getNotes_getNotes_edges_node
@@ -30,10 +31,7 @@ export default function NoteCard({note} : NoteCardProps) : ReactElement {
         href={note.link}
         target="_blank"
      />
-      <Button
-        icon={<Bookmark color="plain" />}
-        hoverIndicator
-      />
+      <MarkAsReadNote id={note.id} markAsRead={note.markAsRead} />
       <DestroyNote id={note.id} />
     </CardFooter>
 </Card>

@@ -18,6 +18,7 @@ export interface createNote_createNote {
   link: string;
   rating: number | null;
   timeToRead: string | null;
+  markAsRead: boolean;
 }
 
 export interface createNote {

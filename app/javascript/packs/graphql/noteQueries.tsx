@@ -11,6 +11,7 @@ export const GetNotes = gql`
           name
           rating
           timeToRead
+          markAsRead
         }
       }
       pageInfo {
@@ -37,6 +38,7 @@ export const CreateNote = gql`
       link
       rating
       timeToRead
+      markAsRead
     }
   }
 `;
@@ -45,6 +47,15 @@ export const DestroyNote = gql`
   mutation destroyNote($id: ID!) {
     destroyNote(input: { id: $id }) {
       id
+    }
+  }
+`;
+
+export const MarkAsRead = gql`
+  mutation markAsRead($id: ID!, $markAsRead: Boolean!) {
+    editNote(input: { note: {id: $id, markAsRead: $markAsRead} }) {
+      id
+      markAsRead
     }
   }
 `;

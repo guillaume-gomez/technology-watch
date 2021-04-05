@@ -18,6 +18,7 @@ export interface getNotes_getNotes_edges_node {
   name: string;
   rating: number | null;
   timeToRead: string | null;
+  markAsRead: boolean;
 }
 
 export interface getNotes_getNotes_edges {
