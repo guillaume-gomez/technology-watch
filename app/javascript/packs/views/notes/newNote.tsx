@@ -12,11 +12,17 @@ import ServerError from "../../components/serverError";
 import CurrentUser from "../../components/customHooks/currentUser";
 
 import { createNote, createNoteVariables } from "../../graphql/types/createNote";
-import { CreateNote as CreateNoteQuery } from "../../graphql/noteQueries";
+import { getNotes } from "../../graphql/types/getNotes";
+import {
+  CreateNote as CreateNoteQuery,
+  GetNotes as GetNotesQuery
+ } from "../../graphql/noteQueries";
 
 import {
   notePath,
 } from "../../routesPath";
+
+import { nbItems } from "./noteConstants";
 
 export default function SignUp() : ReactElement {
   const { t } = useTranslation();
@@ -24,12 +30,28 @@ export default function SignUp() : ReactElement {
   const [networkError, setNetworkError] = useState<string>("");
   const { data: dataCurrentUser } = CurrentUser();
   const [createNoteFunction, { data }] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
-    onCompleted: (data) => {
+    onCompleted: () => {
       history.push(notePath);
     },
     onError: (errors) => {
       console.error(errors);
       setNetworkError(errors.toString());
+    },
+    update: (cache, { data }) => {
+      const elemToAdd = data!.createNote;
+      const dataInCache: getNotes | null = cache.readQuery({ query: GetNotesQuery, variables: {first: nbItems} });
+      if (!dataInCache) {
+        return;
+      }
+      const newEdges = [...dataInCache.getNotes.edges, { node: elemToAdd, __typename: "Note" }];
+      const newCache = {
+        getNotes: {
+          pageInfo: dataInCache.getNotes.pageInfo,
+          edges: newEdges,
+          __typename: dataInCache.getNotes.__typename,
+        },
+      };
+      cache.writeQuery({ query: GetNotesQuery, variables: {first: nbItems}, data: newCache });
     },
   });
 
@@ -49,7 +71,6 @@ export default function SignUp() : ReactElement {
       timeToRead: new Date(),
     },
   );
-  console.log(values)
   return (
     <Box>
       {networkError !== "" && <ServerError messages={networkError} />}

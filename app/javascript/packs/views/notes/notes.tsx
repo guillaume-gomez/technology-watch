@@ -13,18 +13,19 @@ import {
   addNotePath,
 } from "../../routesPath";
 
+import { nbItems } from "./noteConstants";
+
 interface FetchMoreResultQuery {
   fetchMoreResult: getNotes;
   variables: Object
 }
 
-const NB_ITEMS = 3;
 
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
   const {
     loading, error, data, fetchMore,
-  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: NB_ITEMS } });
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems } });
 
   function displayNotes() {
     if (loading) {
@@ -35,7 +36,7 @@ export default function Notes() : ReactElement {
         return <Text>{t("notes.no-notes")}</Text>;
       }
       return (
-        <InfiniteScroll step={NB_ITEMS} items={data.getNotes.edges} onMore={getMore}>
+        <InfiniteScroll step={nbItems} items={data.getNotes.edges} onMore={getMore}>
           {
             (item: getNotes_getNotes_edges) => (
               <Box
