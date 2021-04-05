@@ -35,6 +35,7 @@ export const UserHeader = gql`
     currentUser {
       id
       nickname
+      name
     }
   }
 `;

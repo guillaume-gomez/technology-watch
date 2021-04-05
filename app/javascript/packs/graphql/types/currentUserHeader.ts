@@ -14,6 +14,7 @@ export interface currentUserHeader_currentUser {
    */
   id: string;
   nickname: string;
+  name: string;
 }
 
 export interface currentUserHeader {

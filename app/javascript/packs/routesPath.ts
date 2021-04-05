@@ -1,6 +1,7 @@
 export const signUpPath = "/sign-up";
 export const signUpMessagePath = "/sign-up-message";
 export const loginPath = "/login";
+export const editUserPath = "/edit-profile";
 
 export const notePath = "/notes";
 export const addNotePath = "/notes/new";

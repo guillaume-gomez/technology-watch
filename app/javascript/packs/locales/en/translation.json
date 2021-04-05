@@ -18,6 +18,15 @@
     "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
     "go-to-login": "Go to login"
   },
+  "edit-profile": {
+    "title": "Edit my profile",
+    "nickname": "Nickname",
+    "name": "Name",
+    "language": "Language",
+    "fr": "French",
+    "en": "English",
+    "back": "Retour"
+  },
   "header": {
     "logout": "Logout",
     "edit": "Edit Profile"

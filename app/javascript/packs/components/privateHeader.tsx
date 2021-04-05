@@ -13,7 +13,7 @@ import {
 import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
-import { publicRootPath } from "../routesPath";
+import { publicRootPath, editUserPath } from "../routesPath";
 
 import { clear } from "../authentication";
 
@@ -42,7 +42,7 @@ export default function PrivateHeader() : ReactElement {
           label={data.currentUser.nickname}
           items={[
             { label: t("header.logout"), onClick: () => logout() },
-            { label: t("header.edit"), onClick: () => {} },
+            { label: t("header.edit"), onClick: () => history.push(editUserPath) },
           ]}
         />
       );
