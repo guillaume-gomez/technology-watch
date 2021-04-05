@@ -9,6 +9,8 @@ import {
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
 
+import NoteCard from "../../components/NoteCard";
+
 import {
   addNotePath,
 } from "../../routesPath";
@@ -43,7 +45,7 @@ export default function Notes() : ReactElement {
                 key={item.node!.id}
                 flex={false}
               >
-                <Text>{item.node!.name}</Text>
+                <NoteCard note={item.node!} />
               </Box>
             )
           }
@@ -79,7 +81,7 @@ export default function Notes() : ReactElement {
 
   return (
     <Box>
-      <Heading level="2">{t("notes.title")}</Heading>
+      <Heading level="3">{t("notes.title")}</Heading>
       <Link to={addNotePath} >
         <Button label={t("notes.create-note")}/>
       </Link>

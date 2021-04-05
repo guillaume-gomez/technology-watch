@@ -28,6 +28,7 @@
     "create-note": "Creer une nouvelle note"
   },
   "new-note": {
+    "title": "Ajouter une note",
     "name": "Nom",
     "description": "Description",
     "link": "Lien",
