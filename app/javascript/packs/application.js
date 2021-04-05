@@ -5,10 +5,10 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { relayStylePagination } from "@apollo/client/utilities";
 import { ApolloProvider, ApolloClient } from "@apollo/client";
 
-import { getToken, getUID, getClient } from "./authentication";
-import "./i18n";
+import { getToken, getUID, getClient } from "../application/authentication";
+import "../application/i18n";
 
-import Router from "./router";
+import Router from "../application/router";
 
 const cache = new InMemoryCache();
 

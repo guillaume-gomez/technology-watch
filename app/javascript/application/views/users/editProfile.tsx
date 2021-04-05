@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+// @ts-ignore
+import i18n from '../../i18n';
 
 import {
   Box,
@@ -35,6 +37,11 @@ export default function EditProfile() : ReactElement {
     },
   );
   //console.log(values)
+  function onChangeLanguage(e: any) {
+    console.log(e.target.value)
+    i18n.changeLanguage(e.target.value)
+  }
+
   return (
     <Box>
       <Heading level={3}>{t("edit-profile.title")}</Heading>
@@ -55,11 +62,8 @@ export default function EditProfile() : ReactElement {
           id="language"
           name="language"
           options={["fr", "en"]}
-          children={
-            (option, index, options, { active, disabled, selected }) => {
-              return <option value={option}>{t(`edit-profile.${option}`)}</option>
-            }
-          }
+          onChange={onChangeLanguage}
+          
         />
         </FormField>
         <Box direction="row" justify="end" gap="medium">
