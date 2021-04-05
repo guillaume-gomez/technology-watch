@@ -219,6 +219,11 @@ input NoteEditType {
   link: String
 
   """
+  Flag to set as true if the note is read
+  """
+  markAsRead: Boolean
+
+  """
   Note name
   """
   name: String

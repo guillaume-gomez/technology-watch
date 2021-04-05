@@ -60,6 +60,10 @@ module Mutations
       argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
         description 'Time to read the note'
       end
+
+      argument :mark_as_read, Boolean, required: false do
+        description 'Flag to set as true if the note is read'
+      end
     end
 
     class CreateNote < BaseMutation
