@@ -94,7 +94,7 @@ export default function SignUp() : ReactElement {
           <Text>{values.rating}</Text>
         </FormField>
         <Box direction="row" justify="end" gap="medium">
-          <Button type="submit" primary label={t("sign-up.submit")} />
+          <Button type="submit" primary label={t("new-note.submit")} />
         </Box>
       </Form>
     </Box>

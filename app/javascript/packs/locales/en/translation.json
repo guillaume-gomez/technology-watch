@@ -35,5 +35,10 @@
     "rating": "Rating",
     "time-to-read": "Time to read",
     "submit": "submit"
+  },
+  "destroy-note": {
+    "text": "Are you sure de delete the note",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }

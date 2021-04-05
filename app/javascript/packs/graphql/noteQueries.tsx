@@ -40,3 +40,11 @@ export const CreateNote = gql`
     }
   }
 `;
+
+export const DestroyNote = gql`
+  mutation destroyNote($id: ID!) {
+    destroyNote(input: { id: $id }) {
+      id
+    }
+  }
+`;

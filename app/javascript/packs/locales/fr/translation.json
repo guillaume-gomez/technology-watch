@@ -35,5 +35,10 @@
     "rating": "Note",
     "time-to-read": "Temps de lecture",
     "submit": "Valider"
+  },
+  "destroy-note": {
+    "text": "Voulez vous vraiment supprimer la note",
+    "confirm": "Confirmer",
+    "cancel": "Annuler"
   }
 }
