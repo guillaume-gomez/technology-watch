@@ -7,6 +7,8 @@ import {
   Box, Form, FormField, TextInput, Button, Text,
 } from "grommet";
 
+import ServerError from "../../components/serverError";
+
 import { userSignUp, userSignUpVariables } from "../../graphql/types/userSignUp";
 import { SignUp as SignUpQuery } from "../../graphql/userQueries";
 
@@ -38,7 +40,7 @@ export default function SignUp() : ReactElement {
   );
   return (
     <Box>
-      {networkError !== "" && <Text>{networkError}</Text>}
+      {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}

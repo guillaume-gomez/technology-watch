@@ -7,6 +7,7 @@ import {
   Box, Form, FormField, TextInput, Button, Text,
 } from "grommet";
 
+import ServerError from "../../components/serverError";
 import { setToken, setUID, setClient } from "../../authentication";
 
 import { userLogin, userLoginVariables } from "../../graphql/types/userLogin";
@@ -47,7 +48,7 @@ export default function Login() : ReactElement {
   );
   return (
     <Box>
-      {networkError !== "" && <Text>{networkError}</Text>}
+      {networkError !== "" && <ServerError messages={networkError}/>}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}

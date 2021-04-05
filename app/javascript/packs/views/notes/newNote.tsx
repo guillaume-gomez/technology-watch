@@ -7,6 +7,9 @@ import {
   Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput
 } from "grommet";
 
+import ServerError from "../../components/serverError";
+
+
 import { createNote, createNoteVariables } from "../../graphql/types/createNote";
 import { CreateNote as CreateNoteQuery } from "../../graphql/noteQueries";
 
@@ -39,7 +42,7 @@ export default function SignUp() : ReactElement {
   );
   return (
     <Box>
-      {networkError !== "" && <Text>{networkError}</Text>}
+      {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}
