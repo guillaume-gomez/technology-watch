@@ -155,6 +155,7 @@ type Note implements ActiveRecord {
   markAsRead: Boolean!
   name: String!
   rating: Int
+  tags: [String!]
   timeToRead: String
 
   """

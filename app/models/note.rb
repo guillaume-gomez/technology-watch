@@ -1,4 +1,6 @@
 class Note < ApplicationRecord
+  acts_as_taggable_on :tags
+  
   belongs_to :user
   validates :name, presence: true
   validates :link, presence: true

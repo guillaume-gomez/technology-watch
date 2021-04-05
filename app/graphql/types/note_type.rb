@@ -8,6 +8,7 @@ module Types
     field :rating, Integer, null: true
     field :time_to_read, String, null: true
     field :mark_as_read, Boolean, null: false
+    field :tags, [String], hash_key: :tag_list, null: true
   end
 
 end
