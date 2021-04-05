@@ -31,15 +31,14 @@ export default function EditProfile() : ReactElement {
   const history = useHistory();
   const [values, setValues] = React.useState(
     {
-      language: "",
+      language: "fr",
       name: "",
       nickname: ""
     },
   );
-  //console.log(values)
-  function onChangeLanguage(e: any) {
-    console.log(e.target.value)
-    i18n.changeLanguage(e.target.value)
+
+  function onChangeLanguage(language: string) {
+    i18n.changeLanguage(language);
   }
 
   return (
@@ -62,8 +61,7 @@ export default function EditProfile() : ReactElement {
           id="language"
           name="language"
           options={["fr", "en"]}
-          onChange={onChangeLanguage}
-          
+          onChange={({ option }) => onChangeLanguage(option)}
         />
         </FormField>
         <Box direction="row" justify="end" gap="medium">

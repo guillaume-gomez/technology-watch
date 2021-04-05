@@ -13,7 +13,6 @@ export default function CurrentUser({ onCompletedCallback } : CurrentUserProps )
   const { loading, error, data } = useQuery(UserQuery, {
     onCompleted:(data : currentUserHeader) => {
       if(onCompletedCallback) {
-        console.log("fdjkfdj")
         onCompletedCallback(data);
       }
     }
