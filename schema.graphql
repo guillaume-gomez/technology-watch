@@ -170,17 +170,18 @@ type NoteConnection {
   """
   A list of edges.
   """
-  edges: [NoteEdge]
+  edges: [NoteEdge!]!
 
   """
   A list of nodes.
   """
-  nodes: [Note]
+  nodes: [Note!]!
 
   """
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 """
@@ -404,17 +405,18 @@ type UserConnection {
   """
   A list of edges.
   """
-  edges: [UserEdge]
+  edges: [UserEdge!]!
 
   """
   A list of nodes.
   """
-  nodes: [User]
+  nodes: [User!]!
 
   """
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 """

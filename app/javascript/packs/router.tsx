@@ -34,7 +34,7 @@ export default function Router() : ReactElement {
               <Switch>
                 <PrivateRoute path={privateRootPath} component={Notes} />
                 <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
-                <PublicRoute path={[loginPath, publicRootPath]} component={Login} />
+                <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
                 <PublicRoute exact path={signUpPath} component={SignUp} />
               </Switch>
             </Suspense>

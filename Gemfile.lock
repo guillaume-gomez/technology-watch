@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/rmosolgo/graphql-ruby.git
+  revision: 438dbc4fd7782e3a953beead7ee2fc37f24976ec
+  branch: master
+  specs:
+    graphql (1.12.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -103,7 +110,6 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.12.6)
     graphql_devise (0.14.2)
       devise_token_auth (>= 0.1.43, < 2.0)
       graphql (>= 1.8, < 1.13.0)
@@ -251,7 +257,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   graphiql-rails
-  graphql (~> 1.9)
+  graphql!
   graphql_devise
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

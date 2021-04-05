@@ -21,5 +21,10 @@
   "header": {
     "logout": "Se deconnecter",
     "edit": "Editer profil"
+  },
+  "notes": {
+    "title": "Notes",
+    "no-notes": "Pas de notes",
+    "create-note": "Creer une nouvelle notes"
   }
 }

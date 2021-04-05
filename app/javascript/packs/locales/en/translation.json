@@ -21,5 +21,10 @@
   "header": {
     "logout": "Logout",
     "edit": "Edit Profile"
+  },
+  "notes": {
+    "title": "Notes",
+    "no-notes": "No notes",
+    "create-note": "Create a new notes"
   }
 }

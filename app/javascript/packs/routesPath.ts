@@ -3,4 +3,4 @@ export const signUpMessagePath = "/sign-up-message";
 export const loginPath = "/login"
 
 export const publicRootPath = loginPath;
-export const privateRootPath = "/temp";
+export const privateRootPath = "/notes";

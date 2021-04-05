@@ -17,7 +17,7 @@ module Queries
       type Types::NoteType.connection_type, null: false
 
       def resolve()
-        context[:current_resource].notes
+        Note.where(user: context[:current_resource])
       end
     end
   end
