@@ -2,11 +2,11 @@ import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import {
-  Box, Heading, Spinner, Text, Button
+  Box, Heading, Spinner, Text, Button, InfiniteScroll
 } from "grommet";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
-import { getNotes, getNotesVariables } from "../../graphql/types/getNotes";
+import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
 
 interface FetchMoreResultQuery {
   fetchMoreResult: getNotes;
@@ -25,9 +25,18 @@ export default function Notes() : ReactElement {
       if(data.getNotes.edges.length === 0) {
         return <Text>{t("notes.no-notes")}</Text>
       } else {
-        return data.getNotes.edges.map( ({node}) => 
-          (<h1 key={node!.id}>{node!.name}</h1>)
-        );
+        return (
+          <InfiniteScroll step={1} items={data.getNotes.edges} onMore={getMore}>
+          {
+            (item: getNotes_getNotes_edges) => (
+              <Box
+                flex={false}
+              >
+                <Text>{item.node!.name}</Text>
+              </Box>
+            )
+          }
+          </InfiniteScroll>);
       }
     }
     return <></>;
@@ -61,11 +70,9 @@ export default function Notes() : ReactElement {
   return (
     <Box>
       <Heading level="2">{t("notes.title")}</Heading>
-      <Box>
+      <Box overflow="auto">
         {displayNotes()}
       </Box>
-        <Button primary label="label" onClick={getMore} />
-      
     </Box>
   );
 }

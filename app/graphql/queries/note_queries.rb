@@ -17,7 +17,7 @@ module Queries
       type Types::NoteType.connection_type, null: false
 
       def resolve()
-        Note.where(user: context[:current_resource])
+        Note.where(user: context[:current_resource]).order("created_at")
       end
     end
   end
