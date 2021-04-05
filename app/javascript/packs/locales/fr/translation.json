@@ -25,6 +25,14 @@
   "notes": {
     "title": "Notes",
     "no-notes": "Pas de notes",
-    "create-note": "Creer une nouvelle notes"
+    "create-note": "Creer une nouvelle note"
+  },
+  "new-note": {
+    "name": "Nom",
+    "description": "Description",
+    "link": "Lien",
+    "rating": "Note",
+    "time-to-read": "Temps de lecture",
+    "submit": "Valider"
   }
 }

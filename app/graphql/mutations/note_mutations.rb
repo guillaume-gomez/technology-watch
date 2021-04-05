@@ -12,7 +12,7 @@ module Mutations
         description 'Note link'
       end
 
-      argument :user_id, String, required: true do
+      argument :user_id, ID, required: true do
         description 'Author id of the note'
       end
 
@@ -45,7 +45,7 @@ module Mutations
         description 'Note link'
       end
 
-      argument :user_id, String, required: false do
+      argument :user_id, ID, required: false do
         description 'Author id of the note'
       end
 

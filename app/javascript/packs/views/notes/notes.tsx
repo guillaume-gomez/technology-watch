@@ -1,12 +1,17 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, InfiniteScroll,
+  Box, Heading, Spinner, Text, InfiniteScroll, Button
 } from "grommet";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
+
+import {
+  addNotePath,
+} from "../../routesPath";
 
 interface FetchMoreResultQuery {
   fetchMoreResult: getNotes;
@@ -73,6 +78,10 @@ export default function Notes() : ReactElement {
   return (
     <Box>
       <Heading level="2">{t("notes.title")}</Heading>
+      <Link to={addNotePath} >
+        <Button label={t("notes.create-note")}/>
+      </Link>
+
       <Box overflow="auto">
         {displayNotes()}
       </Box>

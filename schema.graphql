@@ -236,7 +236,7 @@ input NoteEditType {
   """
   Author id of the note
   """
-  userId: String
+  userId: ID
 }
 
 """
@@ -271,7 +271,7 @@ input NoteInput {
   """
   Author id of the note
   """
-  userId: String!
+  userId: ID!
 }
 
 """
