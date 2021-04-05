@@ -12,7 +12,8 @@ import {
   loginPath,
   publicRootPath,
   privateRootPath,
-  addNotePath
+  addNotePath,
+  editNotePath
 } from "./routesPath";
 
 import PublicRoute from "./components/router/publicRoute";
@@ -22,7 +23,8 @@ import SignUp from "./views/users/signUp";
 import ConfirmSignUp from "./views/users/confirmSignUp";
 import Login from "./views/users/login";
 import Notes from "./views/notes/notes";
-import NewNotes from "./views/notes/newNote";
+import NewNote from "./views/notes/newNote";
+import EditNote from "./views/notes/editNote";
 
 export default function Router() : ReactElement {
   return (
@@ -33,7 +35,8 @@ export default function Router() : ReactElement {
             <Suspense fallback={<Spinner />}>
               <Switch>
                 <PrivateRoute exact path={privateRootPath} component={Notes} />
-                <PrivateRoute path={addNotePath} component={NewNotes} />
+                <PrivateRoute path={addNotePath} component={NewNote} />
+                <PrivateRoute path={editNotePath} component={EditNote} />
                 <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
                 <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
                 <PublicRoute exact path={signUpPath} component={SignUp} />

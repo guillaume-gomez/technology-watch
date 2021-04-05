@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -8,9 +9,11 @@ import {
   DropButton
 } from "grommet";
 
-import { Bookmark, View, Trash } from 'grommet-icons';
+import { Edit, View } from 'grommet-icons';
 
 import { getNotes_getNotes_edges_node } from "../graphql/types/getNotes";
+
+import { notePath } from "../routesPath";
 
 import DestroyNote from "./DestroyNote";
 import MarkAsReadNote from "./MarkAsReadNote";
@@ -20,6 +23,7 @@ interface NoteCardProps {
 }
 
 export default function NoteCard({note} : NoteCardProps) : ReactElement {
+  const history = useHistory();
   return (
     <Card height="big" width="big" background="light-1">
       <CardHeader pad="medium">{note.name}</CardHeader>
@@ -31,8 +35,13 @@ export default function NoteCard({note} : NoteCardProps) : ReactElement {
         href={note.link}
         target="_blank"
      />
-      <MarkAsReadNote id={note.id} markAsRead={note.markAsRead} />
-      <DestroyNote id={note.id} />
+     <Button 
+      icon={<Edit color="plain" />}
+      hoverIndicator
+      onClick={() => history.push(`${notePath}/${note.id}`)}
+     />
+     <MarkAsReadNote id={note.id} markAsRead={note.markAsRead} />
+     <DestroyNote id={note.id} />
     </CardFooter>
 </Card>
   );

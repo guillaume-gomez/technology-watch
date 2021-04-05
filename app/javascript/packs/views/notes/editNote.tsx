@@ -24,7 +24,7 @@ import {
 
 import { nbItems } from "./noteConstants";
 
-export default function NewNote() : ReactElement {
+export default function EditNote() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
