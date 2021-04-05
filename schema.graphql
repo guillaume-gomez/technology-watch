@@ -152,6 +152,7 @@ type Note implements ActiveRecord {
   """
   id: ID!
   link: String!
+  markAsRead: Boolean!
   name: String!
   rating: Int
   timeToRead: String

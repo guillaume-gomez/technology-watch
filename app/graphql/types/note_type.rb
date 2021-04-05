@@ -7,6 +7,7 @@ module Types
     field :description, String, null: true
     field :rating, Integer, null: true
     field :time_to_read, String, null: true
+    field :mark_as_read, Boolean, null: false
   end
 
 end
