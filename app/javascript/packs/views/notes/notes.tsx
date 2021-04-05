@@ -39,6 +39,7 @@ export default function Notes() : ReactElement {
           {
             (item: getNotes_getNotes_edges) => (
               <Box
+                key={item.node!.id}
                 flex={false}
               >
                 <Text>{item.node!.name}</Text>

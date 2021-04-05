@@ -7,9 +7,11 @@ import { useApolloClient, useQuery, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  UserHeader as UserQuery,
   Logout as LogoutQuery,
 } from "../graphql/userQueries";
+
+import CurrentUser from "../components/customHooks/currentUser";
+
 import { userLogout } from "../graphql/types/userLogout";
 import { publicRootPath } from "../routesPath";
 
@@ -19,7 +21,7 @@ export default function PrivateHeader() : ReactElement {
   const history = useHistory();
   const { t } = useTranslation();
   const client = useApolloClient();
-  const { loading, error, data } = useQuery(UserQuery);
+  const { loading, error, data } = CurrentUser();
   const [logout] = useMutation<userLogout>(LogoutQuery, {
     onCompleted: () => {
       client.resetStore().then(() => {
