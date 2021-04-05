@@ -9,6 +9,6 @@ interface ServerErrorProps {
 
 export default function ServerError({messages} : ServerErrorProps) : ReactElement {
   return (
-    <Text>messages</Text>
+    <Text>{messages}</Text>
   );
 }
