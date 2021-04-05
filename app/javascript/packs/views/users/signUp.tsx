@@ -1,26 +1,25 @@
-import React, { ReactElement, ReactChild, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Text
+  Box, Form, FormField, TextInput, Button, Text,
 } from "grommet";
 
 import { userSignUp, userSignUpVariables } from "../../graphql/types/userSignUp";
 import { SignUp as SignUpQuery } from "../../graphql/userQueries";
 
 import {
-  signUpMessagePath
+  signUpMessagePath,
 } from "../../routesPath";
 
 export default function SignUp() : ReactElement {
   const { t } = useTranslation();
-  let history = useHistory();
+  const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [signUp, { data }] = useMutation<userSignUp, userSignUpVariables>(SignUpQuery, {
     onCompleted: (data) => {
-      console.info(data);
       history.push(signUpMessagePath);
     },
     onError: (errors) => {
@@ -39,7 +38,7 @@ export default function SignUp() : ReactElement {
   );
   return (
     <Box>
-       {networkError !== "" && <Text>{networkError}</Text>}
+      {networkError !== "" && <Text>{networkError}</Text>}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}

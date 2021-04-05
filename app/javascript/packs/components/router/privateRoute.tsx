@@ -7,8 +7,7 @@ import Layout from "../../views/layout/layout";
 import { getToken } from "../../authentication";
 
 export default function PrivateRoute({ component, path, exact }: any) : ReactElement {
-  console.log(getToken())
-  if(!getToken()) {
+  if (!getToken()) {
     return <Redirect to={{ pathname: publicRootPath }} />;
   }
   return (
@@ -16,7 +15,7 @@ export default function PrivateRoute({ component, path, exact }: any) : ReactEle
       path={path}
       exact={exact}
       render={(props: RouteComponentProps<any>) => (
-        <Layout loggedIn={true}>
+        <Layout loggedIn>
           {createElement(component, props)}
         </Layout>
       )}

@@ -3,12 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import {
-  signUpPath
-} from "../../routesPath";
-
-import {
-  Box, Text, Button
+  Box, Text, Button,
 } from "grommet";
+import {
+  signUpPath,
+} from "../../routesPath";
 
 export default function ConfirmSignUp() : ReactElement {
   const { t } = useTranslation();
@@ -16,9 +15,9 @@ export default function ConfirmSignUp() : ReactElement {
     <Box>
       <Text>{t("confirm-sign-up.text")}</Text>
       <Link to={signUpPath}>
-        <Button primary label={t("confirm-sign-up.go-to-login")}/>
+        <Button primary label={t("confirm-sign-up.go-to-login")} />
       </Link>
-      
+
     </Box>
   );
 }

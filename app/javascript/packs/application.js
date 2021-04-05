@@ -19,8 +19,8 @@ const client = new ApolloClient({
     accept: "application/json",
     "Content-Type": "application/json",
     "access-token": getToken(),
-    "uid": getUID(),
-    "client": getClient()
+    uid: getUID(),
+    client: getClient(),
   },
 });
 

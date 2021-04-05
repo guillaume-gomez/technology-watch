@@ -1,11 +1,9 @@
 import React, { ReactElement, Suspense } from "react";
-import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
   Switch,
 } from "react-router-dom";
 import { Grommet, ResponsiveContext, Spinner } from "grommet";
-import { FormClose } from "grommet-icons";
 import { theme } from "./theme";
 
 import {
@@ -13,7 +11,7 @@ import {
   signUpMessagePath,
   loginPath,
   publicRootPath,
-  privateRootPath
+  privateRootPath,
 } from "./routesPath";
 
 import PublicRoute from "./components/router/publicRoute";

@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 
 const TOKEN = "technology-watch-token";
-const CLIENT = "technology-watch-client"
-const UID = "technology-watch-UID"
+const CLIENT = "technology-watch-client";
+const UID = "technology-watch-UID";
 
 export function getToken() : string | undefined {
   return Cookies.get(TOKEN);

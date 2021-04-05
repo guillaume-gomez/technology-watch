@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import {
-  Box, Heading, Spinner, Text, Button, InfiniteScroll
+  Box, Heading, Spinner, Text, InfiniteScroll,
 } from "grommet";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
@@ -13,20 +13,24 @@ interface FetchMoreResultQuery {
   variables: Object
 }
 
+const NB_ITEMS = 3;
+
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
-  const { loading, error, data, fetchMore } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: 3 }});
-  
+  const {
+    loading, error, data, fetchMore,
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: NB_ITEMS } });
+
   function displayNotes() {
-    if(loading) {
+    if (loading) {
       return <Spinner />;
     }
-    else if(data && data.getNotes && data.getNotes.edges) {
-      if(data.getNotes.edges.length === 0) {
-        return <Text>{t("notes.no-notes")}</Text>
-      } else {
-        return (
-          <InfiniteScroll step={1} items={data.getNotes.edges} onMore={getMore}>
+    if (data && data.getNotes && data.getNotes.edges) {
+      if (data.getNotes.edges.length === 0) {
+        return <Text>{t("notes.no-notes")}</Text>;
+      }
+      return (
+        <InfiniteScroll step={NB_ITEMS} items={data.getNotes.edges} onMore={getMore}>
           {
             (item: getNotes_getNotes_edges) => (
               <Box
@@ -36,34 +40,33 @@ export default function Notes() : ReactElement {
               </Box>
             )
           }
-          </InfiniteScroll>);
-      }
+        </InfiniteScroll>
+      );
     }
     return <></>;
   }
 
   function getMore() {
-    if(!data || !data.getNotes.pageInfo.hasNextPage) {
-      console.log("inhkf")
+    if (!data || !data.getNotes.pageInfo.hasNextPage) {
       return;
     }
     fetchMore({
       variables: {
-        cursor: data.getNotes.pageInfo.endCursor
+        cursor: data.getNotes.pageInfo.endCursor,
       },
       updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
-         if(!fetchMoreResult) {
-           return previousResult;
-         }
+        if (!fetchMoreResult) {
+          return previousResult;
+        }
         const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
-         return {
-           getNotes: {
-             pageInfo,
-             __typename,
-             edges: [...previousResult.getNotes.edges, ...newEdges]
-           }
-         }
-      }
+        return {
+          getNotes: {
+            pageInfo,
+            __typename,
+            edges: [...previousResult.getNotes.edges, ...newEdges],
+          },
+        };
+      },
     });
   }
 

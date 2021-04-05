@@ -7,8 +7,7 @@ import Layout from "../../views/layout/layout";
 import { getToken } from "../../authentication";
 
 export default function PublicRoute({ component, path, exact }: any) : ReactElement {
-  console.log(getToken())
-  if(getToken()) {
+  if (getToken()) {
     return <Redirect to={{ pathname: privateRootPath }} />;
   }
   return (

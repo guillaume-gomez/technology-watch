@@ -12,11 +12,9 @@ export interface LayoutProps {
 export default function Layout({ children, loggedIn = false } : LayoutProps) : ReactElement {
   return (
     <Box fill>
-      { loggedIn ? 
-        <PrivateHeader />
-        :
-        <PublicHeader />
-      }
+      { loggedIn
+        ? <PrivateHeader />
+        : <PublicHeader />}
       <Main pad="small">
         {children}
       </Main>

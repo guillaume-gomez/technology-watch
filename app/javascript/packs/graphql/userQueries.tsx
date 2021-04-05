@@ -39,7 +39,7 @@ export const UserHeader = gql`
   }
 `;
 
-export const Logout =  gql`
+export const Logout = gql`
   mutation userLogout {
     userLogout {
       authenticatable {
