@@ -1,17 +1,27 @@
 import gql from "graphql-tag";
 
+export const NoteFragment = {
+  fragments: {
+    note: gql`
+      fragment NoteFragment on Note {
+        id
+        description
+        link
+        name
+        rating
+        timeToRead
+        markAsRead
+      }
+    `,
+  },
+};
+
 export const GetNotes = gql`
   query getNotes($first: Int, $cursor: String) {
     getNotes(first: $first, after: $cursor) {
       edges {
         node {
-          id
-          description
-          link
-          name
-          rating
-          timeToRead
-          markAsRead
+          ...NoteFragment
         }
       }
       pageInfo {
@@ -20,7 +30,7 @@ export const GetNotes = gql`
       }
     }
   }
-`;
+${NoteFragment.fragments.note}`;
 
 export const CreateNote = gql`
   mutation createNote($userId: ID!, $name: String!, $link: String!, $description: String, $rating: Int, $timeToRead: ISO8601DateTime) {
@@ -32,16 +42,10 @@ export const CreateNote = gql`
       rating: $rating
       timeToRead: $timeToRead
     }}) {
-      id
-      name
-      description
-      link
-      rating
-      timeToRead
-      markAsRead
+      ...NoteFragment
     }
   }
-`;
+${NoteFragment.fragments.note}`;
 
 export const DestroyNote = gql`
   mutation destroyNote($id: ID!) {

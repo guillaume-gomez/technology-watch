@@ -50,7 +50,7 @@ export default function MarkAsReadNote({id, markAsRead} : MarkAsReadNoteProps) :
           return edge;
         }
         // update the notes
-        return { __typename: "NoteEdge", node: elemToUpdate };
+        return { __typename: "NoteEdge", node: { ...edge.node, ...elemToUpdate } };
       });
       const newCache = {
         getNotes: {

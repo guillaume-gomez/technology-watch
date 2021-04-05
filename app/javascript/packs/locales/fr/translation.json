@@ -34,7 +34,8 @@
     "link": "Lien",
     "rating": "Note",
     "time-to-read": "Temps de lecture",
-    "submit": "Valider"
+    "submit": "Valider",
+    "back": "Retour"
   },
   "destroy-note": {
     "text": "Voulez vous vraiment supprimer la note",

@@ -94,6 +94,7 @@ export default function SignUp() : ReactElement {
           <Text>{values.rating}</Text>
         </FormField>
         <Box direction="row" justify="end" gap="medium">
+          <Button primary label={t("new-note.back")} onClick={() => history.push(notePath)} />
           <Button type="submit" primary label={t("new-note.submit")} />
         </Box>
       </Form>

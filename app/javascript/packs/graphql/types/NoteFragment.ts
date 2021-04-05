@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createNote
+// GraphQL fragment: NoteFragment
 // ====================================================
 
-export interface createNote_createNote {
+export interface NoteFragment {
   __typename: "Note";
   /**
    * ID from ActiveRecord
@@ -19,20 +19,4 @@ export interface createNote_createNote {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
-}
-
-export interface createNote {
-  /**
-   * Create a Note
-   */
-  createNote: createNote_createNote;
-}
-
-export interface createNoteVariables {
-  userId: string;
-  name: string;
-  link: string;
-  description?: string | null;
-  rating?: number | null;
-  timeToRead?: any | null;
 }

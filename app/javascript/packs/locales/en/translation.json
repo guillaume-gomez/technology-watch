@@ -34,7 +34,8 @@
     "link": "Link",
     "rating": "Rating",
     "time-to-read": "Time to read",
-    "submit": "submit"
+    "submit": "submit",
+    "back": "Back"
   },
   "destroy-note": {
     "text": "Are you sure de delete the note",
