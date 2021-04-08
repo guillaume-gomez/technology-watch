@@ -76,7 +76,6 @@ export default function DestroyNote({ id } : DestroyNoteProps) : ReactElement {
           {networkError !== "" && <ServerError messages={networkError} />}
           <Text>
             {t("destroy-note.text")}
-            {" "}
           </Text>
           <Button label={t("destroy-note.confirm")} onClick={() => destroyNoteFunction()} />
           <Button label={t("destroy-note.cancel")} onClick={() => setOpen(false)} />

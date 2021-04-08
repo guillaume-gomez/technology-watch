@@ -11,6 +11,7 @@ export const NoteFragment = {
         rating
         timeToRead
         markAsRead
+        tags
       }
     `,
   },
