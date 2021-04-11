@@ -21,5 +21,8 @@ module Types
 
     field :get_note, resolver: Queries::NoteQueries::GetNote, authenticate: true
     field :get_notes, resolver: Queries::NoteQueries::GetNotes, authenticate: true
+
+    field :get_tag, resolver: Queries::TagQueries::GetTag, authenticate: true
+    field :get_tags, resolver: Queries::TagQueries::GetTags, authenticate: true
   end
 end
