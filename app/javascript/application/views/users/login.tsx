@@ -33,11 +33,10 @@ export default function Login() : ReactElement {
         history.push(privateRootPath);
       } else {
         // set error
-        // console.error(errors);
       }
     },
     onError: (errors) => {
-      setNetworkError(errors.toString());
+      //setNetworkError(errors.toString());
     },
   });
   const [values, setValues] = React.useState<userLoginVariables>(

@@ -3,17 +3,44 @@ import React from "react";
 import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { relayStylePagination } from "@apollo/client/utilities";
-import { ApolloProvider, ApolloClient } from "@apollo/client";
+import { ApolloProvider, ApolloClient, createHttpLink } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
 
 import { getToken, getUID, getClient } from "../application/authentication";
 import "../application/i18n";
 
 import Router from "../application/router";
 
+const httpLink = createHttpLink({
+  uri: '/graphql',
+  credentials: 'same-origin'
+
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = getToken();
+  const uid = getUID();
+  const client = getClient();
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      accept: "application/json",
+      "Content-Type": "application/json",
+      "access-token": token,
+      uid,
+      client,
+    }
+  }
+});
+
+
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   uri: "/graphql",
+  link: authLink.concat(httpLink),
   cache,
   headers: {
     accept: "application/json",

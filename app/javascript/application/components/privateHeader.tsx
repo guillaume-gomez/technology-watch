@@ -24,7 +24,7 @@ export default function PrivateHeader() : ReactElement {
   const { loading, data } = CurrentUser({});
   const [logout] = useMutation<userLogout>(LogoutQuery, {
     onCompleted: () => {
-      client.resetStore().then(() => {
+      client.clearStore().then(() => {
         clear();
         history.push(publicRootPath);
       });
@@ -36,7 +36,7 @@ export default function PrivateHeader() : ReactElement {
 
   function avatar() {
     if (loading) return <Spinner />;
-    if (data) {
+    if (data && data.currentUser && data.currentUser.nickname) {
       return (
         <Menu
           label={data.currentUser.nickname}
