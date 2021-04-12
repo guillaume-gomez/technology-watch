@@ -8,7 +8,10 @@ module Queries
       argument :id, ID, required: true
 
       def resolve(id:)
-        ActsAsTaggableOn::Tag.find(id)
+        user = context[:current_resource]
+        tag = ActsAsTaggableOn::Tagging.where(taggable_type: "User", taggable_id: user.id, tag_id: id).first
+        raise ActiveRecord::RecordNotFound if tag.nil?
+        tag
       end
     end
 
@@ -18,8 +21,7 @@ module Queries
 
       def resolve()
         user = context[:current_resource]
-        note_ids = Note.where(user: user).pluck(:id)
-        ActsAsTaggableOn::Tagging.where(taggable_type:"Note").where(taggable_id: note_ids)
+        ActsAsTaggableOn::Tagging.where(taggable_type:"User").where(taggable_id: user.id)
       end
     end
   end
