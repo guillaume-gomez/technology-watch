@@ -50,5 +50,13 @@
     "text": "Are you sure de delete the note",
     "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+  "tags": {
+    "title": "Tags",
+    "create-tag": "Create tag",
+    "no-tag": "No existing tag, you can add it by click on the button above",
+    "name": "Tag",
+    "edit": "Edit",
+    "placeholder": "Write a tag"
   }
 }

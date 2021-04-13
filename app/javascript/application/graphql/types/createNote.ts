@@ -19,6 +19,7 @@ export interface createNote_createNote {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
+  tags: string[] | null;
 }
 
 export interface createNote {
@@ -34,4 +35,5 @@ export interface createNoteVariables {
   link: string;
   description?: string | null;
   rating?: number | null;
+  tags?: string[] | null;
 }

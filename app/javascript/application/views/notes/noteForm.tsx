@@ -8,6 +8,8 @@ import {
 
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
+import CurrentUser from "../../components/customHooks/currentUser";
+import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import TagSelect from "../../components/tagSelect";
 
@@ -20,30 +22,27 @@ interface NoteFormProps {
  mutation: Function;
 }
 
-const allTags = [
-  "enterprise",
-  "grommet",
-  "java",
-  "javascript",
-  "react",
-  "ux",
-  "ui"
-];
-
 export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
-  const [tags, setTags] = useState<string[]>(["grommet"]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  function onCompletedCallback(data : currentUserHeader) {
+    if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
+      setAllTags(data.currentUser.tags);
+    }
+  }
+  const { loading } = CurrentUser({ onCompletedCallback });
 
   function onRemoveTag(index: number) {
-    const newTags = [...tags];
+    const newTags = values.tags ? [...values.tags] : [];
     newTags.splice(index, 1);
-    setTags(newTags);
+    setValues({...values, tags: newTags});
   };
 
   function onSelectTag(tag : string)  {
-    setTags([...tags, tag]);
+    const oldTags = values.tags ? values.tags : [];
+    setValues({...values, tags: [...oldTags, tag] });
   };
 
   return (
@@ -67,10 +66,10 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       </FormField>
       <FormField>
         <TagSelect
-            value={tags}
+            value={values.tags || []}
             suggestions={allTags
               .sort()
-              .filter(suggestion => !tags.includes(suggestion))}
+              .filter(suggestion => !(values.tags || []).includes(suggestion))}
             onSelect={onSelectTag}
             onRemove={onRemoveTag}
           />

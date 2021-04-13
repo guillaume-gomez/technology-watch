@@ -50,5 +50,12 @@
     "text": "Voulez vous vraiment supprimer la note",
     "confirm": "Confirmer",
     "cancel": "Annuler"
+  },
+  "tags": {
+    "title": "Tags",
+    "create-tag": "Créer un tag",
+    "no-tag": "Aucun tag existant, vous pouvez en créer avec le button plus haut",
+    "name": "Tag",
+    "placeholder": "Entrez un tag"
   }
 }
