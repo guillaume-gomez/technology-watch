@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "lint": "yarn run eslint --ext .js --ext .tsx --ext .ts  app/javascript/",
-    "generate": "yarn run apollo codegen:generate --localSchemaFile=schema.json --target=typescript --includes='app/javascript/packs/graphql/*.tsx' --tagName=gql --addTypename --globalTypesFile=app/javascript/packs/graphql/types/graphql-global-types.ts types",
+    "generate": "yarn run apollo codegen:generate --localSchemaFile=schema.json --target=typescript --includes='app/javascript/application/graphql/*.tsx' --tagName=gql --addTypename --globalTypesFile=app/javascript/application/graphql/types/graphql-global-types.ts types",
     "test": "jest"
   },
   "dependencies": {
