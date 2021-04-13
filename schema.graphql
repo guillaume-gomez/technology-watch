@@ -236,6 +236,11 @@ input NoteEditType {
   rating: Int
 
   """
+  List of tags
+  """
+  tags: [String!]
+
+  """
   Time to read the note
   """
   timeToRead: ISO8601DateTime
@@ -269,6 +274,11 @@ input NoteInput {
   Note rating
   """
   rating: Int
+
+  """
+  List of tags
+  """
+  tags: [String!]
 
   """
   Time to read the note
@@ -487,6 +497,7 @@ type User implements ActiveRecord {
   id: ID!
   name: String!
   nickname: String!
+  tags: [String!]
 
   """
   update_at field from ActiveRecord

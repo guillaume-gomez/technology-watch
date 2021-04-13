@@ -24,6 +24,10 @@ module Mutations
         description 'Note rating'
       end
 
+      argument :tags, [String], as: :tag_list, required: false do
+        description 'List of tags'
+      end
+
       argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
         description 'Time to read the note'
       end
@@ -55,6 +59,10 @@ module Mutations
       
       argument :rating, Integer, required: false do
         description 'Note rating'
+      end
+
+      argument :tags, [String], as: :tag_list, required: false do
+        description 'List of tags'
       end
 
       argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
