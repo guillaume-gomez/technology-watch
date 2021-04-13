@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  Header, Heading, Spinner, Menu,
+  Header, Heading, Spinner, Menu, Button, Box
 } from "grommet";
+import { Performance } from "grommet-icons";
 import { useApolloClient, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
@@ -13,7 +14,7 @@ import {
 import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
-import { publicRootPath, editUserPath } from "../routesPath";
+import { publicRootPath, editUserPath, tagsPath } from "../routesPath";
 
 import { clear } from "../authentication";
 
@@ -53,7 +54,10 @@ export default function PrivateHeader() : ReactElement {
   return (
     <Header background="brand">
       <Heading margin="medium" level="3">Technology Watch</Heading>
-      {avatar()}
+      <Box direction="row">
+        <Button icon={<Performance />} hoverIndicator onClick={() => history.push(tagsPath)} />
+        {avatar()}
+      </Box>
     </Header>
   );
 }
