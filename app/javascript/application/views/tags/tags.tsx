@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
-import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   Box, 
@@ -19,7 +18,8 @@ import {
   FormField,
   TextInput
 } from "grommet";
-import { Edit } from "grommet-icons";
+import { Edit, Trash } from "grommet-icons";
+
 
 import CurrentUser from "../../components/customHooks/currentUser";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
@@ -31,7 +31,6 @@ import {
 
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
-  const history = useHistory();
   const [tags, setTags] = useState<string[]>([]);
   function onCompletedCallback(data : currentUserHeader) {
     if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
@@ -40,6 +39,25 @@ export default function Tags() : ReactElement {
   }
   const { loading } = CurrentUser({ onCompletedCallback });
 
+  function addTag() {
+    setTags([...tags, ""]);
+  }
+
+  function removeTag(index: number) {
+    const newTags = tags.filter((_tag, i) => index !== i);
+    setTags(newTags);
+  }
+
+  function updateTag(newTagValue: string, index: number) {
+    const newTags = tags.map((tag, i) => {
+      if(i === index) {
+        return newTagValue;
+      }
+      return tag;
+    });
+
+    setTags(newTags);
+  }
 
   function renderTags() {
     if(tags.length === 0) {
@@ -47,24 +65,17 @@ export default function Tags() : ReactElement {
     }
 
     return (
-      <Table>
-  <TableHeader>
-    <TableRow>
-      <TableCell scope="col" border="bottom">
-        {t("tags.name")}
-      </TableCell>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    {tags.map((tag, index) => (
-      <TableRow key={tag}>
-      <TableCell scope="row">
-          <TextInput disabled placeholder={t("tags.placeholder")} value={tag} />
-      </TableCell>
-    </TableRow>
-    ))}
-  </TableBody>
-</Table>
+    <Box>
+      <Heading level={4} >{t("tags.name")}</Heading>
+      <Box>
+      {tags.map((tag, index) => (
+          <Box key={index} direction="row">
+            <TextInput placeholder={t("tags.placeholder")} defaultValue={tag} onBlur={(e) => updateTag(e.target.value, index)} />
+            <Button hoverIndicator icon={<Trash />} disabled={tags.length <= 1} onClick={() => removeTag(index) }/>
+          </Box>
+      ))}
+    </Box>
+   </Box>
     )
   }
 
@@ -76,14 +87,14 @@ export default function Tags() : ReactElement {
     <Box>
       <Heading level="3">{t("tags.title")}</Heading>
       <Link to={addTagsPath}>
-        <Button label={t("tags.create-tag")} />
+        <Button label={t("tags.create-tag")} onClick={addTag} />
       </Link>
       <Box>
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")} onClick={() => history.goBack()} />
-        {/*<Button type="submit" primary label={t("new-note.submit")} />*/}
+        <Button primary label={t("new-note.back")}/>
+        <Button type="submit" primary label={t("tags.submit")} />
       </Box>
     </Box>
   );

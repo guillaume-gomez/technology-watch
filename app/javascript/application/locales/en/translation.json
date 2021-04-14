@@ -57,6 +57,7 @@
     "no-tag": "No existing tag, you can add it by click on the button above",
     "name": "Tag",
     "edit": "Edit",
-    "placeholder": "Write a tag"
+    "placeholder": "Write a tag",
+    "submit": "Update"
   }
 }

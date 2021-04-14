@@ -25,10 +25,10 @@ RSpec.describe Queries::TagQueries, type: :graphql do
 
     context "when tag exist and belongs to user" do
       let!(:current_user) { create(:user, :with_tags)}
-      let(:tag) { ActsAsTaggableOn::Tagging.where(taggable_type: "User", taggable_id: current_user.id).sample }
+      let!(:tag) { ActsAsTaggableOn::Tagging.where(taggable_type: "User", taggable_id: current_user.id).sample }
       let(:params) { tag.tag_id }
 
-      it { expect(subject.to_h["data"]["getTag"]["id"].to_i).to eq(tag.tag_id) }
+      it { debugger;expect(subject.to_h["data"]["getTag"]["id"].to_i).to eq(tag.tag_id) }
     end
 
     context "when tag does not belongs to current user" do
