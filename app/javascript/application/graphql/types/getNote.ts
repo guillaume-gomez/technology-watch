@@ -19,7 +19,6 @@ export interface getNote_getNote {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
-  tags: string[] | null;
 }
 
 export interface getNote {

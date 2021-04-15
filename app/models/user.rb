@@ -5,6 +5,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,:confirmable
 
-  acts_as_taggable_on :tags
   has_many :notes
+  has_many :tags
 end

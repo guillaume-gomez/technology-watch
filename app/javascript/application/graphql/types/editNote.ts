@@ -19,7 +19,6 @@ export interface editNote_editNote {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
-  tags: string[] | null;
 }
 
 export interface editNote {
@@ -35,5 +34,4 @@ export interface editNoteVariables {
   link?: string | null;
   description?: string | null;
   rating?: number | null;
-  tags?: string[] | null;
 }

@@ -9,7 +9,7 @@ module Queries
 
       def resolve(id:)
         user = context[:current_resource]
-        tag = ActsAsTaggableOn::Tagging.where(taggable_type: "User", taggable_id: user.id, tag_id: id).first
+        tag = Tag.where(user: user, id: id).first
         raise ActiveRecord::RecordNotFound if tag.nil?
         tag
       end
@@ -21,7 +21,7 @@ module Queries
 
       def resolve()
         user = context[:current_resource]
-        ActsAsTaggableOn::Tagging.where(taggable_type:"User").where(taggable_id: user.id)
+        Tag.where(user: user)
       end
     end
   end

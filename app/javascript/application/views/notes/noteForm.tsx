@@ -22,27 +22,24 @@ interface NoteFormProps {
  mutation: Function;
 }
 
+const Tags = ["test", "test2", "test3"]
+
 export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
-  const [allTags, setAllTags] = useState<string[]>([]);
-  function onCompletedCallback(data : currentUserHeader) {
-    if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-      setAllTags(data.currentUser.tags);
-    }
-  }
-  const { loading } = CurrentUser({ onCompletedCallback });
+  const [allTags, setAllTags] = useState<string[]>(Tags);
+  
 
   function onRemoveTag(index: number) {
-    const newTags = values.tags ? [...values.tags] : [];
-    newTags.splice(index, 1);
-    setValues({...values, tags: newTags});
+    // const newTags = values.tags ? [...values.tags] : [];
+    // newTags.splice(index, 1);
+    // setValues({...values, tags: newTags});
   };
 
   function onSelectTag(tag : string)  {
-    const oldTags = values.tags ? values.tags : [];
-    setValues({...values, tags: [...oldTags, tag] });
+    // const oldTags = values.tags ? values.tags : [];
+    // setValues({...values, tags: [...oldTags, tag] });
   };
 
   return (
@@ -64,7 +61,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
         <Text>{values.rating}</Text>
       </FormField>
-      <FormField>
+      {/*<FormField>
         <TagSelect
             value={values.tags || []}
             suggestions={allTags
@@ -73,7 +70,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
             onSelect={onSelectTag}
             onRemove={onRemoveTag}
           />
-      </FormField>
+      </FormField>*/}
       <Box direction="row" justify="end" gap="medium">
         <Button primary label={t("new-note.back")} onClick={() => history.push(notePath)} />
         <Button type="submit" primary label={t("new-note.submit")} />

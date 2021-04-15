@@ -176,7 +176,6 @@ type Note implements ActiveRecord {
   markAsRead: Boolean!
   name: String!
   rating: Int
-  tags: [String!]
   timeToRead: String
 
   """
@@ -446,6 +445,7 @@ type Tag implements ActiveRecord {
   Active Record cache key
   """
   cacheKey: String
+  color: String!
 
   """
   created_at field from ActiveRecord
@@ -518,7 +518,27 @@ type User implements ActiveRecord {
   id: ID!
   name: String!
   nickname: String!
-  tags: [String!]
+  tags(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): TagConnection!
 
   """
   update_at field from ActiveRecord

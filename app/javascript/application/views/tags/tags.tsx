@@ -32,13 +32,6 @@ import {
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
   const [tags, setTags] = useState<string[]>([]);
-  function onCompletedCallback(data : currentUserHeader) {
-    if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-      setTags(data.currentUser.tags);
-    }
-  }
-  const { loading } = CurrentUser({ onCompletedCallback });
-
   function addTag() {
     setTags([...tags, ""]);
   }
@@ -77,10 +70,6 @@ export default function Tags() : ReactElement {
     </Box>
    </Box>
     )
-  }
-
-  if(loading) {
-    return <Spinner />;
   }
 
   return (
