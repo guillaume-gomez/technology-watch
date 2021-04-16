@@ -36,6 +36,7 @@ export const UserHeader = gql`
       id
       nickname
       name
+      languageCode
     }
   }
 `;
@@ -46,6 +47,18 @@ export const Logout = gql`
       authenticatable {
         id
       }
+    }
+  }
+`;
+
+
+export const EditUser = gql`
+  mutation editUser($id: ID!, $name: String, $nickname: String, $languageCode: String) {
+    editUser(input: { user: {id: $id, name: $name, nickname: $nickname, languageCode: $languageCode}}) {
+      id
+      name
+      nickname
+      languageCode
     }
   }
 `;

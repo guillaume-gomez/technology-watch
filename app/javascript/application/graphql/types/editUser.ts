@@ -4,23 +4,30 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: currentUserHeader
+// GraphQL mutation operation: editUser
 // ====================================================
 
-export interface currentUserHeader_currentUser {
+export interface editUser_editUser {
   __typename: "User";
   /**
    * ID from ActiveRecord
    */
   id: string;
-  nickname: string;
   name: string;
+  nickname: string;
   languageCode: string;
 }
 
-export interface currentUserHeader {
+export interface editUser {
   /**
-   * Get the current user
+   * Edit a User
    */
-  currentUser: currentUserHeader_currentUser;
+  editUser: editUser_editUser;
+}
+
+export interface editUserVariables {
+  id: string;
+  name?: string | null;
+  nickname?: string | null;
+  languageCode?: string | null;
 }

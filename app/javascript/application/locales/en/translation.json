@@ -25,7 +25,8 @@
     "language": "Language",
     "fr": "French",
     "en": "English",
-    "back": "Retour"
+    "back": "Retour",
+    "submit": "Save"
   },
   "header": {
     "logout": "Logout",

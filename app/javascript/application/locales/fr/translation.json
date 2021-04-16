@@ -25,7 +25,8 @@
     "language": "Langue",
     "fr": "Français",
     "en": "Anglais",
-    "back": "Back"
+    "back": "Back",
+    "submit": "Valider"
   },
   "header": {
     "logout": "Se deconnecter",

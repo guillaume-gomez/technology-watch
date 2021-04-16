@@ -2493,6 +2493,24 @@
               "deprecationReason": null
             },
             {
+              "name": "languageCode",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "name",
               "description": null,
               "args": [
@@ -2751,7 +2769,7 @@
               "deprecationReason": null
             },
             {
-              "name": "language",
+              "name": "languageCode",
               "description": "application language",
               "type": {
                 "kind": "SCALAR",

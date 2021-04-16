@@ -37,7 +37,7 @@ module Mutations
         description 'nickname'
       end
 
-      argument :language, String, required: false do
+      argument :language_code, String, required: false do
         description 'application language'
       end
 

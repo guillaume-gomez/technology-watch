@@ -515,6 +515,7 @@ type User implements ActiveRecord {
   ID from ActiveRecord
   """
   id: ID!
+  languageCode: String!
   name: String!
   nickname: String!
 
@@ -572,7 +573,7 @@ input UserEditType {
   """
   application language
   """
-  language: String
+  languageCode: String
 
   """
   full name
