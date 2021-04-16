@@ -15,7 +15,6 @@ export interface currentUserHeader_currentUser {
   id: string;
   nickname: string;
   name: string;
-  tags: string[] | null;
 }
 
 export interface currentUserHeader {

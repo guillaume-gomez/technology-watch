@@ -33,9 +33,10 @@ export default function Tags() : ReactElement {
   const { t } = useTranslation();
   const [tags, setTags] = useState<string[]>([]);
   function onCompletedCallback(data : currentUserHeader) {
-    if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-      setTags(data.currentUser.tags);
-    }
+    // if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
+    //   setTags(data.currentUser.tags);
+    // }
+    setTags(["Box", "Box1", "Box2", "Box3"])
   }
   const { loading } = CurrentUser({ onCompletedCallback });
 

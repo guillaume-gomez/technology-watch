@@ -36,7 +36,6 @@ export const UserHeader = gql`
       id
       nickname
       name
-      tags
     }
   }
 `;

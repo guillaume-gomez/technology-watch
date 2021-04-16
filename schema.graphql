@@ -176,7 +176,6 @@ type Note implements ActiveRecord {
   markAsRead: Boolean!
   name: String!
   rating: Int
-  tags: [String!]
   timeToRead: String
 
   """
@@ -518,7 +517,6 @@ type User implements ActiveRecord {
   id: ID!
   name: String!
   nickname: String!
-  tags: [String!]
 
   """
   update_at field from ActiveRecord

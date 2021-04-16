@@ -28,21 +28,22 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
   const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
   const [allTags, setAllTags] = useState<string[]>([]);
   function onCompletedCallback(data : currentUserHeader) {
-    if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-      setAllTags(data.currentUser.tags);
-    }
+    //if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
+      //setAllTags(data.currentUser.tags);
+    //}
+    setAllTags(["Box", "Box2", "Box3", "Box4", "Box5"])
   }
   const { loading } = CurrentUser({ onCompletedCallback });
 
   function onRemoveTag(index: number) {
-    const newTags = values.tags ? [...values.tags] : [];
-    newTags.splice(index, 1);
-    setValues({...values, tags: newTags});
+    // const newTags = values.tags ? [...values.tags] : [];
+    // newTags.splice(index, 1);
+    // setValues({...values, tags: newTags});
   };
 
   function onSelectTag(tag : string)  {
-    const oldTags = values.tags ? values.tags : [];
-    setValues({...values, tags: [...oldTags, tag] });
+    // const oldTags = values.tags ? values.tags : [];
+    // setValues({...values, tags: [...oldTags, tag] });
   };
 
   return (
@@ -65,14 +66,14 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         <Text>{values.rating}</Text>
       </FormField>
       <FormField>
-        <TagSelect
+        {/*<TagSelect
             value={values.tags || []}
             suggestions={allTags
               .sort()
               .filter(suggestion => !(values.tags || []).includes(suggestion))}
             onSelect={onSelectTag}
             onRemove={onRemoveTag}
-          />
+          />*/}
       </FormField>
       <Box direction="row" justify="end" gap="medium">
         <Button primary label={t("new-note.back")} onClick={() => history.push(notePath)} />

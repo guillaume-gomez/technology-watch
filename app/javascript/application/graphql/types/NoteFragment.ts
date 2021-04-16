@@ -19,5 +19,4 @@ export interface NoteFragment {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
-  tags: string[] | null;
 }
