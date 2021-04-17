@@ -42,8 +42,8 @@ export default function PrivateHeader() : ReactElement {
         <Menu
           label={data.currentUser.nickname}
           items={[
-            { label: t("header.logout"), onClick: () => logout() },
             { label: t("header.edit"), onClick: () => history.push(editUserPath) },
+            { label: t("header.logout"), onClick: () => logout() },
           ]}
         />
       );
