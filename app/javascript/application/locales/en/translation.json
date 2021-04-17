@@ -6,7 +6,8 @@
     "password-confirmation": "Password Confirmation",
     "name": "Full name",
     "nickname": "Nickname",
-    "submit": "Sign Up"
+    "submit": "Sign up",
+    "login": "Sign in"
   },
   "sign-in": {
     "email": "Email",

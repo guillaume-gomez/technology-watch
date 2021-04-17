@@ -44,8 +44,8 @@ export default function Router() : ReactElement {
                 <PrivateRoute path={editUserPath} component={EditProfile} />
                 <PrivateRoute path={tagsPath} component={Tags} />
                 <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
+                <PublicRoute path={signUpPath} component={SignUp} />
                 <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
-                <PublicRoute exact path={signUpPath} component={SignUp} />
               </Switch>
             </Suspense>
           </BrowserRouter>

@@ -14,6 +14,7 @@ import { SignUp as SignUpQuery } from "../../graphql/userQueries";
 
 import {
   signUpMessagePath,
+  loginPath
 } from "../../routesPath";
 
 export default function SignUp() : ReactElement {
@@ -38,11 +39,14 @@ export default function SignUp() : ReactElement {
       passwordConfirmation: "",
     },
   );
+  const [errors, setErrors] = useState<object>();
+  console.log(errors)
   return (
     <Box>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
+        errors={errors}
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => signUp({ variables: value })}
       >
@@ -61,7 +65,8 @@ export default function SignUp() : ReactElement {
         <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation")} required>
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>
-        <Box direction="row" justify="end" gap="medium">
+        <Box direction="row" justify="between" gap="medium">
+          <Button primary label={t("sign-up.login")} onClick={() => history.push(loginPath)}/>
           <Button type="submit" primary label={t("sign-up.submit")} />
         </Box>
       </Form>

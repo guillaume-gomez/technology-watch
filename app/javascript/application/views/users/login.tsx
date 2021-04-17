@@ -15,6 +15,7 @@ import { Login as LoginQuery } from "../../graphql/userQueries";
 
 import {
   privateRootPath,
+  signUpPath
 } from "../../routesPath";
 
 export default function Login() : ReactElement {
@@ -60,7 +61,7 @@ export default function Login() : ReactElement {
           <TextInput type="password" id="password" name="password" />
         </FormField>
         <Box direction="row" justify="between" gap="medium">
-          <Button primary label={t("sign-in.sign-up")} />
+          <Button primary label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
           <Button type="submit" primary label={t("sign-in.submit")} />
         </Box>
 
