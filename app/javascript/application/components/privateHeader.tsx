@@ -14,7 +14,7 @@ import {
 import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
-import { publicRootPath, editUserPath, tagsPath } from "../routesPath";
+import { publicRootPath, editUserPath, tagsPath, privateRootPath } from "../routesPath";
 
 import { clear } from "../authentication";
 
@@ -53,7 +53,7 @@ export default function PrivateHeader() : ReactElement {
 
   return (
     <Header background="brand">
-      <Heading margin="medium" level="3">Technology Watch</Heading>
+      <Heading margin="medium" level="3" onClick={() => history.push(privateRootPath)}>Technology Watch</Heading>
       <Box direction="row">
         <Button icon={<Performance />} hoverIndicator onClick={() => history.push(tagsPath)} />
         {avatar()}
