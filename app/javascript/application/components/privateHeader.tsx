@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  Header, Heading, Spinner, Menu, Button, Box
+  Header, Heading, Spinner, Menu, Button, Box,
 } from "grommet";
 import { Performance } from "grommet-icons";
 import { useApolloClient, useMutation } from "@apollo/client";
@@ -14,7 +14,7 @@ import {
 import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
-import { publicRootPath, editUserPath, tagsPath } from "../routesPath";
+import { publicRootPath, editUserPath, tagsPath, privateRootPath } from "../routesPath";
 
 import { clear } from "../authentication";
 
@@ -42,8 +42,8 @@ export default function PrivateHeader() : ReactElement {
         <Menu
           label={data.currentUser.nickname}
           items={[
-            { label: t("header.logout"), onClick: () => logout() },
             { label: t("header.edit"), onClick: () => history.push(editUserPath) },
+            { label: t("header.logout"), onClick: () => logout() },
           ]}
         />
       );
@@ -53,7 +53,7 @@ export default function PrivateHeader() : ReactElement {
 
   return (
     <Header background="brand">
-      <Heading margin="medium" level="3">Technology Watch</Heading>
+      <Heading margin="medium" level="3" onClick={() => history.push(privateRootPath)}>Technology Watch</Heading>
       <Box direction="row">
         <Button icon={<Performance />} hoverIndicator onClick={() => history.push(tagsPath)} />
         {avatar()}

@@ -3,20 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, 
+  Box,
   Spinner,
-  Text,
-  InfiniteScroll,
   Button,
   Heading,
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableFooter,
-  FormField,
-  TextInput
+  TextInput,
 } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
@@ -64,7 +55,7 @@ export default function Tags() : ReactElement {
 
   function updateTag(newTagValue: string, index: number) {
     const newTags = tags.map((tag, i) => {
-      if(i === index) {
+      if (i === index) {
         return newTagValue;
       }
       return tag;
@@ -82,18 +73,18 @@ export default function Tags() : ReactElement {
     }
 
     return (
-    <Box>
-      <Heading level={4} >{t("tags.name")}</Heading>
       <Box>
-      {tags.map((tag, index) => (
-          <Box key={index} direction="row">
-            <TextInput placeholder={t("tags.placeholder")} defaultValue={tag} onBlur={(e) => updateTag(e.target.value, index)} />
-            <Button hoverIndicator icon={<Trash />} disabled={tags.length <= 1} onClick={() => removeTag(index) }/>
-          </Box>
-      ))}
-    </Box>
-   </Box>
-    )
+        <Heading level={4}>{t("tags.name")}</Heading>
+        <Box>
+          {tags.map((tag, index) => (
+            <Box key={index} direction="row">
+              <TextInput placeholder={t("tags.placeholder")} defaultValue={tag} onBlur={(e) => updateTag(e.target.value, index)} />
+              <Button hoverIndicator icon={<Trash />} disabled={tags.length <= 1} onClick={() => removeTag(index)} />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    );
   }
 
   return (
@@ -107,7 +98,7 @@ export default function Tags() : ReactElement {
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")}/>
+        <Button primary label={t("new-note.back")} />
         <Button type="submit" primary label={t("tags.submit")} />
       </Box>
     </Box>

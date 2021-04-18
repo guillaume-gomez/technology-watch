@@ -10,23 +10,25 @@ interface TagProps {
 }
 
 function renderTag(children : ReactNode, onRemove?: () => void) {
-  return (<Box
-    background="brand"
-    direction="row"
-    align="center"
-    round="xsmall"
-    pad="xsmall"
-    gap="xsmall"
-    margin="xxsmall"
-  >
-    <Text size="small">{children}</Text>
-    {onRemove && (
-      <Box background={{ color: "white", opacity: "strong" }} round="full">
-        <FormClose color='brand' style={{ width: "12px", height: "12px" }} />
-      </Box>
-    )}
-  </Box>);
-};
+  return (
+    <Box
+      background="brand"
+      direction="row"
+      align="center"
+      round="xsmall"
+      pad="xsmall"
+      gap="xsmall"
+      margin="xxsmall"
+    >
+      <Text size="small">{children}</Text>
+      {onRemove && (
+        <Box background={{ color: "white", opacity: "strong" }} round="full">
+          <FormClose color="brand" style={{ width: "12px", height: "12px" }} />
+        </Box>
+      )}
+    </Box>
+  );
+}
 
 function Tag({ children, onRemove } :TagProps) : ReactElement {
   return (

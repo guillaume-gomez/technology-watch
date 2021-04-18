@@ -1,4 +1,5 @@
 {
+  "required": " *",
   "wave-hand": "Hello everyone",
   "sign-up": {
     "email": "Email",
@@ -6,17 +7,40 @@
     "password-confirmation": "Password Confirmation",
     "name": "Full name",
     "nickname": "Nickname",
-    "submit": "Sign Up"
+    "submit": "Sign up",
+    "login": "Sign in",
+    "errors": {
+      "email": "Invalid email format",
+      "password-size": "Password has minimum 8 characters",
+      "password-confirmation": "Password and Password confirmation missmatch",
+      "required": "This field is required"
+    }
   },
   "sign-in": {
     "email": "Email",
     "password": "Password",
     "submit": "Log in",
-    "sign-up": "Sign up"
+    "sign-up": "Sign up",
+    "forgot-password": "Forgot password"
   },
   "confirm-sign-up": {
     "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
     "go-to-login": "Go to login"
+  },
+  "forgot-password": {
+    "email": "Email",
+    "text": "Enter your email to received instructions to change password",
+    "send": "Send"
+  },
+  "forgot-password-token": {
+    "password": "Password",
+    "password-confirmation": "Password Confirmation",
+    "submit": "Submit",
+    "errors": {
+      "password-size": "Password has minimum 8 characters",
+      "password-confirmation": "Password and Password confirmation missmatch",
+      "required": "This field is required"
+    }
   },
   "edit-profile": {
     "title": "Edit my profile",
@@ -25,7 +49,8 @@
     "language": "Language",
     "fr": "French",
     "en": "English",
-    "back": "Retour"
+    "back": "Retour",
+    "submit": "Save"
   },
   "header": {
     "logout": "Logout",

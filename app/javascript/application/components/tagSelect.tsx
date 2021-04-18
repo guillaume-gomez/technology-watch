@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 import { Box, TextInput } from "grommet";
 
@@ -6,7 +6,7 @@ import Tag from "./tag";
 
 function renderTags(tags : string[], onRemove: (index: number) => void) {
   return (
-    <Box align="center" direction="row" wrap={true} pad={{ left: "xsmall" }}>
+    <Box align="center" direction="row" wrap pad={{ left: "xsmall" }}>
       {tags.map((tag, index) => (
         <Tag key={tag} onRemove={() => onRemove(index)}>
           {tag}
@@ -23,11 +23,13 @@ interface TagSelectProps {
   onSelect: (tag: string) => void;
 }
 
-export default function TagSelect({suggestions = [], value = [], onRemove, onSelect } : TagSelectProps) : ReactElement {
+export default function TagSelect({
+  suggestions = [], value = [], onRemove, onSelect,
+} : TagSelectProps) : ReactElement {
   const [search, setSearch] = useState<string>("");
   return (
     <Box
-      wrap={true}
+      wrap
       direction="row"
       align="center"
       border="all"
@@ -38,22 +40,21 @@ export default function TagSelect({suggestions = [], value = [], onRemove, onSel
       <Box
         alignSelf="stretch"
         align="start"
-        flex={true}
+        flex
         style={{ minWidth: "240px" }}
       >
         <TextInput
-          plain={true}
+          plain
           placeholder="Select tags"
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          onSelect={ ({ suggestion }) => {
+          onSelect={({ suggestion }) => {
             setSearch("");
-            onSelect(suggestion)
+            onSelect(suggestion);
           }}
           suggestions={suggestions.filter(
-            suggestion =>
-              suggestion.toLowerCase().indexOf(search.toLowerCase()) >= 0
+            (suggestion) => suggestion.toLowerCase().indexOf(search.toLowerCase()) >= 0,
           )}
         />
       </Box>

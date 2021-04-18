@@ -13,8 +13,12 @@ import { setToken, setUID, setClient } from "../../authentication";
 import { userLogin, userLoginVariables } from "../../graphql/types/userLogin";
 import { Login as LoginQuery } from "../../graphql/userQueries";
 
+import { required } from "../../components/helpers/validationsHelpers";
+
 import {
   privateRootPath,
+  signUpPath,
+  forgotPasswordPath
 } from "../../routesPath";
 
 export default function Login() : ReactElement {
@@ -36,7 +40,7 @@ export default function Login() : ReactElement {
       }
     },
     onError: (errors) => {
-      //setNetworkError(errors.toString());
+      setNetworkError(errors.toString());
     },
   });
   const [values, setValues] = React.useState<userLoginVariables>(
@@ -53,14 +57,15 @@ export default function Login() : ReactElement {
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => signUp({ variables: value })}
       >
-        <FormField name="email" htmlFor="email" label={t("sign-in.email")} required>
+        <FormField name="email" htmlFor="email" label={t("sign-in.email") + t("required")} validate={[required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
-        <FormField name="password" htmlFor="password" label={t("sign-in.password")} required>
+        <FormField name="password" htmlFor="password" label={t("sign-in.password") + t("required")} validate={[required(t)]}>
           <TextInput type="password" id="password" name="password" />
         </FormField>
         <Box direction="row" justify="between" gap="medium">
-          <Button primary label={t("sign-in.sign-up")} />
+          <Button primary label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
+          <Button label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
           <Button type="submit" primary label={t("sign-in.submit")} />
         </Box>
 

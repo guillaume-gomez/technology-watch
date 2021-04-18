@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -37,7 +37,7 @@ export default function NewNote() : ReactElement {
           userId: data.currentUser.id,
         },
       );
-    }
+    },
   });
   const [networkError, setNetworkError] = useState<string>("");
   const [createNoteFunction] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
@@ -72,7 +72,7 @@ export default function NewNote() : ReactElement {
       name: "",
       link: "",
       description: "",
-      rating: 1
+      rating: 1,
     },
   );
 
