@@ -92,5 +92,6 @@ module.exports = {
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["off"],
     "react/require-default-props": "off",
+    "no-underscore-dangle": "off",
   },
 };
