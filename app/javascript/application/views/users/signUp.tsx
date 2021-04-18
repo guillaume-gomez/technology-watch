@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { urlValidation, required } from "../../components/helpers/validationsHelpers";
 
 import {
   Box, Form, FormField, TextInput, Button,
@@ -39,30 +40,40 @@ export default function SignUp() : ReactElement {
       passwordConfirmation: "",
     },
   );
-  const [errors, setErrors] = useState<object>();
-  console.log(errors)
+
+  function passwordValidation(comparant: keyof userSignUpVariables ) {
+    return (value : string, otherValues : userSignUpVariables) => {
+      if(value.length <= 8) {
+        return {status: "error", message: t("sign-up.errors.password-size")};
+      }
+      if(value !== otherValues[comparant]) {
+        return {status: "error", message: t("sign-up.errors.password-confirmation")};
+      }
+      return true;
+    }
+  }
+
   return (
     <Box>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
-        errors={errors}
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => signUp({ variables: value })}
       >
-        <FormField name="email" htmlFor="email" label={t("sign-up.email")} required>
+        <FormField name="email" htmlFor="email" label={t("sign-up.email") + t("required")} validate={[urlValidation(t), required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
-        <FormField name="name" htmlFor="name" label={t("sign-up.name")} required>
+        <FormField name="name" htmlFor="name" label={t("sign-up.name") + t("required")} validate={[required(t)]}>
           <TextInput id="name" name="name" />
         </FormField>
-        <FormField name="nickname" htmlFor="nickname" label={t("sign-up.nickname")} required>
+        <FormField name="nickname" htmlFor="nickname" label={t("sign-up.nickname")+ t("required")} validate={[required(t)]}>
           <TextInput id="nickname" name="nickname" />
         </FormField>
-        <FormField name="password" htmlFor="password" label={t("sign-up.password")} required>
+        <FormField name="password" htmlFor="password" label={t("sign-up.password")+ t("required")} validate={[passwordValidation("passwordConfirmation"), required(t)]}>
           <TextInput type="password" id="password" name="password" />
         </FormField>
-        <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation")} required>
+        <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>
         <Box direction="row" justify="between" gap="medium">

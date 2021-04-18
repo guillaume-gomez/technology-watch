@@ -13,6 +13,8 @@ import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import TagSelect from "../../components/tagSelect";
 
+import { required } from "../../components/helpers/validationsHelpers";
+
 import {
   notePath,
 } from "../../routesPath";
@@ -52,14 +54,14 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       onChange={(nextValues) => setValues(nextValues)}
       onSubmit={({ value }) => mutation({ variables: value })}
     >
-      <FormField name="name" htmlFor="name" label={t("new-note.name")} required>
+      <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
         <TextInput id="name" name="name" />
       </FormField>
-      <FormField name="link" htmlFor="link" label={t("new-note.link")} required>
+      <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[required(t)]}>
         <TextInput id="link" name="link" />
       </FormField>
       <FormField name="description" htmlFor="description" label={t("new-note.description")}>
-        <TextArea id="description" name="description" />
+        <TextArea id="description" name="description" resize />
       </FormField>
       <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
         <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />

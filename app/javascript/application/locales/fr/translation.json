@@ -1,13 +1,20 @@
 {
+  "required": " *",
   "wave-hand": "Coucou tout le monde",
   "sign-up": {
     "email": "Email",
     "password": "Mot de passe",
-    "password-confirmation": "Mot de passe confirmé",
+    "password-confirmation": "Confirmation de mot de passe",
     "name": "Nom",
     "nickname": "Surnom",
     "submit": "S'inscrire",
-    "login": "Se connecter"
+    "login": "Se connecter",
+    "errors": {
+      "email": "Format d'email invalide",
+      "password-size": "Le mot de passe doit contenir 8 caratères",
+      "password-confirmation": "Mot de passe et la confirmation du mot de passe sont différents",
+      "required": "Ce champ est obligatoire"
+    }
   },
   "sign-in": {
     "email": "Email",
