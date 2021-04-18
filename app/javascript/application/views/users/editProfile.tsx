@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-// @ts-ignore
 import {
   Box,
   Heading,
@@ -12,6 +11,7 @@ import {
   TextInput,
   Select,
 } from "grommet";
+// @ts-ignore
 import i18n from "../../i18n";
 
 import { editUser, editUserVariables } from "../../graphql/types/editUser";
