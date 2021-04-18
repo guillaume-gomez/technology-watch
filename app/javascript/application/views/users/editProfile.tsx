@@ -3,7 +3,16 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 // @ts-ignore
-import i18n from '../../i18n';
+import {
+  Box,
+  Heading,
+  Button,
+  Form,
+  FormField,
+  TextInput,
+  Select,
+} from "grommet";
+import i18n from "../../i18n";
 
 import { editUser, editUserVariables } from "../../graphql/types/editUser";
 import {
@@ -13,16 +22,6 @@ import {
 import {
   privateRootPath,
 } from "../../routesPath";
-
-import {
-  Box,
-  Heading,
-  Button,
-  Form,
-  FormField,
-  TextInput,
-  Select
-} from "grommet";
 
 import CurrentUser from "../../components/customHooks/currentUser";
 
@@ -41,9 +40,15 @@ export default function EditProfile() : ReactElement {
   });
 
   CurrentUser({
-    onCompletedCallback: ({currentUser: { id, nickname, name, languageCode } }) =>{
-      setValues({...values, id, nickname, name, languageCode })
-    }
+    onCompletedCallback: ({
+      currentUser: {
+        id, nickname, name, languageCode,
+      },
+    }) => {
+      setValues({
+        ...values, id, nickname, name, languageCode,
+      });
+    },
   });
   const { t } = useTranslation();
   const history = useHistory();
@@ -52,7 +57,7 @@ export default function EditProfile() : ReactElement {
       id: "",
       languageCode: "en",
       name: "",
-      nickname: ""
+      nickname: "",
     },
   );
 
@@ -67,7 +72,7 @@ export default function EditProfile() : ReactElement {
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}
-        onSubmit={({ value }) => {editUserFunction({ variables: value }) } }
+        onSubmit={({ value }) => { editUserFunction({ variables: value }); }}
       >
         <FormField name="name" htmlFor="name" label={t("edit-profile.name")} required>
           <TextInput id="name" name="name" />
@@ -75,16 +80,16 @@ export default function EditProfile() : ReactElement {
         <FormField name="nickname" htmlFor="nickname" label={t("edit-profile.nickname")} required>
           <TextInput id="nickname" name="nickname" />
         </FormField>
-        <FormField name="language" htmlFor="language" label={t("edit-profile.language")} >
-        <Select
-          id="languageCode"
-          name="languageCode"
-          options={["fr", "en"]}
-          onChange={({ option }) => onChangeLanguage(option)}
-        />
+        <FormField name="language" htmlFor="language" label={t("edit-profile.language")}>
+          <Select
+            id="languageCode"
+            name="languageCode"
+            options={["fr", "en"]}
+            onChange={({ option }) => onChangeLanguage(option)}
+          />
         </FormField>
         <Box direction="row" justify="end" gap="medium">
-          <Button primary label={t("edit-profile.back")} onClick={()=> history.push(privateRootPath)} />
+          <Button primary label={t("edit-profile.back")} onClick={() => history.push(privateRootPath)} />
           <Button type="submit" primary label={t("edit-profile.submit")} />
         </Box>
       </Form>

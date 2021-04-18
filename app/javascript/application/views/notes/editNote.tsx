@@ -6,7 +6,7 @@ import { useHistory, useParams } from "react-router-dom";
 import {
   Box,
   Heading,
-  Spinner
+  Spinner,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -19,7 +19,7 @@ import { getNote, getNoteVariables } from "../../graphql/types/getNote";
 import {
   EditNote as EditNoteQuery,
   GetNotes as GetNotesQuery,
-  GetNote as GetNoteQuery
+  GetNote as GetNoteQuery,
 } from "../../graphql/noteQueries";
 
 import {
@@ -48,12 +48,11 @@ export default function EditNote() : ReactElement {
 
   useQuery<getNote, getNoteVariables>(GetNoteQuery, {
     variables: { id },
-    onCompleted: ({getNote}) => {
-      setValues({...getNote});
+    onCompleted: ({ getNote }) => {
+      setValues({ ...getNote });
       setLoadingNote(false);
-
-    } 
-  })
+    },
+  });
   const [editNoteFunction] = useMutation<editNote, editNoteVariables>(EditNoteQuery, {
     onCompleted: () => {
       history.push(notePath);
@@ -91,9 +90,9 @@ export default function EditNote() : ReactElement {
       <Heading level="3">{t("new-note.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       {
-        loadingNote ?
-        <Spinner /> : 
-        <NoteForm initialValues={values} mutation={editNoteFunction} />
+        loadingNote
+          ? <Spinner />
+          : <NoteForm initialValues={values} mutation={editNoteFunction} />
       }
     </Box>
   );

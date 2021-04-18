@@ -51,7 +51,6 @@ export const Logout = gql`
   }
 `;
 
-
 export const EditUser = gql`
   mutation editUser($id: ID!, $name: String, $nickname: String, $languageCode: String) {
     editUser(input: { user: {id: $id, name: $name, nickname: $nickname, languageCode: $languageCode}}) {

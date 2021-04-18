@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  Header, Heading, Spinner, Menu, Button, Box
+  Header, Heading, Spinner, Menu, Button, Box,
 } from "grommet";
 import { Performance } from "grommet-icons";
 import { useApolloClient, useMutation } from "@apollo/client";

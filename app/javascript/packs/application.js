@@ -2,9 +2,8 @@
 import React from "react";
 import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { relayStylePagination } from "@apollo/client/utilities";
 import { ApolloProvider, ApolloClient, createHttpLink } from "@apollo/client";
-import { setContext } from '@apollo/client/link/context';
+import { setContext } from "@apollo/client/link/context";
 
 import { getToken, getUID, getClient } from "../application/authentication";
 import "../application/i18n";
@@ -12,8 +11,8 @@ import "../application/i18n";
 import Router from "../application/router";
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
-  credentials: 'same-origin'
+  uri: "/graphql",
+  credentials: "same-origin",
 
 });
 
@@ -31,10 +30,9 @@ const authLink = setContext((_, { headers }) => {
       "access-token": token,
       uid,
       client,
-    }
-  }
+    },
+  };
 });
-
 
 const cache = new InMemoryCache();
 
