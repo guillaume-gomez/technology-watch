@@ -16,6 +16,8 @@ import {
   editNotePath,
   editUserPath,
   tagsPath,
+  forgotPasswordPath,
+  forgotPasswordWithToken
 } from "./routesPath";
 
 import PublicRoute from "./components/router/publicRoute";
@@ -24,6 +26,8 @@ import PrivateRoute from "./components/router/privateRoute";
 import SignUp from "./views/users/signUp";
 import ConfirmSignUp from "./views/users/confirmSignUp";
 import Login from "./views/users/login";
+import ForgotPassword from "./views/users/forgotPassword";
+import ForgotPasswordWithToken from "./views/users/forgotPasswordToken";
 import EditProfile from "./views/users/editProfile";
 import Notes from "./views/notes/notes";
 import Tags from "./views/tags/tags";
@@ -45,6 +49,8 @@ export default function Router() : ReactElement {
                 <PrivateRoute path={tagsPath} component={Tags} />
                 <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
                 <PublicRoute path={signUpPath} component={SignUp} />
+                <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
+                <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />
                 <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
               </Switch>
             </Suspense>

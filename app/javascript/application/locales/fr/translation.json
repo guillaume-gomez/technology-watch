@@ -20,11 +20,27 @@
     "email": "Email",
     "password": "Mot de passe",
     "submit": "Se connecter",
-    "sign-up": "Creer un compte"
+    "sign-up": "Creer un compte",
+    "forgot-password": "Mot de passe oublié"
   },
   "confirm-sign-up": {
     "text": "Vous etes bien enregistré. Il vous reste à confirmer votre compte en cliquant sur le lien dans le mail que vous avez reçu",
     "go-to-login": "Se connecter"
+  },
+  "forgot-password": {
+    "email": "Email",
+    "text": "Veuillez entrer votre adresse mail pour recevoir des instructions par mail",
+    "send": "Envoyer"
+  },
+  "forgot-password-token": {
+    "password": "Mot de passe",
+    "password-confirmation": "Confirmation de mot de passe",
+    "submit": "Valider",
+    "errors": {
+      "password-size": "Le mot de passe doit contenir 8 caratères",
+      "password-confirmation": "Mot de passe et la confirmation du mot de passe sont différents",
+      "required": "Ce champ est obligatoire"
+    }
   },
   "edit-profile": {
     "title": "Editer mon profil",

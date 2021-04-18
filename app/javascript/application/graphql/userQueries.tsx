@@ -30,6 +30,27 @@ export const Login = gql`
   }
 `;
 
+export const ResetPassword =  gql`
+  mutation resetPassword($email: String!, $redirectUrl: String!) {
+    userSendPasswordReset(email: $email, redirectUrl: $redirectUrl) {
+      message
+    }
+  }
+`;
+
+export const ResetPasswordWithToken =  gql`
+  mutation resetPasswordWithToken($password: String!, $passwordConfirmation: String!, $resetPasswordToken: String!) {
+    userUpdatePasswordWithToken(password: $password, passwordConfirmation: $passwordConfirmation, resetPasswordToken: $resetPasswordToken) {
+      credentials {
+        accessToken
+        client
+        expiry
+        uid
+      }
+    }
+  }
+`;
+
 export const UserHeader = gql`
   query currentUserHeader {
     currentUser {

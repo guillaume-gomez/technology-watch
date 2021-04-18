@@ -18,6 +18,7 @@ import { required } from "../../components/helpers/validationsHelpers";
 import {
   privateRootPath,
   signUpPath,
+  forgotPasswordPath
 } from "../../routesPath";
 
 export default function Login() : ReactElement {
@@ -64,6 +65,7 @@ export default function Login() : ReactElement {
         </FormField>
         <Box direction="row" justify="between" gap="medium">
           <Button primary label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
+          <Button label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
           <Button type="submit" primary label={t("sign-in.submit")} />
         </Box>
 
