@@ -15,7 +15,7 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
       { loggedIn
         ? <PrivateHeader />
         : <PublicHeader />}
-      <Main pad="small">
+      <Main  pad="large" >
         {children}
       </Main>
       <Footer />
