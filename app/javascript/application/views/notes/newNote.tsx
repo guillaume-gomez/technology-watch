@@ -29,16 +29,6 @@ import { nbItems } from "./noteConstants";
 export default function NewNote() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
-  CurrentUser({
-    onCompletedCallback: (data) => {
-      setValues(
-        {
-          ...values,
-          userId: data.currentUser.id,
-        },
-      );
-    },
-  });
   const [networkError, setNetworkError] = useState<string>("");
   const [createNoteFunction] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
     onCompleted: () => {
@@ -68,7 +58,6 @@ export default function NewNote() : ReactElement {
 
   const [values, setValues] = React.useState<createNoteVariables>(
     {
-      userId: "-1", // flag
       name: "",
       link: "",
       description: "",
@@ -80,9 +69,7 @@ export default function NewNote() : ReactElement {
     <Box>
       <Heading level="3">{t("new-note.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
-      {
-        values.userId === "-1" ? <Spinner /> : <NoteForm initialValues={values} mutation={createNoteFunction} />
-      }
+      <NoteForm initialValues={values} mutation={createNoteFunction} />
     </Box>
   );
 }

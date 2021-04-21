@@ -29,7 +29,6 @@ export interface createNote {
 }
 
 export interface createNoteVariables {
-  userId: string;
   name: string;
   link: string;
   description?: string | null;
