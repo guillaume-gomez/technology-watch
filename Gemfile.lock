@@ -67,8 +67,6 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    acts-as-taggable-on (7.0.0)
-      activerecord (>= 5.0, < 6.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
@@ -258,7 +256,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on (~> 7.0)
   byebug
   capybara (>= 2.15)
   factory_bot_rails

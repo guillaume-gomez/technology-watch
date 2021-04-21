@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Spinner,
@@ -10,23 +12,40 @@ import {
 } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
-import CurrentUser from "../../components/customHooks/currentUser";
-import { currentUserHeader } from "../../graphql/types/currentUserHeader";
-
 import {
   addTagsPath,
+  privateRootPath
 } from "../../routesPath";
+
+import { getTags, getTagsVariables } from "../../graphql/types/getTags";
+
+import {
+  GetTags as GetTagsQuery,
+} from "../../graphql/tagQueries";
+
+import ServerError from "../../components/serverError";
+
+import { nbItems } from "./tagConstants";
+
 
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
+  const history = useHistory();
   const [tags, setTags] = useState<string[]>([]);
-  function onCompletedCallback(data : currentUserHeader) {
-    // if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-    //   setTags(data.currentUser.tags);
-    // }
-    setTags(["Box", "Box1", "Box2", "Box3"]);
-  }
-  const { loading } = CurrentUser({ onCompletedCallback });
+  const [networkError, setNetworkError] = useState<string>("");
+  const { loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
+    variables: { first: nbItems },
+    onCompleted: ({getTags}) => {
+      if(getTags.edges) {
+          const tagsFromQuery = getTags.edges.map(({node}) => node!.name);
+          setTags([...tags, ...tagsFromQuery]);
+      }
+      
+    },
+    onError: (errors) => {
+      setNetworkError(errors.toString());
+    }
+  });
 
   function addTag() {
     setTags([...tags, ""]);
@@ -44,13 +63,16 @@ export default function Tags() : ReactElement {
       }
       return tag;
     });
-
     setTags(newTags);
   }
 
   function renderTags() {
-    if (tags.length === 0) {
-      return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>;
+    if(loading) {
+      return <Spinner/>;
+    }
+
+    if(tags.length === 0) {
+      return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>
     }
 
     return (
@@ -68,13 +90,10 @@ export default function Tags() : ReactElement {
     );
   }
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
     <Box>
       <Heading level="3">{t("tags.title")}</Heading>
+      {networkError !== "" && <ServerError messages={networkError} />}
       <Link to={addTagsPath}>
         <Button label={t("tags.create-tag")} onClick={addTag} />
       </Link>
@@ -82,7 +101,7 @@ export default function Tags() : ReactElement {
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")} />
+        <Button primary label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
         <Button type="submit" primary label={t("tags.submit")} />
       </Box>
     </Box>
