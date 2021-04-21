@@ -1,5 +1,6 @@
 {
   "required": " *",
+  "url-error": "Url not valid",
   "wave-hand": "Hello everyone",
   "sign-up": {
     "title": "Create an account",

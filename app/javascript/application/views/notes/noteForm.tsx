@@ -11,7 +11,7 @@ import { editNoteVariables } from "../../graphql/types/editNote";
 import CurrentUser from "../../components/customHooks/currentUser";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
-import { required } from "../../components/helpers/validationsHelpers";
+import { required, urlValidation } from "../../components/helpers/validationsHelpers";
 
 import {
   notePath,
@@ -57,7 +57,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
         <TextInput id="name" name="name" />
       </FormField>
-      <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[required(t)]}>
+      <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[urlValidation(t), required(t)]}>
         <TextInput id="link" name="link" />
       </FormField>
       <FormField name="description" htmlFor="description" label={t("new-note.description")}>

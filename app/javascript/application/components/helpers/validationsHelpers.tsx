@@ -9,7 +9,7 @@ export function required(t: i18Next.TFunction) {
   };
 }
 
-export function urlValidation(t: i18Next.TFunction) {
+export function emailValidation(t: i18Next.TFunction) {
   return (value: string) => {
     const regexp = new RegExp("/^[^\s@]+@[^\s@]+$/");
     if (!value.match(regexp)) {
@@ -18,3 +18,15 @@ export function urlValidation(t: i18Next.TFunction) {
     return true;
   };
 }
+
+export function urlValidation(t: i18Next.TFunction) {
+  return (value: string) => {
+    const regexp = new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
+
+    if (!value.match(regexp)) {
+      return { status: "error", message: t("url-error") };
+    }
+    return false;
+  };
+}
+

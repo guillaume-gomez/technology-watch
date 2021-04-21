@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import {
   Box, Form, FormField, TextInput, Button, Heading
 } from "grommet";
-import { urlValidation, required } from "../../components/helpers/validationsHelpers";
+import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 
 import ServerError from "../../components/serverError";
 
@@ -61,7 +61,7 @@ export default function SignUp() : ReactElement {
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => signUp({ variables: value })}
       >
-        <FormField name="email" htmlFor="email" label={t("sign-up.email") + t("required")} validate={[urlValidation(t), required(t)]}>
+        <FormField name="email" htmlFor="email" label={t("sign-up.email") + t("required")} validate={[emailValidation(t), required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
         <FormField name="name" htmlFor="name" label={t("sign-up.name") + t("required")} validate={[required(t)]}>

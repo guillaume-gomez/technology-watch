@@ -6,7 +6,7 @@ import useQuery from "../../components/customHooks/useQuery";
 import {
   Box, Form, FormField, TextInput, Button,
 } from "grommet";
-import { urlValidation, required } from "../../components/helpers/validationsHelpers";
+import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 
 import { setToken, setUID, setClient } from "../../authentication";
 
