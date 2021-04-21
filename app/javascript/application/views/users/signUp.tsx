@@ -53,33 +53,35 @@ export default function SignUp() : ReactElement {
   }
 
   return (
-    <Box>
-      {networkError !== "" && <ServerError messages={networkError} />}
-      <Form
-        value={values}
-        onChange={(nextValues) => setValues(nextValues)}
-        onSubmit={({ value }) => signUp({ variables: value })}
-      >
-        <FormField name="email" htmlFor="email" label={t("sign-up.email") + t("required")} validate={[urlValidation(t), required(t)]}>
-          <TextInput id="email" name="email" />
-        </FormField>
-        <FormField name="name" htmlFor="name" label={t("sign-up.name") + t("required")} validate={[required(t)]}>
-          <TextInput id="name" name="name" />
-        </FormField>
-        <FormField name="nickname" htmlFor="nickname" label={t("sign-up.nickname") + t("required")} validate={[required(t)]}>
-          <TextInput id="nickname" name="nickname" />
-        </FormField>
-        <FormField name="password" htmlFor="password" label={t("sign-up.password") + t("required")} validate={[passwordValidation("passwordConfirmation"), required(t)]}>
-          <TextInput type="password" id="password" name="password" />
-        </FormField>
-        <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
-          <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
-        </FormField>
-        <Box direction="row" justify="between" gap="medium">
-          <Button primary label={t("sign-up.login")} onClick={() => history.push(loginPath)} />
-          <Button type="submit" primary label={t("sign-up.submit")} />
-        </Box>
-      </Form>
+    <Box align="center">
+      <Box elevation="small" pad="medium" width="large">
+        {networkError !== "" && <ServerError messages={networkError} />}
+        <Form
+          value={values}
+          onChange={(nextValues) => setValues(nextValues)}
+          onSubmit={({ value }) => signUp({ variables: value })}
+        >
+          <FormField name="email" htmlFor="email" label={t("sign-up.email") + t("required")} validate={[urlValidation(t), required(t)]}>
+            <TextInput id="email" name="email" />
+          </FormField>
+          <FormField name="name" htmlFor="name" label={t("sign-up.name") + t("required")} validate={[required(t)]}>
+            <TextInput id="name" name="name" />
+          </FormField>
+          <FormField name="nickname" htmlFor="nickname" label={t("sign-up.nickname") + t("required")} validate={[required(t)]}>
+            <TextInput id="nickname" name="nickname" />
+          </FormField>
+          <FormField name="password" htmlFor="password" label={t("sign-up.password") + t("required")} validate={[passwordValidation("passwordConfirmation"), required(t)]}>
+            <TextInput type="password" id="password" name="password" />
+          </FormField>
+          <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
+            <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
+          </FormField>
+          <Box direction="row" justify="between" gap="medium">
+            <Button primary label={t("sign-up.login")} onClick={() => history.push(loginPath)} />
+            <Button type="submit" primary label={t("sign-up.submit")} />
+          </Box>
+        </Form>
+      </Box>
     </Box>
   );
 }
