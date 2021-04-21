@@ -12,10 +12,6 @@ module Mutations
         description 'Note link'
       end
 
-      argument :user_id, ID, required: true do
-        description 'Author id of the note'
-      end
-
       argument :description, String, required: false do
         description 'Note description'
       end
@@ -49,10 +45,6 @@ module Mutations
         description 'Note link'
       end
 
-      argument :user_id, ID, required: false do
-        description 'Author id of the note'
-      end
-
       argument :description, String, required: false do
         description 'Note description'
       end
@@ -82,6 +74,7 @@ module Mutations
 
       def resolve(note:)
         record = Note.new(note.to_h)
+        record.user = context[:current_resource]
         record.save!
         record
       end

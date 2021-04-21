@@ -327,11 +327,6 @@ input NoteEditType {
   Time to read the note
   """
   timeToRead: ISO8601DateTime
-
-  """
-  Author id of the note
-  """
-  userId: ID
 }
 
 """
@@ -367,11 +362,6 @@ input NoteInput {
   Time to read the note
   """
   timeToRead: ISO8601DateTime
-
-  """
-  Author id of the note
-  """
-  userId: ID!
 }
 
 """

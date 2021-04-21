@@ -19,14 +19,14 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
 
     context "when required params are present" do
       let(:params) do
-        { name: "My first note", link: 'http://easywin.com', userId: current_user.id.to_s }
+        { name: "My first note", link: 'http://easywin.com'}
       end
       it { expect{subject}.to change { Note.count }.by(1) }
     end
 
     context "when some required params are missing" do
       let(:params) do
-        { name: "My first note", userId: current_user.id }
+        { name: "My first note" }
       end
       it { expect{subject}.not_to change { Note.count } }
     end
