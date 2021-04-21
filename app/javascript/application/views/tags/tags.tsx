@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Spinner,
@@ -13,6 +14,7 @@ import { Edit, Trash } from "grommet-icons";
 
 import {
   addTagsPath,
+  privateRootPath
 } from "../../routesPath";
 
 import { getTags, getTagsVariables } from "../../graphql/types/getTags";
@@ -28,6 +30,7 @@ import { nbItems } from "./tagConstants";
 
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
+  const history = useHistory();
   const [tags, setTags] = useState<string[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
   const { loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
@@ -98,7 +101,7 @@ export default function Tags() : ReactElement {
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")} />
+        <Button primary label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
         <Button type="submit" primary label={t("tags.submit")} />
       </Box>
     </Box>
