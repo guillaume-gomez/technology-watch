@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
-  Box, Form, FormField, TextInput, Button,
+  Box, Form, FormField, TextInput, Button, Heading
 } from "grommet";
 import { urlValidation, required } from "../../components/helpers/validationsHelpers";
 
@@ -54,6 +54,7 @@ export default function SignUp() : ReactElement {
 
   return (
     <Box>
+      <Heading level="3">{t("sign-up.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}

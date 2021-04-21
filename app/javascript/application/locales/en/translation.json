@@ -2,6 +2,7 @@
   "required": " *",
   "wave-hand": "Hello everyone",
   "sign-up": {
+    "title": "Create an account",
     "email": "Email",
     "password": "Password",
     "password-confirmation": "Password Confirmation",
@@ -17,6 +18,7 @@
     }
   },
   "sign-in": {
+    "title": "Sign in",
     "email": "Email",
     "password": "Password",
     "submit": "Log in",
@@ -59,7 +61,8 @@
   "notes": {
     "title": "Notes",
     "no-notes": "No notes",
-    "create-note": "Create a new note"
+    "create-note": "Create a new note",
+    "edit-note": "Edit note"
   },
   "new-note": {
     "title": "Add a note",

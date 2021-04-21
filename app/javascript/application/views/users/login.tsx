@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button,
+  Box, Form, FormField, TextInput, Button, Heading
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -51,6 +51,7 @@ export default function Login() : ReactElement {
   );
   return (
     <Box>
+      <Heading level="3">{t("sign-in.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
         value={values}
