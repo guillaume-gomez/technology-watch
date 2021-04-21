@@ -90,5 +90,52 @@ RSpec.describe Mutations::TagMutations, type: :graphql do
     end
   end
 
+  describe "resolve BulkUpdateTags" do
+    let(:query) do
+      <<~GQL
+        mutation($input: [TagBulkType!]!) {
+          bulkUpdateTags(input: { tags: $input }) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      GQL
+    end
+    let!(:tags) { create_list(:tag, 5, user_id: current_user.id.to_s )}
+    let(:tag) { tags.sample }
+    
+    context "when destroy tags" do
+      let(:params) { [{ id: tag.id, destroy: true }] }
+      it { expect{subject}.to change { Tag.count }.by(-1) }
+    end
+
+    context "when update tags" do
+      let(:params) { [{ id: tag.id, name: "New tag name" }] }
+      it { expect{subject}.to change { tag.reload.name } }
+    end
+
+    context "when create tags" do
+      let(:params) { [{ name: "New tag name" }] }
+      it { expect{subject}.to change { Tag.count }.by(1) }
+    end
+
+    context "when create, update and destroy tags" do
+      let(:tag) { tags.first }
+      let(:tag2) { tags.last }
+      let(:params) do
+        [
+          { name: "New tag" },
+          { id: tag2.id, name: "New tag name" },
+          { id: tag.id, destroy: true }
+        ]
+      end
+      it { expect{subject}.to change { Tag.count }.by(0) }
+      it { expect{subject}.to change { tag2.reload.name } }
+    end
+
+  end
 
 end

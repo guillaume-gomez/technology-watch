@@ -17,5 +17,6 @@ module Types
     field :create_tag, resolver: Mutations::TagMutations::CreateTag, null: false, authenticate: true
     field :edit_tag, resolver: Mutations::TagMutations::EditTag, null: false, authenticate: true
     field :destroy_tag, resolver: Mutations::TagMutations::DestroyTag, null: false, authenticate: true
+    field :bulk_update_tags, resolver: Mutations::TagMutations::BulkUpdateTags, null: false, authenticate: true
   end
 end
