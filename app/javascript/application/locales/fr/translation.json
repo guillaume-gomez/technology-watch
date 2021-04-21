@@ -59,7 +59,8 @@
   "notes": {
     "title": "Notes",
     "no-notes": "Pas de notes",
-    "create-note": "Creer une nouvelle note"
+    "create-note": "Creer une nouvelle note",
+    "edit-note": "Editer une nouvelle note"
   },
   "new-note": {
     "title": "Ajouter une note",
