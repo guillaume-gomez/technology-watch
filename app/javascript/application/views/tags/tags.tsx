@@ -45,7 +45,7 @@ export default function Tags() : ReactElement {
   const history = useHistory();
   const [tags, setTags] = useState<TagBulkType[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
-  const { loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
+  const { loading, fetchMore, refetch } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
     variables: { first: nbItems },
     onCompleted: ({getTags}) => {
       if(getTags.edges) {
@@ -66,21 +66,12 @@ export default function Tags() : ReactElement {
   });
   const [editTags] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
     onCompleted: () => {
+      refetch();
       history.push(privateRootPath);
     },
     onError: (errors) => {
       console.error(errors);
       setNetworkError(errors.toString());
-    },
-    update: (cache, { data }) => {
-      const newCacheData = data!.bulkUpdateTags;
-      const newCache = {
-        getTags: {
-          edges: newCacheData.edges,
-          __typename: newCacheData.__typename,
-        },
-      };
-      cache.writeQuery({ query: GetTagsQuery, variables: { first: nbItems }, data: newCache });
     },
   });
 
@@ -134,11 +125,11 @@ export default function Tags() : ReactElement {
       <Box>
         <Heading level={4}>{t("tags.name")}</Heading>
         <Box>
-          {tags.filter(tag => !tag.destroy).map((tag, index) => (
+          {tags.map((tag, index) => (
             <Box key={index} direction="row" align="center">
               <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
               <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
-              <Button hoverIndicator icon={<Trash />} disabled={tags.length <= 1} onClick={() => removeTag(index)} />
+              <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
             </Box>
           ))}
         </Box>

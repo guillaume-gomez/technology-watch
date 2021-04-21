@@ -79,12 +79,12 @@ export default function Notes() : ReactElement {
   }
 
   return (
-    <Box>
+    <Box gap="small">
       <Heading level="3">{t("notes.title")}</Heading>
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-
+    
       <Box overflow="auto">
         {displayNotes()}
       </Box>
