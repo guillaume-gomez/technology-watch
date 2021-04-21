@@ -84,12 +84,20 @@ export default function Tags() : ReactElement {
     },
   });
 
+
   function addTag() {
     setTags([...tags, {name: "", color: getRandomColor()}]);
   }
 
   function removeTag(index: number) {
-    const newTags = tags.filter((_tag, i) => index !== i);
+    const newTags = tags.map((tag, i) => {
+      if(index !== i) {
+        return tag;
+      } else {
+        return {...tag, destroy: true };
+      }
+      
+    });
     setTags(newTags);
   }
 
@@ -97,6 +105,16 @@ export default function Tags() : ReactElement {
     const newTags = tags.map((tag, i) => {
       if (i === index) {
         return {...tag, name: newTagValue };
+      }
+      return tag;
+    });
+    setTags(newTags);
+  }
+
+  function updateColorTag(newTagColor: string, index: number) {
+    const newTags = tags.map((tag, i) => {
+      if (i === index) {
+        return {...tag, color: newTagColor };
       }
       return tag;
     });
@@ -116,9 +134,10 @@ export default function Tags() : ReactElement {
       <Box>
         <Heading level={4}>{t("tags.name")}</Heading>
         <Box>
-          {tags.map((tag, index) => (
-            <Box key={index} direction="row">
+          {tags.filter(tag => !tag.destroy).map((tag, index) => (
+            <Box key={index} direction="row" align="center">
               <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+              <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
               <Button hoverIndicator icon={<Trash />} disabled={tags.length <= 1} onClick={() => removeTag(index)} />
             </Box>
           ))}
