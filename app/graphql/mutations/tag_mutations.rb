@@ -38,6 +38,7 @@ module Mutations
 
       def resolve(tag:)
         record = Tag.new(tag.to_h)
+        record.user = context[:current_resource]
         record.save!
         record
       end
