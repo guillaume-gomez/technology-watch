@@ -8,7 +8,6 @@ import {
 
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
-import CurrentUser from "../../components/customHooks/currentUser";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import { required, urlValidation } from "../../components/helpers/validationsHelpers";
@@ -35,7 +34,6 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
     // }
     setAllTags(["Box", "Box2", "Box3", "Box4", "Box5"]);
   }
-  const { loading } = CurrentUser({ onCompletedCallback });
 
   function onRemoveTag(index: number) {
     // const newTags = values.tags ? [...values.tags] : [];

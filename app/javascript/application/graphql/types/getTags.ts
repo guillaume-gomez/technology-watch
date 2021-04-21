@@ -25,12 +25,28 @@ export interface getTags_getTags_edges {
   node: getTags_getTags_edges_node | null;
 }
 
+export interface getTags_getTags_pageInfo {
+  __typename: "PageInfo";
+  /**
+   * When paginating forwards, the cursor to continue.
+   */
+  endCursor: string | null;
+  /**
+   * When paginating forwards, are there more items?
+   */
+  hasNextPage: boolean;
+}
+
 export interface getTags_getTags {
   __typename: "TagConnection";
   /**
    * A list of edges.
    */
   edges: getTags_getTags_edges[];
+  /**
+   * Information to aid in pagination.
+   */
+  pageInfo: getTags_getTags_pageInfo;
 }
 
 export interface getTags {

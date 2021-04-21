@@ -107,7 +107,7 @@ module Mutations
               if tag_data[:destroy]
                 record.destroy
               else
-                record.assign_attributes(tag_data.to_h)
+                record.assign_attributes(tag_data.to_h.except!(:destroy))
                 record.save
                 record
               end

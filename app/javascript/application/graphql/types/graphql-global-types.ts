@@ -7,6 +7,16 @@
 // START Enums and Input Objects
 //==============================================================
 
+/**
+ * Properties for add, edit and destroy Tags
+ */
+export interface TagBulkType {
+  id?: string | null;
+  destroy?: boolean | null;
+  name?: string | null;
+  color?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

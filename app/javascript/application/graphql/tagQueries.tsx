@@ -20,6 +20,22 @@ export const GetTags = gql`
           ...TagFragment
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+${TagFragment.fragments.tag}`;
+
+export const BulkUpdateTags = gql`
+  mutation bulkUpdateTags($tags: [TagBulkType!]! ) {
+    bulkUpdateTags(input: { tags: $tags }) {
+      edges {
+        node {
+          ...TagFragment
+        }
+      }
     }
   }
 ${TagFragment.fragments.tag}`;
