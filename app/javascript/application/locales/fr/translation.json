@@ -2,6 +2,7 @@
   "required": " *",
   "wave-hand": "Coucou tout le monde",
   "sign-up": {
+    "title": "Se créer un compte",
     "email": "Email",
     "password": "Mot de passe",
     "password-confirmation": "Confirmation de mot de passe",
@@ -17,6 +18,7 @@
     }
   },
   "sign-in": {
+    "title": "Connexion",
     "email": "Email",
     "password": "Mot de passe",
     "submit": "Se connecter",
