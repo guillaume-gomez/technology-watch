@@ -130,7 +130,7 @@ export default function Tags() : ReactElement {
               return null;
             }
             return (
-              <Box key={index} direction="row" align="center">
+              <Box key={index} direction="row" align="center" gap="small">
                 <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
                 <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
                 <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
