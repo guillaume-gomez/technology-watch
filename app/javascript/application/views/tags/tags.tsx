@@ -125,13 +125,18 @@ export default function Tags() : ReactElement {
       <Box>
         <Heading level={4}>{t("tags.name")}</Heading>
         <Box>
-          {tags.map((tag, index) => (
-            <Box key={index} direction="row" align="center">
-              <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
-              <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
-              <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
-            </Box>
-          ))}
+          {tags.map((tag, index) => {
+            if(tag.destroy) {
+              return null;
+            }
+            return (
+              <Box key={index} direction="row" align="center">
+                <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+                <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
+                <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
+              </Box>
+            );
+          })}
         </Box>
       </Box>
     );
