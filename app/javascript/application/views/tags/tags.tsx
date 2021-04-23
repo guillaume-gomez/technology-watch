@@ -45,7 +45,7 @@ export default function Tags() : ReactElement {
   const history = useHistory();
   const [tags, setTags] = useState<TagBulkType[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
-  const { loading, fetchMore, refetch } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
+  const { loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
     variables: { first: nbItems },
     onCompleted: ({getTags}) => {
       if(getTags.edges) {
@@ -66,7 +66,6 @@ export default function Tags() : ReactElement {
   });
   const [editTags] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
     onCompleted: () => {
-      refetch();
       history.push(privateRootPath);
     },
     onError: (errors) => {
