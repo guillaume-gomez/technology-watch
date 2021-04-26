@@ -21,7 +21,7 @@ module Queries
 
       def resolve()
         user = context[:current_resource]
-        Tag.where(user: user)
+        Tag.where(user: user).order("created_at")
       end
     end
   end
