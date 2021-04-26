@@ -54,3 +54,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "graphql", github: 'rmosolgo/graphql-ruby', branch: 'master'
 gem 'graphiql-rails', group: :development
 gem 'graphql_devise'
+
+# only useful when migrate from scratch
+# gem 'acts-as-taggable-on', '~> 7.0'

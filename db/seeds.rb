@@ -7,7 +7,20 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 john = User.create!(
   email: "john.doe@example.com",
-  first_name: "john",
-  last_name: "Doe",
-  password: "password"
+  name: "john Doe",
+  nickname: "Jojo",
+  password: "password",
+  is_super_admin: true
 )
+john.confirm
+
+5.times.each do |index|
+  Tag.create!(name: "tag#{index + 1}", user: john)
+end
+
+10.times.each do |index|
+  note = Note.create!(name: "note#{index + 1}", link: "http://linux.com", rating: [*0..10].sample, user: john)
+  NoteTag.create!(note: note, tag: Tag.all.sample)
+end
+
+
