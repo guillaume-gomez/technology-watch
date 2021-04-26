@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from "react";
+import { uniqBy } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import {
   Button,
   Heading,
   TextInput,
+  InfiniteScroll
 } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
@@ -17,7 +19,7 @@ import {
   privateRootPath
 } from "../../routesPath";
 
-import { getTags, getTagsVariables } from "../../graphql/types/getTags";
+import { getTags, getTagsVariables, getTags_getTags_edges } from "../../graphql/types/getTags";
 import { bulkUpdateTags, bulkUpdateTagsVariables } from "../../graphql/types/bulkUpdateTags";
 
 import {
@@ -40,25 +42,22 @@ function getRandomColor() {
   return color;
 }
 
+interface FetchMoreResultQuery {
+  fetchMoreResult: getTags;
+  variables: Object
+}
+
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [tags, setTags] = useState<TagBulkType[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
-  const { loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
+  const { data, loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
     variables: { first: nbItems },
     onCompleted: ({getTags}) => {
       if(getTags.edges) {
-          const tagsFromQuery = getTags.edges.map(({node}) => (
-            { id: node!.id,
-              name: node!.name,
-              color: node!.color,
-              destroy: false
-            })
-          );
-          setTags([...tags, ...tagsFromQuery]);
+        updateTagsFromQuery(getTags.edges);
       }
-      
     },
     onError: (errors) => {
       setNetworkError(errors.toString());
@@ -73,6 +72,17 @@ export default function Tags() : ReactElement {
       setNetworkError(errors.toString());
     },
   });
+
+  function updateTagsFromQuery(tagEdges: getTags_getTags_edges[]) {
+    const tagsFromQuery = tagEdges.map(({node}) => (
+      { id: node!.id,
+        name: node!.name,
+        color: node!.color,
+        destroy: false
+      })
+    );
+    setTags(uniqBy([...tags, ...tagsFromQuery], "id"));
+  }
 
 
   function addTag() {
@@ -111,6 +121,31 @@ export default function Tags() : ReactElement {
     setTags(newTags);
   }
 
+   function getMore() {
+    if (!data || !data.getTags.pageInfo.hasNextPage) {
+      return;
+    }
+    fetchMore({
+      variables: {
+        cursor: data.getTags.pageInfo.endCursor,
+      },
+      updateQuery: (previousResult : getTags, { fetchMoreResult }: FetchMoreResultQuery) => {
+        if (!fetchMoreResult) {
+          return previousResult;
+        }
+        const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getTags;
+        updateTagsFromQuery(newEdges);
+        return {
+          getTags: {
+            pageInfo,
+            __typename,
+            edges: [...previousResult.getTags.edges, ...newEdges],
+          },
+        };
+      },
+    });
+  }
+
   function renderTags() {
     if(loading) {
       return <Spinner/>;
@@ -124,7 +159,8 @@ export default function Tags() : ReactElement {
       <Box>
         <Heading level={4}>{t("tags.name")}</Heading>
         <Box>
-          {tags.map((tag, index) => {
+        <InfiniteScroll step={nbItems} items={tags} onMore={getMore}>
+          {(tag: TagBulkType, index: number) => {
             if(tag.destroy) {
               return null;
             }
@@ -135,7 +171,8 @@ export default function Tags() : ReactElement {
                 <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
               </Box>
             );
-          })}
+          }}
+        </InfiniteScroll>
         </Box>
       </Box>
     );
@@ -148,7 +185,7 @@ export default function Tags() : ReactElement {
       <Link to={addTagsPath}>
         <Button label={t("tags.create-tag")} onClick={addTag} />
       </Link>
-      <Box>
+      <Box overflow="auto">
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
