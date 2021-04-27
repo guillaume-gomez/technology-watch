@@ -55,5 +55,9 @@ gem "graphql", github: 'rmosolgo/graphql-ruby', branch: 'master'
 gem 'graphiql-rails', group: :development
 gem 'graphql_devise'
 
+# Query Filtering
+gem 'search_object'
+gem 'search_object_graphql'
+
 # only useful when migrate from scratch
 # gem 'acts-as-taggable-on', '~> 7.0'
