@@ -110,6 +110,7 @@ RSpec.describe Mutations::TagMutations, type: :graphql do
     context "when destroy tags" do
       let(:params) { [{ id: tag.id, destroy: true }] }
       it { expect{subject}.to change { Tag.count }.by(-1) }
+      it { expect(subject.to_h["data"]["bulkUpdateTags"]["edges"].count).to eq(0) }
     end
 
     context "when update tags" do

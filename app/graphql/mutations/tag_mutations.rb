@@ -101,20 +101,22 @@ module Mutations
 
       def resolve(tags:)
         ApplicationRecord.transaction do
-          records = tags.map do |tag_data|
+          deleted_tags, other_tags = tags.partition { |tag| tag.destroy }
+          if deleted_tags.count > 0
+            deleted_tags_records = Tag.where(id: deleted_tags.pluck(:id))
+            deleted_tags_records.destroy_all
+          end
+
+          records = other_tags.map do |tag_data|
             if tag_data[:id]
               record = Tag.find(tag_data[:id])
-              if tag_data[:destroy]
-                record.destroy
-              else
-                record.assign_attributes(tag_data.to_h.except!(:destroy))
-                record.save
-                record
-              end
+              record.assign_attributes(tag_data.to_h.except!(:destroy))
+              record.save
+              record
             else
               record = Tag.new(tag_data.to_h)
               record.user = context[:current_resource]
-              record.save!
+              record.save
               record
             end
           end
