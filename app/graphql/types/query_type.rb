@@ -1,3 +1,6 @@
+require 'search_object'
+require 'search_object/plugin/graphql'
+
 module Types
   class QueryType < Types::BaseObject
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`

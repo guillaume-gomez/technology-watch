@@ -16,13 +16,18 @@ module Queries
     end
 
     class GetTags < GraphQL::Schema::Resolver
+      include SearchObject.module(:graphql)
+
       description 'Get all Tags'
       type Types::TagType.connection_type, null: false
 
-      def resolve()
-        user = context[:current_resource]
-        Tag.where(user: user).order("created_at")
+      scope { Tag.where(user: context[:current_resource]).order("created_at") }
+
+      option(:start_with, type: String, description: "search by name with start_with") do |scope, value|
+        sanitized_value = ActiveRecord::Base.sanitize_sql_like(value)
+        scope.where("tags.name ILIKE ?", "#{sanitized_value}%")
       end
+
     end
   end
 end

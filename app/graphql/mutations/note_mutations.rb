@@ -1,3 +1,5 @@
+include Mutations::TagMutations
+
 module Mutations
   module NoteMutations
     class NoteInputType < Types::BaseInputObject
@@ -15,12 +17,12 @@ module Mutations
       argument :description, String, required: false do
         description 'Note description'
       end
-      
+
       argument :rating, Integer, required: false do
         description 'Note rating'
       end
 
-      argument :tags, [String], as: :tag_list, required: false do
+      argument :tags, [TagNestedInputType], required: false do
         description 'List of tags'
       end
 
@@ -32,7 +34,7 @@ module Mutations
     class NoteEditType < Types::BaseInputObject
       graphql_name 'NoteEditType'
       description 'Properties for editing a Note'
-      
+
       argument :id, ID, required: true do
         description 'Note id'
       end
@@ -53,7 +55,7 @@ module Mutations
         description 'Note rating'
       end
 
-      argument :tags, [String], as: :tag_list, required: false do
+      argument :tags, [TagNestedInputType], required: false do
         description 'List of tags'
       end
 
