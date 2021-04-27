@@ -381,9 +381,9 @@ input NoteEditType {
   rating: Int
 
   """
-  List of tags
+  List of tag ids
   """
-  tags: [TagNestedInput!]
+  tags: [ID!]
 
   """
   Time to read the note
@@ -416,9 +416,9 @@ input NoteInput {
   rating: Int
 
   """
-  List of tags
+  List of tag ids
   """
-  tags: [TagNestedInput!]
+  tags: [ID!]
 
   """
   Time to read the note
@@ -694,21 +694,6 @@ input TagInput {
   Tag name
   """
   name: String!
-}
-
-"""
-Properties for creating a Nested Tag
-"""
-input TagNestedInput {
-  """
-  Tag name
-  """
-  name: String!
-
-  """
-  Tag id
-  """
-  tagId: ID
 }
 
 type User implements ActiveRecord {

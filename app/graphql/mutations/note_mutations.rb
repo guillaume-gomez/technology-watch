@@ -1,4 +1,3 @@
-include Mutations::TagMutations
 
 module Mutations
   module NoteMutations
@@ -22,8 +21,8 @@ module Mutations
         description 'Note rating'
       end
 
-      argument :tags, [TagNestedInputType], required: false do
-        description 'List of tags'
+      argument :tags, [ID], required: false do
+        description 'List of tag ids'
       end
 
       argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
@@ -55,8 +54,8 @@ module Mutations
         description 'Note rating'
       end
 
-      argument :tags, [TagNestedInputType], required: false do
-        description 'List of tags'
+      argument :tags, [ID], required: false do
+        description 'List of tag ids'
       end
 
       argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do

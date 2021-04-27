@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TagNestedInput } from "./graphql-global-types";
-
 // ====================================================
 // GraphQL mutation operation: createNote
 // ====================================================
@@ -62,5 +60,5 @@ export interface createNoteVariables {
   link: string;
   description?: string | null;
   rating?: number | null;
-  tags?: TagNestedInput[] | null;
+  tags?: string[] | null;
 }

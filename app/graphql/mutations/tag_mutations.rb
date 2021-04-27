@@ -51,19 +51,6 @@ module Mutations
       end
     end
 
-    class TagNestedInputType < Types::BaseInputObject
-      graphql_name 'TagNestedInput'
-      description 'Properties for creating a Nested Tag'
-
-      argument :name, String, required: true do
-        description 'Tag name'
-      end
-
-      argument :tag_id, ID, required: false do
-        description 'Tag id'
-      end
-    end
-
     class CreateTag < BaseMutation
       description 'Create a Tag'
       type Types::TagType

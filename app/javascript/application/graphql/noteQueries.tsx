@@ -50,7 +50,7 @@ export const GetNote = gql`
 ${NoteFragment.fragments.note}`;
 
 export const CreateNote = gql`
-  mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [TagNestedInput!]) {
+  mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [ID!]) {
     createNote(input: { note: {
       name: $name,
       link: $link,
@@ -81,7 +81,7 @@ export const MarkAsRead = gql`
 `;
 
 export const EditNote = gql`
-  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [TagNestedInput!]) {
+  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [ID!]) {
     editNote(input: { note: {
       id: $id,
       name: $name,

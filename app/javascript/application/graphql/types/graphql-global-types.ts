@@ -17,14 +17,6 @@ export interface TagBulkType {
   color?: string | null;
 }
 
-/**
- * Properties for creating a Nested Tag
- */
-export interface TagNestedInput {
-  name: string;
-  tagId?: string | null;
-}
-
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
