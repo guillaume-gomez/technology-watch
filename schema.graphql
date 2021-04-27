@@ -383,7 +383,7 @@ input NoteEditType {
   """
   List of tags
   """
-  tags: [String!]
+  tags: [TagNestedInput!]
 
   """
   Time to read the note
@@ -418,12 +418,17 @@ input NoteInput {
   """
   List of tags
   """
-  tags: [String!]
+  tags: [TagNestedInput!]
 
   """
   Time to read the note
   """
   timeToRead: ISO8601DateTime
+}
+
+enum NoteOrder {
+  RATING
+  RECENT
 }
 
 """
@@ -485,6 +490,17 @@ type Query {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    search by name
+    """
+    name: String
+    order: NoteOrder = RECENT
+
+    """
+    get only read notes/unread.
+    """
+    read: Boolean
   ): NoteConnection!
 
   """
@@ -515,6 +531,11 @@ type Query {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    search by name with start_with
+    """
+    startWith: String
   ): TagConnection!
 
   """
@@ -673,6 +694,21 @@ input TagInput {
   Tag name
   """
   name: String!
+}
+
+"""
+Properties for creating a Nested Tag
+"""
+input TagNestedInput {
+  """
+  Tag name
+  """
+  name: String!
+
+  """
+  Tag id
+  """
+  tagId: ID
 }
 
 type User implements ActiveRecord {

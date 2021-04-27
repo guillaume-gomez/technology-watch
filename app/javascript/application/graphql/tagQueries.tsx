@@ -28,6 +28,18 @@ export const GetTags = gql`
   }
 ${TagFragment.fragments.tag}`;
 
+export const GetTagsStartWith = gql`
+  query getTagsStartWith($first: Int, $startWith: String) {
+    getTags(first: $first, startWith: $startWith) {
+      edges {
+        node {
+          ...TagFragment
+        }
+      }
+    }
+  }
+${TagFragment.fragments.tag}`;
+
 export const BulkUpdateTags = gql`
   mutation bulkUpdateTags($tags: [TagBulkType!]! ) {
     bulkUpdateTags(input: { tags: $tags }) {

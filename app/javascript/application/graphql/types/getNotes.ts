@@ -7,6 +7,32 @@
 // GraphQL query operation: getNotes
 // ====================================================
 
+export interface getNotes_getNotes_edges_node_tags_edges_node {
+  __typename: "Tag";
+  /**
+   * ID from ActiveRecord
+   */
+  id: string;
+  name: string;
+  color: string;
+}
+
+export interface getNotes_getNotes_edges_node_tags_edges {
+  __typename: "TagEdge";
+  /**
+   * The item at the end of the edge.
+   */
+  node: getNotes_getNotes_edges_node_tags_edges_node | null;
+}
+
+export interface getNotes_getNotes_edges_node_tags {
+  __typename: "TagConnection";
+  /**
+   * A list of edges.
+   */
+  edges: getNotes_getNotes_edges_node_tags_edges[];
+}
+
 export interface getNotes_getNotes_edges_node {
   __typename: "Note";
   /**
@@ -19,6 +45,7 @@ export interface getNotes_getNotes_edges_node {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
+  tags: getNotes_getNotes_edges_node_tags;
 }
 
 export interface getNotes_getNotes_edges {

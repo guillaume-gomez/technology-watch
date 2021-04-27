@@ -3,9 +3,37 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TagNestedInput } from "./graphql-global-types";
+
 // ====================================================
 // GraphQL mutation operation: editNote
 // ====================================================
+
+export interface editNote_editNote_tags_edges_node {
+  __typename: "Tag";
+  /**
+   * ID from ActiveRecord
+   */
+  id: string;
+  name: string;
+  color: string;
+}
+
+export interface editNote_editNote_tags_edges {
+  __typename: "TagEdge";
+  /**
+   * The item at the end of the edge.
+   */
+  node: editNote_editNote_tags_edges_node | null;
+}
+
+export interface editNote_editNote_tags {
+  __typename: "TagConnection";
+  /**
+   * A list of edges.
+   */
+  edges: editNote_editNote_tags_edges[];
+}
 
 export interface editNote_editNote {
   __typename: "Note";
@@ -19,6 +47,7 @@ export interface editNote_editNote {
   rating: number | null;
   timeToRead: string | null;
   markAsRead: boolean;
+  tags: editNote_editNote_tags;
 }
 
 export interface editNote {
@@ -34,4 +63,5 @@ export interface editNoteVariables {
   link?: string | null;
   description?: string | null;
   rating?: number | null;
+  tags?: TagNestedInput[] | null;
 }
