@@ -71,6 +71,20 @@ export default function Tags() : ReactElement {
       console.error(errors);
       setNetworkError(errors.toString());
     },
+    update: (cache, { data }) => {
+      const elementsUpdated = data!.bulkUpdateTags;
+      const dataInCache: getTags | null = cache.readQuery({ query: GetTagsQuery, variables: { first: nbItems } });
+      if (!dataInCache) {
+        return;
+      }
+      const newCache = {
+        getTags: {
+          pageInfo: dataInCache.getTags.pageInfo,
+          ...elementsUpdated
+        },
+      };
+      cache.writeQuery({ query: GetTagsQuery, variables: { first: nbItems }, data: newCache });
+    }
   });
 
   function updateTagsFromQuery(tagEdges: getTags_getTags_edges[]) {
