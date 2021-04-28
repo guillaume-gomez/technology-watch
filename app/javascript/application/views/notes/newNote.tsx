@@ -62,6 +62,7 @@ export default function NewNote() : ReactElement {
       link: "",
       description: "",
       rating: 1,
+      tags: []
     },
   );
 

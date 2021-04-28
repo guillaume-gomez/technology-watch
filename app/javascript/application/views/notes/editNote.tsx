@@ -14,7 +14,7 @@ import ServerError from "../../components/serverError";
 import { editNote, editNoteVariables } from "../../graphql/types/editNote";
 import { getNotes } from "../../graphql/types/getNotes";
 
-import { getNote, getNoteVariables } from "../../graphql/types/getNote";
+import { getNote, getNoteVariables, getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
 
 import {
   EditNote as EditNoteQuery,
@@ -36,6 +36,7 @@ export default function EditNote() : ReactElement {
   const { id } = useParams<{id:string}>();
   const [networkError, setNetworkError] = useState<string>("");
   const [loadingNote, setLoadingNote] = useState<boolean>(true);
+  const [initialTags, setInitialTags] = useState<getNote_getNote_tags_edges_node[]>([]);
   const [values, setValues] = React.useState<editNoteVariables>(
     {
       id,
@@ -43,13 +44,17 @@ export default function EditNote() : ReactElement {
       link: "",
       description: "",
       rating: 1,
+      tags: []
     },
   );
 
   useQuery<getNote, getNoteVariables>(GetNoteQuery, {
     variables: { id },
     onCompleted: ({ getNote }) => {
-      setValues({ ...getNote });
+      const { id, name, link, description, rating } = getNote;
+      const tags = getNote.tags.edges.map(({node}) => (node!.id));
+      setValues({ id, name, description, link, rating, tags });
+      setInitialTags(getNote.tags.edges.map(({node}) => node!));
       setLoadingNote(false);
     },
   });
@@ -92,7 +97,7 @@ export default function EditNote() : ReactElement {
       {
         loadingNote
           ? <Spinner />
-          : <NoteForm initialValues={values} mutation={editNoteFunction} />
+          : <NoteForm initialValues={values} initialTags={initialTags} mutation={editNoteFunction} />
       }
     </Box>
   );

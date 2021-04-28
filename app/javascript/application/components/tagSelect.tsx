@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from "react";
+import { getNote_getNote_tags_edges_node } from "../graphql/types/getNote";
 
 import { Box, TextInput } from "grommet";
 
@@ -18,15 +19,30 @@ function renderTags(tags : string[], onRemove: (index: number) => void) {
 
 interface TagSelectProps {
   suggestions: string[];
-  value: string[];
+  values: string[];
+  tags: getNote_getNote_tags_edges_node[];
+  search: string;
+  setSearch: (newSearch: string) => void;
   onRemove: (index: number) => void;
   onSelect: (tag: string) => void;
 }
 
 export default function TagSelect({
-  suggestions = [], value = [], onRemove, onSelect,
+  suggestions = [], values = [], tags = [],onRemove, onSelect, search, setSearch
 } : TagSelectProps) : ReactElement {
-  const [search, setSearch] = useState<string>("");
+
+  function getTagName(tagId: string) : string {
+    const tag = tags.find(tag => tag.id === tagId);
+    if(tag) {
+      return tag.name;
+    }
+    return "";
+  }
+
+  function getTagNames(tagIds: string[]) :string [] {
+    return tagIds.map(tagId => getTagName(tagId));
+  }
+
   return (
     <Box
       wrap
@@ -36,7 +52,7 @@ export default function TagSelect({
       round="xsmall"
       pad="xxsmall"
     >
-      {value.length > 0 && renderTags(value, onRemove)}
+      {values.length > 0 && renderTags(getTagNames(values), onRemove)}
       <Box
         alignSelf="stretch"
         align="start"

@@ -6,8 +6,12 @@ import {
   Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput,
 } from "grommet";
 
+import TagSelectRemote from  "../../components/tagSelectRemote";
+
+
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
+import { getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import { required, urlValidation } from "../../components/helpers/validationsHelpers";
@@ -18,22 +22,14 @@ import {
 
 interface NoteFormProps {
  initialValues: createNoteVariables | editNoteVariables;
+ initialTags?: getNote_getNote_tags_edges_node[];
  mutation: Function;
 }
 
-const Tags = ["test", "test2", "test3"]
-
-export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
+export default function NoteForm({ initialValues, initialTags = [], mutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
-  const [allTags, setAllTags] = useState<string[]>([]);
-  function onCompletedCallback(data : currentUserHeader) {
-    // if(data && data.currentUser && data.currentUser && data.currentUser.tags) {
-    // setAllTags(data.currentUser.tags);
-    // }
-    setAllTags(["Box", "Box2", "Box3", "Box4", "Box5"]);
-  }
 
   function onRemoveTag(index: number) {
     // const newTags = values.tags ? [...values.tags] : [];
@@ -64,6 +60,14 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
         <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
         <Text>{values.rating}</Text>
+      </FormField>
+      <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
+        <TagSelectRemote
+          tags={initialTags}
+          values={values.tags!}
+          onSelect={onSelectTag}
+          onRemove={onRemoveTag}
+        />
       </FormField>
       <Box direction="row" justify="end" gap="medium">
         <Button primary label={t("new-note.back")} onClick={() => history.push(notePath)} />
