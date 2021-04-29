@@ -20,16 +20,19 @@ import {
   notePath,
 } from "../../routesPath";
 
+export type initialValuesTypes = Omit<createNoteVariables | editNoteVariables, "tags">
+& { tags: getNote_getNote_tags_edges_node[] };
+
+
 interface NoteFormProps {
- initialValues: createNoteVariables | editNoteVariables;
- initialTags?: getNote_getNote_tags_edges_node[];
+ initialValues: initialValuesTypes;
  mutation: Function;
 }
 
-export default function NoteForm({ initialValues, initialTags = [], mutation }: NoteFormProps) : ReactElement {
+export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
-  const [values, setValues] = React.useState<createNoteVariables|editNoteVariables>(initialValues);
+  const [values, setValues] = React.useState<initialValuesTypes>(initialValues);
 
   function onRemoveTag(index: number) {
     // const newTags = values.tags ? [...values.tags] : [];
@@ -63,7 +66,6 @@ export default function NoteForm({ initialValues, initialTags = [], mutation }: 
       </FormField>
       <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
         <TagSelectRemote
-          tags={initialTags}
           values={values.tags!}
           onSelect={onSelectTag}
           onRemove={onRemoveTag}

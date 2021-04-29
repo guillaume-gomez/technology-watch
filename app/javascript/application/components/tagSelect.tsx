@@ -5,12 +5,12 @@ import { Box, TextInput } from "grommet";
 
 import Tag from "./tag";
 
-function renderTags(tags : string[], onRemove: (index: number) => void) {
+function renderTags(tags : getNote_getNote_tags_edges_node[], onRemove: (index: number) => void) {
   return (
     <Box align="center" direction="row" wrap pad={{ left: "xsmall" }}>
       {tags.map((tag, index) => (
-        <Tag key={tag} onRemove={() => onRemove(index)}>
-          {tag}
+        <Tag key={tag.id} onRemove={() => onRemove(index)}>
+          {tag.name}
         </Tag>
       ))}
     </Box>
@@ -19,8 +19,7 @@ function renderTags(tags : string[], onRemove: (index: number) => void) {
 
 interface TagSelectProps {
   suggestions: string[];
-  values: string[];
-  tags: getNote_getNote_tags_edges_node[];
+  values: getNote_getNote_tags_edges_node[];
   search: string;
   setSearch: (newSearch: string) => void;
   onRemove: (index: number) => void;
@@ -28,20 +27,8 @@ interface TagSelectProps {
 }
 
 export default function TagSelect({
-  suggestions = [], values = [], tags = [],onRemove, onSelect, search, setSearch
+  suggestions = [], values = [], onRemove, onSelect, search, setSearch
 } : TagSelectProps) : ReactElement {
-
-  function getTagName(tagId: string) : string {
-    const tag = tags.find(tag => tag.id === tagId);
-    if(tag) {
-      return tag.name;
-    }
-    return "";
-  }
-
-  function getTagNames(tagIds: string[]) :string [] {
-    return tagIds.map(tagId => getTagName(tagId));
-  }
 
   return (
     <Box
@@ -52,7 +39,7 @@ export default function TagSelect({
       round="xsmall"
       pad="xxsmall"
     >
-      {values.length > 0 && renderTags(getTagNames(values), onRemove)}
+      {values.length > 0 && renderTags(values, onRemove)}
       <Box
         alignSelf="stretch"
         align="start"

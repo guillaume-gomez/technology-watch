@@ -11,7 +11,7 @@ import ServerError from "../../components/serverError";
 
 import CurrentUser from "../../components/customHooks/currentUser";
 
-import NoteForm from "./noteForm";
+import NoteForm, {initialValuesTypes } from "./noteForm";
 
 import { createNote, createNoteVariables } from "../../graphql/types/createNote";
 import { getNotes } from "../../graphql/types/getNotes";
@@ -56,7 +56,7 @@ export default function NewNote() : ReactElement {
     },
   });
 
-  const [values, setValues] = React.useState<createNoteVariables>(
+  const [values, setValues] = React.useState<initialValuesTypes>(
     {
       name: "",
       link: "",

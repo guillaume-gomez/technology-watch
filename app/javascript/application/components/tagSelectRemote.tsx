@@ -7,13 +7,12 @@ import { getTagsStartWith, getTagsStartWithVariables } from "../graphql/types/ge
 import { GetTagsStartWith as GetTagsStartWithQuery } from "../graphql/tagQueries";
 
 interface TagSelectRemoteProps {
-  values: string[];
-  tags: getNote_getNote_tags_edges_node[];
+  values: getNote_getNote_tags_edges_node[];
   onRemove: (index: number) => void;
   onSelect: (tag: string) => void;
 }
 
-export default function TagSelectRemote({values = [], tags = [], onRemove, onSelect } : TagSelectRemoteProps) : ReactElement {
+export default function TagSelectRemote({values = [], onRemove, onSelect } : TagSelectRemoteProps) : ReactElement {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [getTagsSuggestions, { data }] = useLazyQuery<getTagsStartWith, getTagsStartWithVariables>(GetTagsStartWithQuery);
   const [search, setSearch] = useState<string>("");
@@ -34,7 +33,6 @@ export default function TagSelectRemote({values = [], tags = [], onRemove, onSel
 
   return <TagSelect
     values={values}
-    tags={tags}
     search={search}
     setSearch={setSearch}
     onRemove={onRemove}

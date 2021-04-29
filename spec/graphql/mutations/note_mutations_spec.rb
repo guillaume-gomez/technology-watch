@@ -30,6 +30,13 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
       end
       it { expect{subject}.not_to change { Note.count } }
     end
+
+    context "when add some tags in tags creation" do
+      let(:params) do
+        { name: "My first note", tags: [{ name: "C++"}] }
+      end
+      it { expect{subject}.to change { NoteTag.count }.by(1) }
+    end
   end
 
   describe "resolve editNote" do
@@ -89,6 +96,4 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
       it { expect{subject}.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
-
-
 end

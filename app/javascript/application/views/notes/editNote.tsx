@@ -26,7 +26,7 @@ import {
   notePath,
 } from "../../routesPath";
 
-import NoteForm from "./noteForm";
+import NoteForm, { initialValuesTypes } from "./noteForm";
 
 import { nbItems } from "./noteConstants";
 
@@ -36,8 +36,7 @@ export default function EditNote() : ReactElement {
   const { id } = useParams<{id:string}>();
   const [networkError, setNetworkError] = useState<string>("");
   const [loadingNote, setLoadingNote] = useState<boolean>(true);
-  const [initialTags, setInitialTags] = useState<getNote_getNote_tags_edges_node[]>([]);
-  const [values, setValues] = React.useState<editNoteVariables>(
+  const [values, setValues] = React.useState<initialValuesTypes & {id: string}>(
     {
       id,
       name: "",
@@ -51,10 +50,9 @@ export default function EditNote() : ReactElement {
   useQuery<getNote, getNoteVariables>(GetNoteQuery, {
     variables: { id },
     onCompleted: ({ getNote }) => {
-      const { id, name, link, description, rating } = getNote;
-      const tags = getNote.tags.edges.map(({node}) => (node!.id));
+      const { id, name, link, description, rating,  } = getNote;
+      const tags = getNote.tags.edges.map(({node}) => (node!));
       setValues({ id, name, description, link, rating, tags });
-      setInitialTags(getNote.tags.edges.map(({node}) => node!));
       setLoadingNote(false);
     },
   });
@@ -92,12 +90,12 @@ export default function EditNote() : ReactElement {
 
   return (
     <Box>
-      <Heading level="3">{t("new-note.title")}</Heading>
+      <Heading level="3">{t("notes.edit-note")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       {
         loadingNote
           ? <Spinner />
-          : <NoteForm initialValues={values} initialTags={initialTags} mutation={editNoteFunction} />
+          : <NoteForm initialValues={values} mutation={editNoteFunction} />
       }
     </Box>
   );
