@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { getNote_getNote_tags_edges_node } from "../graphql/types/getNote";
+import { getTagsStartWith_getTags_edges_node } from "../graphql/types/getTagsStartWith";
 
 import { Box, TextInput } from "grommet";
 
@@ -18,12 +19,12 @@ function renderTags(tags : getNote_getNote_tags_edges_node[], onRemove: (index: 
 }
 
 interface TagSelectProps {
-  suggestions: string[];
+  suggestions: getTagsStartWith_getTags_edges_node[];
   values: getNote_getNote_tags_edges_node[];
   search: string;
   setSearch: (newSearch: string) => void;
   onRemove: (index: number) => void;
-  onSelect: (tag: string) => void;
+  onSelect: (tag: getTagsStartWith_getTags_edges_node) => void;
 }
 
 export default function TagSelect({
@@ -54,11 +55,14 @@ export default function TagSelect({
           onChange={(e) => setSearch(e.target.value)}
           onSelect={({ suggestion }) => {
             setSearch("");
-            onSelect(suggestion);
+            const newTag = suggestions.find(s => s.name === suggestion);
+            if(newTag) {
+              onSelect(newTag);
+            }
           }}
           suggestions={suggestions.filter(
-            (suggestion) => suggestion.toLowerCase().indexOf(search.toLowerCase()) >= 0,
-          )}
+            (suggestion) => suggestion.name.toLowerCase().indexOf(search.toLowerCase()) >= 0,
+          ).map(result => result.name)}
         />
       </Box>
     </Box>

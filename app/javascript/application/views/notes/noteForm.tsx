@@ -12,6 +12,7 @@ import TagSelectRemote from  "../../components/tagSelectRemote";
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
 import { getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
+import { getTagsStartWith_getTags_edges_node } from "../../graphql/types/getTagsStartWith";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import { required, urlValidation } from "../../components/helpers/validationsHelpers";
@@ -35,21 +36,27 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
   const [values, setValues] = React.useState<initialValuesTypes>(initialValues);
 
   function onRemoveTag(index: number) {
-    // const newTags = values.tags ? [...values.tags] : [];
-    // newTags.splice(index, 1);
-    // setValues({...values, tags: newTags});
+    const newTags = values.tags ? [...values.tags] : [];
+    newTags.splice(index, 1);
+    setValues({...values, tags: newTags});
   };
 
-  function onSelectTag(tag : string)  {
-    // const oldTags = values.tags ? values.tags : [];
-    // setValues({...values, tags: [...oldTags, tag] });
+  function onSelectTag(newTag : getTagsStartWith_getTags_edges_node)  {
+    const oldTags = values.tags ? values.tags : [];
+    setValues({...values, tags: [...oldTags, newTag] });
   };
+
+  function callMutation(value: initialValuesTypes) {
+
+    const sanitizedTags = values.tags.map(tag => tag.id);
+    mutation({variables: { ...value, tags: sanitizedTags } })
+  }
 
   return (
     <Form
       value={values}
       onChange={(nextValues) => setValues(nextValues)}
-      onSubmit={({ value }) => mutation({ variables: value })}
+      onSubmit={({ value }) => callMutation(value)}
     >
       <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
         <TextInput id="name" name="name" />
@@ -66,7 +73,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       </FormField>
       <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
         <TagSelectRemote
-          values={values.tags!}
+          values={values.tags}
           onSelect={onSelectTag}
           onRemove={onRemoveTag}
         />
