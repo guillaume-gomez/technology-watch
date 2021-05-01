@@ -193,7 +193,7 @@ export default function Tags() : ReactElement {
   }
 
   return (
-    <Box>
+    <Box gap="small">
       <Heading level="3">{t("tags.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Link to={addTagsPath}>
