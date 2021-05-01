@@ -4,6 +4,7 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
   include_context 'with graphql query request'
   let!(:current_user) { create(:user) }
   let(:variables) { {input: params } }
+  let(:tags) { create_list(:tag, 5, user: current_user)}
   subject{ execute_graphql }
 
   describe "resolve createNote" do
@@ -33,9 +34,9 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
 
     context "when add some tags in tags creation" do
       let(:params) do
-        { name: "My first note", tags: [{ name: "C++"}] }
+        { name: "My first note", link: 'http://easywin.com', tags: [tags.first.id, tags.second.id] }
       end
-      it { expect{subject}.to change { NoteTag.count }.by(1) }
+      it { expect{subject}.to change { NoteTag.count }.by(2) }
     end
   end
 
@@ -65,6 +66,17 @@ RSpec.describe Mutations::NoteMutations, type: :graphql do
         { id: note.id.to_s, description: "My first note" }
       end
       it { expect{subject}.not_to change { note.reload.description } }
+    end
+
+     context "when remove some tags in tags creation" do
+      let!(:note_tags) do
+        NoteTag.create(note: note, tag: tags.first)
+        NoteTag.create(note: note, tag: tags.second)
+      end
+      let(:params) do
+        { id: note.id.to_s, tags: [tags.second.id] }
+      end
+      it { expect{subject}.to change { NoteTag.count }.by(-1) }
     end
   end
 

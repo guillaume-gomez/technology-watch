@@ -74,9 +74,20 @@ module Mutations
       argument :note, NoteInputType, required: true
 
       def resolve(note:)
-        record = Note.new(note.to_h)
+        _note = note.to_h
+        _tag_ids_params = _note.delete(:tags)
+
+        record = Note.new(_note.to_h)
         record.user = context[:current_resource]
         record.save!
+
+        if _tag_ids_params.present?
+          _tag_ids_params.each do |tag_id|
+            note_tag = NoteTag.new(tag_id: tag_id, note_id: record.id)
+            note_tag.save!
+          end
+        end
+
         record
       end
     end
@@ -88,11 +99,24 @@ module Mutations
       argument :note, NoteEditType, required: true
 
       def resolve(note:)
-        record = Note.find(note[:id])
+        _note = note.to_h
+        _tag_ids_params = _note.delete(:tags)
+
+        record = Note.find(_note[:id])
         if record.user_id == context[:current_resource].id
-          record.assign_attributes(note.to_h)
+          record.assign_attributes(_note.to_h)
           record.save!
         end
+
+        if _tag_ids_params.present?
+          note_tag_ids_to_destroyed = record.tags.pluck(:id) - _tag_ids_params.map(&:to_i)
+          NoteTag.where(tag_id: note_tag_ids_to_destroyed).destroy_all
+          _tag_ids_params.each do |tag_id|
+            note_tag = NoteTag.find_or_create_by(tag_id: tag_id, note_id: record.id)
+            note_tag.save!
+          end
+        end
+
         record
       end
     end
