@@ -40,12 +40,7 @@ export default function Notes() : ReactElement {
         <InfiniteScroll step={nbItems} items={data.getNotes.edges} onMore={getMore}>
           {
             (item: getNotes_getNotes_edges) => (
-              <Box
-                key={item.node!.id}
-                flex={false}
-              >
-                <NoteCard note={item.node!} />
-              </Box>
+            <NoteCard key={item.node!.id} note={item.node!} />
             )
           }
         </InfiniteScroll>
