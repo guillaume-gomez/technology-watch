@@ -7,12 +7,13 @@ import { FormClose } from "grommet-icons";
 interface TagProps {
   onRemove?: () => void;
   children: ReactNode;
+  color?: string;
 }
 
-function renderTag(children : ReactNode, onRemove?: () => void) {
+function renderTag(children : ReactNode, onRemove?: () => void, color: string = "brand") {
   return (
     <Box
-      background="brand"
+      background={color}
       direction="row"
       align="center"
       round="xsmall"
@@ -30,12 +31,12 @@ function renderTag(children : ReactNode, onRemove?: () => void) {
   );
 }
 
-function Tag({ children, onRemove } :TagProps) : ReactElement {
+function Tag({ children, onRemove, color = "brand" } :TagProps) : ReactElement {
   return (
     onRemove ? (
-      <Button onClick={onRemove}>{renderTag(children, onRemove)}</Button>
+      <Button onClick={onRemove}>{renderTag(children, onRemove, color)}</Button>
     ) : (
-      renderTag(children, onRemove)
+      renderTag(children, onRemove, color)
     )
   );
 }

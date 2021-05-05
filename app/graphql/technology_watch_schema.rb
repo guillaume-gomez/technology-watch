@@ -27,16 +27,16 @@ class TechnologyWatchSchema < GraphQL::Schema
     # Here's a simple implementation which:
     # - joins the type name & object.id
     # - encodes it with base64:
-    # GraphQL::Schema::UniqueWithinType.encode(type_definition.name, object.id)
+    GraphQL::Schema::UniqueWithinType.encode(type_definition.name, object.id)
   end
 
   # Given a string UUID, find the object
   def self.object_from_id(id, query_ctx)
     # For example, to decode the UUIDs generated above:
-    # type_name, item_id = GraphQL::Schema::UniqueWithinType.decode(id)
-    #
-    # Then, based on `type_name` and `id`
-    # find an object in your application
-    # ...
+    return unless node_id.present?
+
+    record_class_name, record_id = GraphQL::Schema::UniqueWithinType.decode(node_id)
+    record_class = record_class_name.safe_constantize
+    record_class&.find_by id: record_id
   end
 end

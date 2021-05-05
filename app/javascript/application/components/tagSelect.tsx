@@ -10,7 +10,7 @@ function renderTags(tags : getNote_getNote_tags_edges_node[], onRemove: (index: 
   return (
     <Box align="center" direction="row" wrap pad={{ left: "xsmall" }}>
       {tags.map((tag, index) => (
-        <Tag key={tag.id} onRemove={() => onRemove(index)}>
+        <Tag key={tag.id} onRemove={() => onRemove(index)} color={tag.color}>
           {tag.name}
         </Tag>
       ))}

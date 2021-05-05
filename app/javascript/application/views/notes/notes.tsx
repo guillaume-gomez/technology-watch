@@ -1,13 +1,14 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, InfiniteScroll, Button,
+  Box, Heading, Spinner, Text, InfiniteScroll, Button, Select
 } from "grommet";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
+//import { NoteOrder } from "../../graphql/types/graphql-global-types";
 
 import NoteCard from "../../components/NoteCard";
 
@@ -24,9 +25,14 @@ interface FetchMoreResultQuery {
 
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
+  //const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
   const {
-    loading, data, fetchMore,
+    loading, data, fetchMore, refetch
   } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems } });
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [order]);
 
   function displayNotes() {
     if (loading) {
@@ -50,26 +56,28 @@ export default function Notes() : ReactElement {
   }
 
   function getMore() {
+    // console.log("getMore")
     if (!data || !data.getNotes.pageInfo.hasNextPage) {
       return;
     }
     fetchMore({
       variables: {
-        cursor: data.getNotes.pageInfo.endCursor,
+        first: nbItems,
+        after: data.getNotes.pageInfo.endCursor,
       },
-      updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
-        if (!fetchMoreResult) {
-          return previousResult;
-        }
-        const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
-        return {
-          getNotes: {
-            pageInfo,
-            __typename,
-            edges: [...previousResult.getNotes.edges, ...newEdges],
-          },
-        };
-      },
+      // updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
+      //   if (!fetchMoreResult) {
+      //     return previousResult;
+      //   }
+      //   const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
+      //   return {
+      //     notes: {
+      //       pageInfo,
+      //       __typename,
+      //       edges: [...previousResult.notes.edges, ...newEdges],
+      //     },
+      //   };
+      // },
     });
   }
 
@@ -79,6 +87,11 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
+     {/* {<Select
+      options={[NoteOrder.RECENT, NoteOrder.RATING]}
+      value={order}
+      onChange={({ option }) => setOrder(option)}
+    />}*/}
     
       <Box overflow="auto">
         {displayNotes()}

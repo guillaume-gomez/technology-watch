@@ -4,7 +4,7 @@ import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider, ApolloClient, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-
+import { relayStylePagination } from "@apollo/client/utilities";
 import { getToken, getUID, getClient } from "../application/authentication";
 import "../application/i18n";
 
@@ -34,7 +34,16 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  queryType: true,
+  typePolicies: {
+    Query: {
+      fields: {
+        getNotes: relayStylePagination(),
+      }
+    }
+  }
+});
 
 const client = new ApolloClient({
   uri: "/graphql",
@@ -47,9 +56,11 @@ const client = new ApolloClient({
     uid: getUID(),
     client: getClient(),
   },
+  connectToDevTools: true
 });
 
 function App() {
+  debugger
   return (
     <ApolloProvider client={client}>
       <Router />

@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { NoteOrder } from "./graphql-global-types";
-
 // ====================================================
 // GraphQL query operation: getNotes
 // ====================================================
@@ -53,6 +51,10 @@ export interface getNotes_getNotes_edges_node {
 export interface getNotes_getNotes_edges {
   __typename: "NoteEdge";
   /**
+   * A cursor for use in pagination.
+   */
+  cursor: string;
+  /**
    * The item at the end of the edge.
    */
   node: getNotes_getNotes_edges_node | null;
@@ -91,6 +93,5 @@ export interface getNotes {
 
 export interface getNotesVariables {
   first?: number | null;
-  cursor?: string | null;
-  order?: NoteOrder | null;
+  after?: string | null;
 }
