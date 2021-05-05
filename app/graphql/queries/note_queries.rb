@@ -18,6 +18,7 @@ module Queries
 
       value 'RECENT'
       value 'RATING'
+      value 'MARK_AS_READ'
     end
 
     class GetNotes < GraphQL::Schema::Resolver
@@ -37,6 +38,10 @@ module Queries
 
       def apply_order_with_rating(scope)
         scope.order('rating DESC')
+      end
+
+      def apply_order_with_mark_as_read(scope)
+        scope.order('mark_as_read DESC')
       end
 
 
