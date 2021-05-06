@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { NoteOrder } from "./graphql-global-types";
+
 // ====================================================
 // GraphQL query operation: getNotes
 // ====================================================
@@ -94,4 +96,5 @@ export interface getNotes {
 export interface getNotesVariables {
   first?: number | null;
   after?: string | null;
+  order?: NoteOrder | null;
 }

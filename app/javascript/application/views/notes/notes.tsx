@@ -8,7 +8,7 @@ import {
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
-//import { NoteOrder } from "../../graphql/types/graphql-global-types";
+import { NoteOrder } from "../../graphql/types/graphql-global-types";
 
 import NoteCard from "../../components/NoteCard";
 
@@ -25,14 +25,14 @@ interface FetchMoreResultQuery {
 
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
-  //const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
+  const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
   const {
     loading, data, fetchMore, refetch
-  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems } });
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems} });
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [order]);
+  useEffect(() => {
+    refetch();
+  }, [order]);
 
   function displayNotes() {
     if (loading) {
@@ -63,21 +63,21 @@ export default function Notes() : ReactElement {
     fetchMore({
       variables: {
         first: nbItems,
-        after: data.getNotes.pageInfo.endCursor,
+        after: data.getNotes.pageInfo.endCursor
       },
-      // updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
-      //   if (!fetchMoreResult) {
-      //     return previousResult;
-      //   }
-      //   const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
-      //   return {
-      //     notes: {
-      //       pageInfo,
-      //       __typename,
-      //       edges: [...previousResult.notes.edges, ...newEdges],
-      //     },
-      //   };
-      // },
+      updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
+        if (!fetchMoreResult) {
+          return previousResult;
+        }
+        const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
+        return {
+          getNotes: {
+            pageInfo,
+            __typename,
+            edges: [...previousResult.getNotes.edges, ...newEdges],
+          },
+        };
+      },
     });
   }
 
@@ -87,11 +87,11 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-     {/* {<Select
+     {<Select
       options={[NoteOrder.RECENT, NoteOrder.RATING]}
       value={order}
       onChange={({ option }) => setOrder(option)}
-    />}*/}
+    />}
     
       <Box overflow="auto">
         {displayNotes()}

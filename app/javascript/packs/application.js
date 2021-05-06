@@ -45,8 +45,8 @@ const cache = new InMemoryCache({
   }
 });
 
+
 const client = new ApolloClient({
-  uri: "/graphql",
   link: authLink.concat(httpLink),
   cache,
   headers: {
@@ -56,11 +56,9 @@ const client = new ApolloClient({
     uid: getUID(),
     client: getClient(),
   },
-  connectToDevTools: true
 });
 
 function App() {
-  debugger
   return (
     <ApolloProvider client={client}>
       <Router />

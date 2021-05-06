@@ -26,8 +26,8 @@ export const NoteFragment = {
 };
 
 export const GetNotes = gql`
-  query getNotes($first: Int, $after: String) {
-    getNotes(first: $first, after: $after) {
+  query getNotes($first: Int = 20, $after: String = "", $order: NoteOrder) {
+    getNotes(first: $first, after: $after, order: $order) {
       edges {
         cursor
         node {

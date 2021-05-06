@@ -7,6 +7,12 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum NoteOrder {
+  MARK_AS_READ = "MARK_AS_READ",
+  RATING = "RATING",
+  RECENT = "RECENT",
+}
+
 /**
  * Properties for add, edit and destroy Tags
  */
