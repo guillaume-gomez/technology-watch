@@ -24,7 +24,7 @@ interface NoteCardProps {
 export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const history = useHistory();
   return (
-    <Card height="big" width="big" background="light-1">
+    <Card height="big" width="big" background="light-1" flex={false}>
       <CardHeader pad="medium">{note.name}</CardHeader>
       <CardBody pad="medium">{note.description}</CardBody>
       <CardFooter pad={{ horizontal: "small" }} background="light-2">
