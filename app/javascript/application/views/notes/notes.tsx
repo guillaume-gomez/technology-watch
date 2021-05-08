@@ -87,11 +87,11 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-     {<Select
+   {/*  {<Select
       options={[NoteOrder.RECENT, NoteOrder.RATING]}
       value={order}
       onChange={({ option }) => setOrder(option)}
-    />}
+    />}*/}
     
       <Box overflow="auto">
         {displayNotes()}
