@@ -53,6 +53,10 @@ export interface getNotes_getNotes_edges_node {
 export interface getNotes_getNotes_edges {
   __typename: "NoteEdge";
   /**
+   * A cursor for use in pagination.
+   */
+  cursor: string;
+  /**
    * The item at the end of the edge.
    */
   node: getNotes_getNotes_edges_node | null;
@@ -91,6 +95,6 @@ export interface getNotes {
 
 export interface getNotesVariables {
   first?: number | null;
-  cursor?: string | null;
+  after?: string | null;
   order?: NoteOrder | null;
 }
