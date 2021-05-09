@@ -6,7 +6,7 @@ module Types
     field :user, Types::UserType, null: false
     field :description, String, null: true
     field :rating, Integer, null: true
-    field :time_to_read, String, null: true
+    field :time_to_read_in_minutes, Integer, null: true
     field :mark_as_read, Boolean, null: false
     field :tags, Types::TagType.connection_type, null: false
   end

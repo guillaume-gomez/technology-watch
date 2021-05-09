@@ -301,7 +301,7 @@ type Note implements ActiveRecord {
     """
     last: Int
   ): TagConnection!
-  timeToRead: String
+  timeToReadInMinutes: Int
 
   """
   update_at field from ActiveRecord
@@ -386,9 +386,9 @@ input NoteEditType {
   tags: [ID!]
 
   """
-  Time to read the note
+  Time to read the note in integer
   """
-  timeToRead: ISO8601DateTime
+  timeToReadInMinutes: Int
 }
 
 """
@@ -421,9 +421,9 @@ input NoteInput {
   tags: [ID!]
 
   """
-  Time to read the note
+  Time to read the note in minutes
   """
-  timeToRead: ISO8601DateTime
+  timeToReadInMinutes: Int
 }
 
 enum NoteOrder {

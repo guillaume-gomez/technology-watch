@@ -25,8 +25,8 @@ module Mutations
         description 'List of tag ids'
       end
 
-      argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
-        description 'Time to read the note'
+      argument :time_to_read_in_minutes, Integer, required: false do
+        description 'Time to read the note in minutes'
       end
     end
 
@@ -58,8 +58,8 @@ module Mutations
         description 'List of tag ids'
       end
 
-      argument :time_to_read, GraphQL::Types::ISO8601DateTime, required: false do
-        description 'Time to read the note'
+      argument :time_to_read_in_minutes, Integer, required: false do
+        description 'Time to read the note in integer'
       end
 
       argument :mark_as_read, Boolean, required: false do

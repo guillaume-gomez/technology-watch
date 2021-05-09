@@ -1602,14 +1602,14 @@
               "deprecationReason": null
             },
             {
-              "name": "timeToRead",
+              "name": "timeToReadInMinutes",
               "description": null,
               "args": [
 
               ],
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "Int",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1900,11 +1900,11 @@
               "deprecationReason": null
             },
             {
-              "name": "timeToRead",
-              "description": "Time to read the note",
+              "name": "timeToReadInMinutes",
+              "description": "Time to read the note in integer",
               "type": {
                 "kind": "SCALAR",
-                "name": "ISO8601DateTime",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null,
@@ -2011,11 +2011,11 @@
               "deprecationReason": null
             },
             {
-              "name": "timeToRead",
-              "description": "Time to read the note",
+              "name": "timeToReadInMinutes",
+              "description": "Time to read the note in minutes",
               "type": {
                 "kind": "SCALAR",
-                "name": "ISO8601DateTime",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null,
