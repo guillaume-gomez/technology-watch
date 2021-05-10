@@ -43,7 +43,7 @@ export interface NoteFragment {
   link: string;
   name: string;
   rating: number | null;
-  timeToRead: string | null;
+  timeToReadInMinutes: number | null;
   markAsRead: boolean;
   tags: NoteFragment_tags;
 }

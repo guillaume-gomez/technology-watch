@@ -71,6 +71,9 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
         <Text>{values.rating}</Text>
       </FormField>
+      <FormField name="timeToReadInMinutes" htmlFor="timeToReadInMinutes" label={t("new-note.time-to-read-in-minutes")}>
+        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes || 1} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })}/>
+      </FormField>
       <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
         <TagSelectRemote
           values={values.tags}

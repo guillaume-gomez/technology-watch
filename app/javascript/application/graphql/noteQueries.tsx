@@ -9,7 +9,7 @@ export const NoteFragment = {
         link
         name
         rating
-        timeToRead
+        timeToReadInMinutes
         markAsRead
         tags {
           edges {
@@ -51,13 +51,14 @@ export const GetNote = gql`
 ${NoteFragment.fragments.note}`;
 
 export const CreateNote = gql`
-  mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [ID!]) {
+  mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
     createNote(input: { note: {
       name: $name,
       link: $link,
       description: $description,
       rating: $rating,
       tags: $tags
+      timeToReadInMinutes: $timeToReadInMinutes
     }}) {
       ...NoteFragment
     }
@@ -82,13 +83,14 @@ export const MarkAsRead = gql`
 `;
 
 export const EditNote = gql`
-  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [ID!]) {
+  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
     editNote(input: { note: {
       id: $id,
       name: $name,
       link: $link,
       description: $description,
       rating: $rating,
+      timeToReadInMinutes: $timeToReadInMinutes,
       tags: $tags
     }}) {
       ...NoteFragment

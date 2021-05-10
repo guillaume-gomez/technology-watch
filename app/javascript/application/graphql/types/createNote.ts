@@ -43,7 +43,7 @@ export interface createNote_createNote {
   link: string;
   name: string;
   rating: number | null;
-  timeToRead: string | null;
+  timeToReadInMinutes: number | null;
   markAsRead: boolean;
   tags: createNote_createNote_tags;
 }
@@ -61,4 +61,5 @@ export interface createNoteVariables {
   description?: string | null;
   rating?: number | null;
   tags?: string[] | null;
+  timeToReadInMinutes?: number | null;
 }
