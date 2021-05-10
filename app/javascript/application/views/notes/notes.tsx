@@ -28,7 +28,7 @@ export default function Notes() : ReactElement {
   const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
   const {
     loading, data, fetchMore, refetch
-  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems} });
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems, order: order } });
 
   useEffect(() => {
     refetch();
@@ -42,6 +42,7 @@ export default function Notes() : ReactElement {
       if (data.getNotes.edges.length === 0) {
         return <Text>{t("notes.no-notes")}</Text>;
       }
+
       return (
         <InfiniteScroll step={nbItems} items={data.getNotes.edges} onMore={getMore}>
           {
@@ -52,11 +53,11 @@ export default function Notes() : ReactElement {
         </InfiniteScroll>
       );
     }
+
     return <></>;
   }
 
   function getMore() {
-    // console.log("getMore")
     if (!data || !data.getNotes.pageInfo.hasNextPage) {
       return;
     }
@@ -64,19 +65,6 @@ export default function Notes() : ReactElement {
       variables: {
         first: nbItems,
         after: data.getNotes.pageInfo.endCursor
-      },
-      updateQuery: (previousResult : getNotes, { fetchMoreResult }: FetchMoreResultQuery) => {
-        if (!fetchMoreResult) {
-          return previousResult;
-        }
-        const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getNotes;
-        return {
-          getNotes: {
-            pageInfo,
-            __typename,
-            edges: [...previousResult.getNotes.edges, ...newEdges],
-          },
-        };
       },
     });
   }
@@ -87,11 +75,12 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-   {/*  {<Select
+      <Button onClick={getMore} label={"Click"} />
+     <Select
       options={[NoteOrder.RECENT, NoteOrder.RATING]}
       value={order}
       onChange={({ option }) => setOrder(option)}
-    />}*/}
+    />
     
       <Box overflow="auto">
         {displayNotes()}
