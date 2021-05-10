@@ -9,7 +9,6 @@ export const NoteFragment = {
         link
         name
         rating
-        timeToRead
         markAsRead
         tags {
           edges {
