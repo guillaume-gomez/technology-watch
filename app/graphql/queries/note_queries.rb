@@ -18,6 +18,7 @@ module Queries
 
       value 'RECENT'
       value 'RATING'
+      value 'TIMES_TO_READ'
       value 'MARK_AS_READ'
     end
 
@@ -44,7 +45,9 @@ module Queries
         scope.order('mark_as_read DESC')
       end
 
-
+      def apply_order_with_times_to_read(scope)
+        scope.order('time_to_read_in_minutes DESC')
+      end
 
       option(:name, type: String, description: "search by name") do |scope, value|
         sanitized_value = ActiveRecord::Base.sanitize_sql_like(value)
