@@ -430,6 +430,7 @@ enum NoteOrder {
   MARK_AS_READ
   RATING
   RECENT
+  TIMES_TO_READ
 }
 
 """

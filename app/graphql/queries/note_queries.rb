@@ -54,11 +54,6 @@ module Queries
         scope.where("notes.name ILIKE ?", "%#{sanitized_value}%")
       end
       option(:read, type: Boolean, description: "get only read notes/unread.") { |scope, value| value ? scope.read : scope.not_read }
-
-      # def resolve()
-      #   debugger
-      #   Note.where(user: context[:current_resource]).order("created_at")
-      # end
     end
   end
 end
