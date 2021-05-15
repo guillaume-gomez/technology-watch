@@ -69,4 +69,44 @@ RSpec.describe Queries::NoteQueries, type: :graphql do
       it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).not_to contain_exactly(*other_notes.pluck(:id)) }
     end
   end
+
+
+  describe "resolve getNotes" do
+    let!(:variables) { {order: order, direction: direction } }
+    let(:query) do
+      <<~GQL
+        query($order: NoteOrder!, $direction: NoteDirection!) {
+          getNotes(orderType: { order: $order, direction: $direction}) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      GQL
+    end
+    subject{ execute_graphql }
+
+    context "sort by recent" do
+      let!(:note1) { create(:note, user: current_user) }
+      let!(:note2) { create(:note, user: current_user) }
+      let(:order) { 'RECENT' }
+      
+      context "in ascendant direction" do
+        let(:direction) { 'ASC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id]) }
+      end
+
+      context "in descendant direction" do
+        let(:direction) { 'DESC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
+      end
+
+
+    end
+
+  end
+
+
 end

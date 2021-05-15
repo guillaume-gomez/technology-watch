@@ -1,6 +1,36 @@
 module Queries
   module NoteQueries
 
+    class NoteOrder < Types::BaseEnum
+      graphql_name 'NoteOrder'
+
+      value 'RECENT'
+      value 'RATING'
+      value 'TIMES_TO_READ'
+      value 'MARK_AS_READ'
+    end
+
+    class NoteDirection < Types::BaseEnum
+      graphql_name 'NoteDirection'
+
+      value 'DESC'
+      value 'ASC'
+    end
+
+    class NoteOrderInputType < Types::BaseInputObject
+      graphql_name 'NoteOrderInput'
+      description 'Properties for sorting notes'
+
+      argument :order, NoteOrder, required: true do
+        description 'type of order'
+      end
+
+      argument :direction, NoteDirection, required: true do
+        description 'direction of the order'
+      end
+
+    end
+
     class GetNote < GraphQL::Schema::Resolver
       description 'Get a Note'
       type Types::NoteType, null: false
@@ -12,16 +42,6 @@ module Queries
       end
     end
 
-
-    class NoteOrder < Types::BaseEnum
-      graphql_name 'NoteOrder'
-
-      value 'RECENT'
-      value 'RATING'
-      value 'TIMES_TO_READ'
-      value 'MARK_AS_READ'
-    end
-
     class GetNotes < GraphQL::Schema::Resolver
       include SearchObject.module(:graphql)
 
@@ -30,23 +50,26 @@ module Queries
 
       scope { Note.where(user: context[:current_resource]) }
 
+      option :order_type, type: NoteOrderInputType do |scope, value|
+        value_to_h = value.to_h
+        direction = value_to_h[:direction]
+        order = value_to_h[:order]
 
-      option :order, type: NoteOrder, default: 'RECENT'
+        sanitized_direction = ActiveRecord::Base.sanitize_sql_like(direction)
+        sanitized_order = ActiveRecord::Base.sanitize_sql_like(order)
 
-      def apply_order_with_recent(scope)
-        scope.order('created_at DESC')
-      end
-
-      def apply_order_with_rating(scope)
-        scope.order('rating DESC')
-      end
-
-      def apply_order_with_mark_as_read(scope)
-        scope.order('mark_as_read DESC')
-      end
-
-      def apply_order_with_times_to_read(scope)
-        scope.order('time_to_read_in_minutes DESC')
+        case sanitized_order
+        when "RECENT"
+          scope.order(created_at: sanitized_direction)
+        when "RATING"
+          scope.order(rating: sanitized_direction)
+        when "TIMES_TO_READ"
+          scope.order(time_to_read_in_minutes: sanitized_direction)
+        when "MARK_AS_READ"
+          scope.order(mark_as_read: sanitized_direction)
+        else
+          scope.order("created_at DESC")
+        end
       end
 
       option(:name, type: String, description: "search by name") do |scope, value|

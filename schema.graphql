@@ -331,6 +331,11 @@ type NoteConnection {
   totalCount: Int!
 }
 
+enum NoteDirection {
+  ASC
+  DESC
+}
+
 """
 An edge in a connection.
 """
@@ -434,6 +439,21 @@ enum NoteOrder {
 }
 
 """
+Properties for sorting notes
+"""
+input NoteOrderInput {
+  """
+  direction of the order
+  """
+  direction: NoteDirection!
+
+  """
+  type of order
+  """
+  order: NoteOrder!
+}
+
+"""
 Information about pagination in a connection.
 """
 type PageInfo {
@@ -497,7 +517,7 @@ type Query {
     search by name
     """
     name: String
-    order: NoteOrder = RECENT
+    orderType: NoteOrderInput
 
     """
     get only read notes/unread.
