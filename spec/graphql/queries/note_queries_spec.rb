@@ -102,8 +102,54 @@ RSpec.describe Queries::NoteQueries, type: :graphql do
         let(:direction) { 'DESC' }
         it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
       end
+    end
 
+    context "sort by rating" do
+      let!(:note1) { create(:note, user: current_user, rating: 10) }
+      let!(:note2) { create(:note, user: current_user, rating: 1) }
+      let(:order) { 'RATING' }
+      
+      context "in ascendant direction" do
+        let(:direction) { 'ASC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
+      end
 
+      context "in descendant direction" do
+        let(:direction) { 'DESC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id]) }
+      end
+    end
+
+    context "sort by times to read in minutes" do
+      let!(:note1) { create(:note, user: current_user, time_to_read_in_minutes: 1) }
+      let!(:note2) { create(:note, user: current_user, time_to_read_in_minutes: 10) }
+      let(:order) { 'TIMES_TO_READ' }
+      
+      context "in ascendant direction" do
+        let(:direction) { 'ASC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id]) }
+      end
+
+      context "in descendant direction" do
+        let(:direction) { 'DESC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
+      end
+    end
+
+    context "sort by mark as read" do
+      let!(:note1) { create(:note, user: current_user, mark_as_read: false) }
+      let!(:note2) { create(:note, user: current_user, mark_as_read: true) }
+      let(:order) { 'MARK_AS_READ' }
+      
+      context "in ascendant direction" do
+        let(:direction) { 'ASC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id]) }
+      end
+
+      context "in descendant direction" do
+        let(:direction) { 'DESC' }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
+      end
     end
 
   end

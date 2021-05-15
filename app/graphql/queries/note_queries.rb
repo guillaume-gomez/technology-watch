@@ -54,19 +54,15 @@ module Queries
         value_to_h = value.to_h
         direction = value_to_h[:direction]
         order = value_to_h[:order]
-
-        sanitized_direction = ActiveRecord::Base.sanitize_sql_like(direction)
-        sanitized_order = ActiveRecord::Base.sanitize_sql_like(order)
-
-        case sanitized_order
+        case order
         when "RECENT"
-          scope.order(created_at: sanitized_direction)
+          scope.order(created_at: direction)
         when "RATING"
-          scope.order(rating: sanitized_direction)
+          scope.order(rating: direction)
         when "TIMES_TO_READ"
-          scope.order(time_to_read_in_minutes: sanitized_direction)
+          scope.order(time_to_read_in_minutes: direction)
         when "MARK_AS_READ"
-          scope.order(mark_as_read: sanitized_direction)
+          scope.order(mark_as_read: direction)
         else
           scope.order("created_at DESC")
         end
