@@ -63,7 +63,10 @@
     "title": "Notes",
     "no-notes": "No notes",
     "create-note": "Create a new note",
-    "edit-note": "Edit note"
+    "edit-note": "Edit note",
+    "recent": "Recent",
+    "rating": "Rating",
+    "time-to-read": "Times to read"
   },
   "new-note": {
     "title": "Add a note",

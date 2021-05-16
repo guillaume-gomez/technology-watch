@@ -7,10 +7,16 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum NoteDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 export enum NoteOrder {
   MARK_AS_READ = "MARK_AS_READ",
   RATING = "RATING",
   RECENT = "RECENT",
+  TIMES_TO_READ = "TIMES_TO_READ",
 }
 
 /**

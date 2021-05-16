@@ -1,1 +1,1 @@
-export const nbItems = 2;
+export const nbItems = 10;

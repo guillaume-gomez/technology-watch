@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { NoteOrder } from "./graphql-global-types";
+import { NoteOrder, NoteDirection } from "./graphql-global-types";
 
 // ====================================================
 // GraphQL query operation: getNotes
@@ -45,7 +45,6 @@ export interface getNotes_getNotes_edges_node {
   link: string;
   name: string;
   rating: number | null;
-  timeToRead: string | null;
   markAsRead: boolean;
   tags: getNotes_getNotes_edges_node_tags;
 }
@@ -96,5 +95,6 @@ export interface getNotes {
 export interface getNotesVariables {
   first?: number | null;
   after?: string | null;
-  order?: NoteOrder | null;
+  order: NoteOrder;
+  direction: NoteDirection;
 }
