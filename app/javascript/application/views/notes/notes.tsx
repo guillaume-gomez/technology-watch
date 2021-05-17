@@ -1,11 +1,12 @@
 import React, { ReactElement, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, InfiniteScroll, Button, Select, Tabs, Tab
+  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab
 } from "grommet";
-import { Ascend, Descend } from "grommet-icons";
+import { Ascend, Descend, Refresh } from "grommet-icons";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
@@ -30,7 +31,7 @@ export default function Notes() : ReactElement {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
   const {
-    loading, data, fetchMore, refetch
+    loading, data, error, fetchMore, refetch
   } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems, order, direction } });
 
   //update order according to selected tab
@@ -61,17 +62,25 @@ export default function Notes() : ReactElement {
       return <Spinner />;
     }
     if (data && data.getNotes && data.getNotes.edges) {
+
       if (data.getNotes.edges.length === 0) {
         return <Text>{t("notes.no-notes")}</Text>;
       }
       return (
-        <InfiniteScroll step={10} items={data.getNotes.edges} onMore={getMore}>
-          {
-            (item: getNotes_getNotes_edges) => (
-            <NoteCard key={item.node!.id} note={item.node!} />
-            )
-          }
-        </InfiniteScroll>
+        <Box id="scrollableDiv" height={"500px"} overflow={"auto"} flex={true} direction={"column"} >
+          <InfiniteScroll
+            dataLength={data.getNotes.edges.length}
+            next={getMore}
+            style={{ display: 'flex', flexDirection: 'column' }} //To put endMessage and loader to the top.
+            hasMore={data.getNotes.pageInfo.hasNextPage}
+            loader={<Refresh />}
+            scrollableTarget="scrollableDiv"
+          >
+            {data.getNotes.edges.map(({node}) => (
+              <NoteCard key={node!.id} note={node!} />
+            ))}
+          </InfiniteScroll>
+        </Box>
       );
     }
 
@@ -89,6 +98,9 @@ export default function Notes() : ReactElement {
       },
     });
   }
+  console.log(data)
+  console.log(loading)
+  console.log(error)
 
   return (
     <Box gap="small">
@@ -96,12 +108,13 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-      <Button onClick={getMore} label={"Click"} />
-       {
-      direction === NoteDirection.DESC ?
-      <Button icon={<Ascend />} onClick={() => setDirection(NoteDirection.ASC)} /> :
-      <Button icon={<Descend />} onClick={() => setDirection(NoteDirection.DESC)} />
-    }
+      <Box justify="end" direction="row">
+         {
+        direction === NoteDirection.DESC ?
+        <Button icon={<Ascend />} onClick={() => setDirection(NoteDirection.ASC)} /> :
+        <Button icon={<Descend />} onClick={() => setDirection(NoteDirection.DESC)} />
+      }
+     </Box>
     <Box overflow="auto">
        <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
         <Tab title={t("notes.recent")}>
