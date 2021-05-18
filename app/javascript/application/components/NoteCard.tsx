@@ -27,9 +27,9 @@ interface NoteCardProps {
 export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const history = useHistory();
   return (
-    <Card height="big" width="big" background="light-1" flex={false}>
-      <CardHeader pad="medium">{note.name}</CardHeader>
-      <CardBody pad="medium">
+    <Card background="light-1">
+      <CardHeader pad="small" background="light-3">{note.name}</CardHeader>
+      <CardBody pad="small">
         {note.description}
         <Box align="center" direction="row" wrap pad={{ right: "xsmall" }}>
           {note.tags.edges.map(({node: tag}) =>
@@ -40,7 +40,7 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
         </Box>
         {note.rating}
       </CardBody>
-      <CardFooter pad={{ horizontal: "small" }} background="light-2">
+      <CardFooter  pad={{ horizontal: "small" }} background="light-3">
         <Button
           icon={<View color="plain" />}
           hoverIndicator

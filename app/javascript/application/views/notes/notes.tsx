@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab
+  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid
 } from "grommet";
 import { Ascend, Descend, Refresh } from "grommet-icons";
 
@@ -66,20 +66,27 @@ export default function Notes() : ReactElement {
       if (data.getNotes.edges.length === 0) {
         return <Text>{t("notes.no-notes")}</Text>;
       }
+
       return (
-        <Box id="scrollableDiv" height={"500px"} overflow={"auto"} flex={true} direction={"column"} >
+        <Box id="scrollableDiv" height={"100%"} overflow={"auto"}>
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
-            style={{ display: 'flex', flexDirection: 'column' }} //To put endMessage and loader to the top.
+            style={{display: "flex", flexDirection: "column", alignItems: "center"}}
             hasMore={data.getNotes.pageInfo.hasNextPage}
             loader={<Refresh />}
             scrollableTarget="scrollableDiv"
           >
+          <Grid
+              columns={["medium","medium", "medium"]}
+              gap="small"
+            >
             {data.getNotes.edges.map(({node}) => (
-              <NoteCard key={node!.id} note={node!} />
+                <NoteCard key={node!.id} note={node!} />
             ))}
+          </Grid>
           </InfiniteScroll>
+
         </Box>
       );
     }
@@ -98,9 +105,6 @@ export default function Notes() : ReactElement {
       },
     });
   }
-  console.log(data)
-  console.log(loading)
-  console.log(error)
 
   return (
     <Box gap="small">
@@ -115,19 +119,17 @@ export default function Notes() : ReactElement {
         <Button icon={<Descend />} onClick={() => setDirection(NoteDirection.DESC)} />
       }
      </Box>
-    <Box overflow="auto">
-       <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
-        <Tab title={t("notes.recent")}>
-          {displayNotes()}
-        </Tab>
-        <Tab title={t("notes.rating")}>
-          {displayNotes()}
-        </Tab>
-         <Tab title={t("notes.times-to-read")}>
-          {displayNotes()}
-        </Tab>
-      </Tabs>
-    </Box>
+     <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+      <Tab title={t("notes.recent")}>
+        {displayNotes()}
+      </Tab>
+      <Tab title={t("notes.rating")}>
+        {displayNotes()}
+      </Tab>
+       <Tab title={t("notes.times-to-read")}>
+        {displayNotes()}
+      </Tab>
+    </Tabs>
   </Box>
   );
 }
