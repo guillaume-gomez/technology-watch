@@ -53,7 +53,7 @@ export default function PrivateHeader() : ReactElement {
 
   return (
     <Header background="brand">
-      <Heading margin="medium" level="3" onClick={() => history.push(privateRootPath)}>Technology Watch</Heading>
+      <Heading margin="medium" level="3" style={{cursor: "pointer"}} onClick={() => history.push(privateRootPath)}>Technology Watch</Heading>
       <Box direction="row">
         <Button icon={<Performance />} hoverIndicator onClick={() => history.push(tagsPath)} />
         {avatar()}
