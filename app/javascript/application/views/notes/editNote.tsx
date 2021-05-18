@@ -43,6 +43,7 @@ export default function EditNote() : ReactElement {
       link: "",
       description: "",
       rating: 1,
+      timeToReadInMinutes:1,
       tags: []
     },
   );
@@ -50,9 +51,9 @@ export default function EditNote() : ReactElement {
   useQuery<getNote, getNoteVariables>(GetNoteQuery, {
     variables: { id },
     onCompleted: ({ getNote }) => {
-      const { id, name, link, description, rating,  } = getNote;
+      const { id, name, link, description, rating, timeToReadInMinutes } = getNote;
       const tags = getNote.tags.edges.map(({node}) => (node!));
-      setValues({ id, name, description, link, rating, tags });
+      setValues({ id, name, description, link, rating, tags, timeToReadInMinutes });
       setLoadingNote(false);
     },
   });

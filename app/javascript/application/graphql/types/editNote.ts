@@ -62,4 +62,5 @@ export interface editNoteVariables {
   description?: string | null;
   rating?: number | null;
   tags?: string[] | null;
+  timeToReadInMinutes?: number | null;
 }
