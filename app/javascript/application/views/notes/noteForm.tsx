@@ -12,7 +12,7 @@ import TagSelectRemote from  "../../components/tagSelectRemote";
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
 import { getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
-import { getTagsStartWith_getTags_edges_node } from "../../graphql/types/getTagsStartWith";
+import { getTagsNameContains_getTags_edges_node } from "../../graphql/types/getTagsNameContains";
 import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import { required, urlValidation } from "../../components/helpers/validationsHelpers";
@@ -41,7 +41,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
     setValues({...values, tags: newTags});
   };
 
-  function onSelectTag(newTag : getTagsStartWith_getTags_edges_node)  {
+  function onSelectTag(newTag : getTagsNameContains_getTags_edges_node)  {
     const oldTags = values.tags ? values.tags : [];
     setValues({...values, tags: [...oldTags, newTag] });
   };
