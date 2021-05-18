@@ -10,6 +10,7 @@ export const NoteFragment = {
         name
         rating
         markAsRead
+        timeToReadInMinutes
         tags {
           edges {
             node {

@@ -44,5 +44,6 @@ export interface NoteFragment {
   name: string;
   rating: number | null;
   markAsRead: boolean;
+  timeToReadInMinutes: number | null;
   tags: NoteFragment_tags;
 }
