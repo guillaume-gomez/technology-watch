@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Switch,
 } from "react-router-dom";
-import { Grommet, ResponsiveContext, Spinner } from "grommet";
+import { Grommet, ResponsiveContext, Spinner, grommet } from "grommet";
 import { theme } from "./theme";
 
 import {
@@ -34,29 +34,29 @@ import Tags from "./views/tags/tags";
 import NewNote from "./views/notes/newNote";
 import EditNote from "./views/notes/editNote";
 
+import ThemeColor from "./reducers/useThemeColor";
+
+
 export default function Router() : ReactElement {
+  const { themeMode } = ThemeColor.useContainer();
   return (
-    <Grommet theme={theme} full themeMode="light">
-      <ResponsiveContext.Consumer>
-        {(size) => (
-          <BrowserRouter>
-            <Suspense fallback={<Spinner />}>
-              <Switch>
-                <PrivateRoute exact path={privateRootPath} component={Notes} />
-                <PrivateRoute path={addNotePath} component={NewNote} />
-                <PrivateRoute path={editNotePath} component={EditNote} />
-                <PrivateRoute path={editUserPath} component={EditProfile} />
-                <PrivateRoute path={tagsPath} component={Tags} />
-                <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
-                <PublicRoute path={signUpPath} component={SignUp} />
-                <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
-                <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />
-                <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
-              </Switch>
-            </Suspense>
-          </BrowserRouter>
-        )}
-      </ResponsiveContext.Consumer>
-    </Grommet>
+      <Grommet theme={grommet} full themeMode={themeMode}>
+        <BrowserRouter>
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <PrivateRoute exact path={privateRootPath} component={Notes} />
+              <PrivateRoute path={addNotePath} component={NewNote} />
+              <PrivateRoute path={editNotePath} component={EditNote} />
+              <PrivateRoute path={editUserPath} component={EditProfile} />
+              <PrivateRoute path={tagsPath} component={Tags} />
+              <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
+              <PublicRoute path={signUpPath} component={SignUp} />
+              <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
+              <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />
+              <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
+            </Switch>
+          </Suspense>
+        </BrowserRouter>
+      </Grommet>
   );
 }

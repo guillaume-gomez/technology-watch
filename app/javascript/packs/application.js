@@ -6,6 +6,7 @@ import { ApolloClient, InMemoryCache, gql, ApolloProvider, createHttpLink } from
 import { setContext } from "@apollo/client/link/context";
 import { relayStylePagination } from "@apollo/client/utilities";
 import Router from "../application/router";
+import ThemeMode from "../application/reducers/useThemeColor";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -51,7 +52,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router />
+      <ThemeMode.Provider>
+        <Router />
+      </ThemeMode.Provider>
     </ApolloProvider>
   );
 }
