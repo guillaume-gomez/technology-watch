@@ -44,6 +44,7 @@ export interface getNote_getNote {
   name: string;
   rating: number | null;
   markAsRead: boolean;
+  timeToReadInMinutes: number | null;
   tags: getNote_getNote_tags;
 }
 

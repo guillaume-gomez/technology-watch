@@ -44,6 +44,7 @@ export interface editNote_editNote {
   name: string;
   rating: number | null;
   markAsRead: boolean;
+  timeToReadInMinutes: number | null;
   tags: editNote_editNote_tags;
 }
 

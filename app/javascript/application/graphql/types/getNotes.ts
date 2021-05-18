@@ -46,6 +46,7 @@ export interface getNotes_getNotes_edges_node {
   name: string;
   rating: number | null;
   markAsRead: boolean;
+  timeToReadInMinutes: number | null;
   tags: getNotes_getNotes_edges_node_tags;
 }
 
