@@ -37,6 +37,7 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         getNotes: relayStylePagination(),
+        getTags : relayStylePagination(),
       }
     }
   }
