@@ -1,19 +1,16 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import { render } from "react-dom";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloProvider, ApolloClient, createHttpLink } from "@apollo/client";
+import { getToken, getUID, getClient } from "../application/authentication";
+import { ApolloClient, InMemoryCache, gql, ApolloProvider, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { relayStylePagination } from "@apollo/client/utilities";
-import { getToken, getUID, getClient } from "../application/authentication";
-import "../application/i18n";
-
 import Router from "../application/router";
+import ThemeMode from "../application/reducers/useThemeColor";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
   credentials: "same-origin",
-
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -34,34 +31,30 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+
 const cache = new InMemoryCache({
   queryType: true,
   typePolicies: {
     Query: {
       fields: {
         getNotes: relayStylePagination(),
+        getTags : relayStylePagination(),
       }
     }
   }
 });
 
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache,
-  headers: {
-    accept: "application/json",
-    "Content-Type": "application/json",
-    "access-token": getToken(),
-    uid: getUID(),
-    client: getClient(),
-  },
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router />
+      <ThemeMode.Provider>
+        <Router />
+      </ThemeMode.Provider>
     </ApolloProvider>
   );
 }

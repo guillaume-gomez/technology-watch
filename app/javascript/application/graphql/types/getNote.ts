@@ -43,8 +43,8 @@ export interface getNote_getNote {
   link: string;
   name: string;
   rating: number | null;
-  timeToReadInMinutes: number | null;
   markAsRead: boolean;
+  timeToReadInMinutes: number | null;
   tags: getNote_getNote_tags;
 }
 

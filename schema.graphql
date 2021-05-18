@@ -331,6 +331,11 @@ type NoteConnection {
   totalCount: Int!
 }
 
+enum NoteDirection {
+  ASC
+  DESC
+}
+
 """
 An edge in a connection.
 """
@@ -430,6 +435,22 @@ enum NoteOrder {
   MARK_AS_READ
   RATING
   RECENT
+  TIMES_TO_READ
+}
+
+"""
+Properties for sorting notes
+"""
+input NoteOrderInput {
+  """
+  direction of the order
+  """
+  direction: NoteDirection!
+
+  """
+  type of order
+  """
+  order: NoteOrder!
 }
 
 """
@@ -496,7 +517,7 @@ type Query {
     search by name
     """
     name: String
-    order: NoteOrder = RECENT
+    orderType: NoteOrderInput
 
     """
     get only read notes/unread.
@@ -534,9 +555,9 @@ type Query {
     last: Int
 
     """
-    search by name with start_with
+    search by name with name_contains
     """
-    startWith: String
+    nameContains: String
   ): TagConnection!
 
   """

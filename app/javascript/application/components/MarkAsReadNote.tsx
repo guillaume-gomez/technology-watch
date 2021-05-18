@@ -29,29 +29,7 @@ export default function MarkAsReadNote({ id, markAsRead } : MarkAsReadNoteProps)
     },
     onError: (errors) => {
       console.error(errors);
-    },
-    update: (cache, { data }) => {
-      const elemToUpdate = data!.editNote;
-      const dataInCache: getNotes | null = cache.readQuery({ query: GetNotesQuery, variables: { first: nbItems } });
-      if (!dataInCache) {
-        return;
-      }
-      const newEdges = dataInCache.getNotes.edges.map((edge) => {
-        if (edge.node!.id !== id) {
-          return edge;
-        }
-        // update the notes
-        return { __typename: "NoteEdge", node: { ...edge.node, ...elemToUpdate } };
-      });
-      const newCache = {
-        getNotes: {
-          pageInfo: dataInCache.getNotes.pageInfo,
-          edges: newEdges,
-          __typename: dataInCache.getNotes.__typename,
-        },
-      };
-      cache.writeQuery({ query: GetNotesQuery, variables: { first: nbItems }, data: newCache });
-    },
+    }
   });
   return (
     <Button

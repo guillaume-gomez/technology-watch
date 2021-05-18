@@ -1765,6 +1765,29 @@
           "possibleTypes": null
         },
         {
+          "kind": "ENUM",
+          "name": "NoteDirection",
+          "description": null,
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "DESC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ASC",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "NoteEdge",
           "description": "An edge in a connection.",
@@ -2048,12 +2071,61 @@
               "deprecationReason": null
             },
             {
+              "name": "TIMES_TO_READ",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "MARK_AS_READ",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NoteOrderInput",
+          "description": "Properties for sorting notes",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "order",
+              "description": "type of order",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "NoteOrder",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "direction",
+              "description": "direction of the order",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "NoteDirection",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -2194,14 +2266,14 @@
               "description": "Get all Notes",
               "args": [
                 {
-                  "name": "order",
+                  "name": "orderType",
                   "description": null,
                   "type": {
-                    "kind": "ENUM",
-                    "name": "NoteOrder",
+                    "kind": "INPUT_OBJECT",
+                    "name": "NoteOrderInput",
                     "ofType": null
                   },
-                  "defaultValue": "RECENT",
+                  "defaultValue": null,
                   "isDeprecated": false,
                   "deprecationReason": null
                 },
@@ -2328,8 +2400,8 @@
               "description": "Get all Tags",
               "args": [
                 {
-                  "name": "startWith",
-                  "description": "search by name with start_with",
+                  "name": "nameContains",
+                  "description": "search by name with name_contains",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",

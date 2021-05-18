@@ -16,7 +16,7 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
         ? <PrivateHeader />
         : <PublicHeader />}
       <Main gridArea="main" pad="large" align="center" >
-        <Box elevation="small" pad="medium" width="xlarge">
+        <Box elevation="medium" pad="medium" width="xxlarge">
           {children}
         </Box>
       </Main>
