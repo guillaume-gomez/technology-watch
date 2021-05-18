@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { uniqBy } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@apollo/client";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,10 +10,9 @@ import {
   Spinner,
   Button,
   Heading,
-  TextInput,
-  InfiniteScroll
+  TextInput
 } from "grommet";
-import { Edit, Trash } from "grommet-icons";
+import { Edit, Trash, Refresh } from "grommet-icons";
 
 import {
   addTagsPath,
@@ -142,21 +142,7 @@ export default function Tags() : ReactElement {
     fetchMore({
       variables: {
         cursor: data.getTags.pageInfo.endCursor,
-      },
-      updateQuery: (previousResult : getTags, { fetchMoreResult }: FetchMoreResultQuery) => {
-        if (!fetchMoreResult) {
-          return previousResult;
-        }
-        const { pageInfo, __typename, edges: newEdges } = fetchMoreResult.getTags;
-        updateTagsFromQuery(newEdges);
-        return {
-          getTags: {
-            pageInfo,
-            __typename,
-            edges: [...previousResult.getTags.edges, ...newEdges],
-          },
-        };
-      },
+      }
     });
   }
 
@@ -165,27 +151,35 @@ export default function Tags() : ReactElement {
       return <Spinner/>;
     }
 
-    if(tags.length === 0) {
+    if(tags.length === 0 || !data) {
       return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>
     }
 
     return (
       <Box>
         <Heading level={4}>{t("tags.name")}</Heading>
-        <Box>
-        <InfiniteScroll step={nbItems} items={tags} onMore={getMore}>
-          {(tag: TagBulkType, index: number) => {
+        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium">
+        <InfiniteScroll
+            dataLength={tags.length}
+            next={getMore}
+            style={{display: "flex", flexDirection: "column", alignItems: "center"}}
+            hasMore={data.getTags.pageInfo.hasNextPage}
+            loader={<Refresh />}
+            scrollableTarget="scrollableDiv"
+          >
+          {tags.map((tag: TagBulkType, index: number) => {
             if(tag.destroy) {
               return null;
             }
             return (
-              <Box key={index} direction="row" align="center" gap="small">
+              <Box key={index} direction="row" align="center" gap="small" width="xxlarge">
                 <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
                 <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
                 <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
               </Box>
             );
-          }}
+          })
+        }
         </InfiniteScroll>
         </Box>
       </Box>

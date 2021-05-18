@@ -1,10 +1,10 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid
+  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid, ResponsiveContext
 } from "grommet";
 import { Ascend, Descend, Refresh } from "grommet-icons";
 
@@ -27,6 +27,7 @@ interface FetchMoreResultQuery {
 
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
+  const size = useContext(ResponsiveContext);
   const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
@@ -57,6 +58,21 @@ export default function Notes() : ReactElement {
     refetch();
   }, [order, direction]);
 
+  function computeGridColumns() {
+    switch (size) {
+      case "large":
+        return ["medium", "medium", "medium"]
+        break;
+      case "medium":
+        return ["medium", "medium"]
+      case "small":
+      default:
+        return ["large"]
+        break;
+    }
+  }
+
+
   function displayNotes() {
     if (loading) {
       return <Spinner />;
@@ -68,7 +84,7 @@ export default function Notes() : ReactElement {
       }
 
       return (
-        <Box id="scrollableDiv" height={"100%"} overflow={"auto"}>
+        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -78,7 +94,7 @@ export default function Notes() : ReactElement {
             scrollableTarget="scrollableDiv"
           >
           <Grid
-              columns={["medium","medium", "medium"]}
+              columns={computeGridColumns()}
               gap="small"
             >
             {data.getNotes.edges.map(({node}) => (
@@ -86,7 +102,6 @@ export default function Notes() : ReactElement {
             ))}
           </Grid>
           </InfiniteScroll>
-
         </Box>
       );
     }
