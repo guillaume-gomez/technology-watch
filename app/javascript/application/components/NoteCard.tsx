@@ -27,16 +27,15 @@ interface NoteCardProps {
 export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const history = useHistory();
   return (
-    <Card background="light-1">
+    <Card background="light-1" animation="fadeIn">
       <CardHeader pad="small" background="light-3">
         <Box direction="row" flex={true} justify="between">
           <div>{note.name}</div>
           <div>{note.rating} /10</div>
         </Box>
       </CardHeader>
-      <CardBody pad="small">
+      <CardBody pad="small" gap="small">
         {note.description}
-        <hr/>
         <Box align="center" direction="row" wrap>
           {note.tags.edges.map(({node: tag}) =>
             <Tag key={tag!.id} color={tag!.color}>

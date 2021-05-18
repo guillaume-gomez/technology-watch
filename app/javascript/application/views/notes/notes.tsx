@@ -84,7 +84,7 @@ export default function Notes() : ReactElement {
       }
 
       return (
-        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium">
+        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium"  animation="fadeIn">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
