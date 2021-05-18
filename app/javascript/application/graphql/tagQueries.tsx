@@ -28,9 +28,9 @@ export const GetTags = gql`
   }
 ${TagFragment.fragments.tag}`;
 
-export const GetTagsStartWith = gql`
-  query getTagsStartWith($first: Int, $startWith: String) {
-    getTags(first: $first, startWith: $startWith) {
+export const GetTagsNameContains = gql`
+  query getTagsNameContains($first: Int, $nameContains: String) {
+    getTags(first: $first, nameContains: $nameContains) {
       edges {
         node {
           ...TagFragment

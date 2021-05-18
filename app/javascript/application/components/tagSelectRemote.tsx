@@ -3,18 +3,18 @@ import { useLazyQuery } from "@apollo/client";
 import TagSelect from "./tagSelect";
 
 import { getNote_getNote_tags_edges_node } from "../graphql/types/getNote";
-import { getTagsStartWith, getTagsStartWithVariables, getTagsStartWith_getTags_edges_node } from "../graphql/types/getTagsStartWith";
-import { GetTagsStartWith as GetTagsStartWithQuery } from "../graphql/tagQueries";
+import { getTagsNameContains, getTagsNameContainsVariables, getTagsNameContains_getTags_edges_node } from "../graphql/types/getTagsNameContains";
+import { GetTagsNameContains as GetTagsNameContainsQuery } from "../graphql/tagQueries";
 
 interface TagSelectRemoteProps {
   values: getNote_getNote_tags_edges_node[];
   onRemove: (index: number) => void;
-  onSelect: (tag: getTagsStartWith_getTags_edges_node) => void;
+  onSelect: (tag: getTagsNameContains_getTags_edges_node) => void;
 }
 
 export default function TagSelectRemote({values = [], onRemove, onSelect } : TagSelectRemoteProps) : ReactElement {
-  const [suggestions, setSuggestions] = useState<getTagsStartWith_getTags_edges_node[]>([]);
-  const [getTagsSuggestions, { data }] = useLazyQuery<getTagsStartWith, getTagsStartWithVariables>(GetTagsStartWithQuery, {fetchPolicy: "network-only"});
+  const [suggestions, setSuggestions] = useState<getTagsNameContains_getTags_edges_node[]>([]);
+  const [getTagsSuggestions, { data }] = useLazyQuery<getTagsNameContains, getTagsNameContainsVariables>(GetTagsNameContainsQuery, {fetchPolicy: "network-only"});
   const [search, setSearch] = useState<string>("");
   
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function TagSelectRemote({values = [], onRemove, onSelect } : Tag
 
   useEffect(() => {
     if(search.length >= 1) {
-      getTagsSuggestions({variables: { first: 20, startWith: search }})
+      getTagsSuggestions({variables: { first: 20, nameContains: search }})
     }
   }, [search]);
 

@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { getNote_getNote_tags_edges_node } from "../graphql/types/getNote";
-import { getTagsStartWith_getTags_edges_node } from "../graphql/types/getTagsStartWith";
+import { getTagsNameContains_getTags_edges_node } from "../graphql/types/getTagsNameContains";
 
 import { Box, TextInput } from "grommet";
 
@@ -19,12 +19,12 @@ function renderTags(tags : getNote_getNote_tags_edges_node[], onRemove: (index: 
 }
 
 interface TagSelectProps {
-  suggestions: getTagsStartWith_getTags_edges_node[];
+  suggestions: getTagsNameContains_getTags_edges_node[];
   values: getNote_getNote_tags_edges_node[];
   search: string;
   setSearch: (newSearch: string) => void;
   onRemove: (index: number) => void;
-  onSelect: (tag: getTagsStartWith_getTags_edges_node) => void;
+  onSelect: (tag: getTagsNameContains_getTags_edges_node) => void;
 }
 
 export default function TagSelect({

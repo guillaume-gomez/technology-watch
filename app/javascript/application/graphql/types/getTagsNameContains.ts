@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: getTagsStartWith
+// GraphQL query operation: getTagsNameContains
 // ====================================================
 
-export interface getTagsStartWith_getTags_edges_node {
+export interface getTagsNameContains_getTags_edges_node {
   __typename: "Tag";
   /**
    * ID from ActiveRecord
@@ -17,30 +17,30 @@ export interface getTagsStartWith_getTags_edges_node {
   color: string;
 }
 
-export interface getTagsStartWith_getTags_edges {
+export interface getTagsNameContains_getTags_edges {
   __typename: "TagEdge";
   /**
    * The item at the end of the edge.
    */
-  node: getTagsStartWith_getTags_edges_node | null;
+  node: getTagsNameContains_getTags_edges_node | null;
 }
 
-export interface getTagsStartWith_getTags {
+export interface getTagsNameContains_getTags {
   __typename: "TagConnection";
   /**
    * A list of edges.
    */
-  edges: getTagsStartWith_getTags_edges[];
+  edges: getTagsNameContains_getTags_edges[];
 }
 
-export interface getTagsStartWith {
+export interface getTagsNameContains {
   /**
    * Get all Tags
    */
-  getTags: getTagsStartWith_getTags;
+  getTags: getTagsNameContains_getTags;
 }
 
-export interface getTagsStartWithVariables {
+export interface getTagsNameContainsVariables {
   first?: number | null;
-  startWith?: string | null;
+  nameContains?: string | null;
 }

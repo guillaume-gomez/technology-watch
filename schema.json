@@ -2400,8 +2400,8 @@
               "description": "Get all Tags",
               "args": [
                 {
-                  "name": "startWith",
-                  "description": "search by name with start_with",
+                  "name": "nameContains",
+                  "description": "search by name with name_contains",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",

@@ -23,9 +23,9 @@ module Queries
 
       scope { Tag.where(user: context[:current_resource]).order("created_at") }
 
-      option(:start_with, type: String, description: "search by name with start_with") do |scope, value|
+      option(:name_contains, type: String, description: "search by name with name_contains") do |scope, value|
         sanitized_value = ActiveRecord::Base.sanitize_sql_like(value)
-        scope.where("tags.name ILIKE ?", "#{sanitized_value}%")
+        scope.where("tags.name ILIKE ?", "%#{sanitized_value}%")
       end
 
     end
