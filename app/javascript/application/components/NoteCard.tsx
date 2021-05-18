@@ -28,19 +28,24 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const history = useHistory();
   return (
     <Card background="light-1">
-      <CardHeader pad="small" background="light-3">{note.name}</CardHeader>
+      <CardHeader pad="small" background="light-3">
+        <Box direction="row" flex={true} justify="between">
+          <div>{note.name}</div>
+          <div>{note.rating} /10</div>
+        </Box>
+      </CardHeader>
       <CardBody pad="small">
         {note.description}
-        <Box align="center" direction="row" wrap pad={{ right: "xsmall" }}>
+        <hr/>
+        <Box align="center" direction="row" wrap>
           {note.tags.edges.map(({node: tag}) =>
             <Tag key={tag!.id} color={tag!.color}>
               {tag!.name}
             </Tag>
           )}
         </Box>
-        {note.rating}
       </CardBody>
-      <CardFooter  pad={{ horizontal: "small" }} background="light-3">
+      <CardFooter background="light-3">
         <Button
           icon={<View color="plain" />}
           hoverIndicator

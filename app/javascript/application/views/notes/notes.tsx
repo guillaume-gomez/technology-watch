@@ -67,7 +67,7 @@ export default function Notes() : ReactElement {
         return ["medium", "medium"]
       case "small":
       default:
-        return ["large"]
+        return ["medium"]
         break;
     }
   }

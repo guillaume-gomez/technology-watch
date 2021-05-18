@@ -14,7 +14,7 @@ interface TagSelectRemoteProps {
 
 export default function TagSelectRemote({values = [], onRemove, onSelect } : TagSelectRemoteProps) : ReactElement {
   const [suggestions, setSuggestions] = useState<getTagsStartWith_getTags_edges_node[]>([]);
-  const [getTagsSuggestions, { data }] = useLazyQuery<getTagsStartWith, getTagsStartWithVariables>(GetTagsStartWithQuery);
+  const [getTagsSuggestions, { data }] = useLazyQuery<getTagsStartWith, getTagsStartWithVariables>(GetTagsStartWithQuery, {fetchPolicy: "network-only"});
   const [search, setSearch] = useState<string>("");
   
   useEffect(() => {
