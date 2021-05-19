@@ -75,7 +75,10 @@
     "edit-note": "Editer une nouvelle note",
     "recent": "Recent",
     "rating": "Par note",
-    "times-to-read": "temps de lecture"
+    "times-to-read": "temps de lecture",
+    "hint": {
+      "bookmark": "Afficher les notes lues/non lues"
+    }
   },
   "new-note": {
     "title": "Ajouter une note",

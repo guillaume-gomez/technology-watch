@@ -75,7 +75,10 @@
     "edit-note": "Edit note",
     "recent": "Recent",
     "rating": "Rating",
-    "times-to-read": "Times to read"
+    "times-to-read": "Times to read",
+    "hint": {
+      "bookmark": "Display notes if read/unread"
+    }
   },
   "new-note": {
     "title": "Add a note",

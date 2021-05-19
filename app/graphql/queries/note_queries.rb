@@ -75,6 +75,7 @@ module Queries
         sanitized_value = ActiveRecord::Base.sanitize_sql_like(value)
         scope.where("notes.name ILIKE ?", "%#{sanitized_value}%")
       end
+      
       option(:read, type: Boolean, description: "get only read notes/unread.") { |scope, value| value ? scope.read : scope.not_read }
     end
   end

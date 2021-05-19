@@ -4,9 +4,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid, ResponsiveContext
+  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid, ResponsiveContext, Tip
 } from "grommet";
-import { Ascend, Descend, Refresh } from "grommet-icons";
+import { Ascend, Descend, Refresh, Bookmark } from "grommet-icons";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
@@ -29,11 +29,12 @@ export default function Notes() : ReactElement {
   const { t } = useTranslation();
   const size = useContext(ResponsiveContext);
   const [order, setOrder] = useState<NoteOrder>(NoteOrder.RECENT);
+  const [bookmark, setBookmark] = useState<boolean>(false);
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
   const {
     loading, data, error, fetchMore, refetch
-  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems, order, direction } });
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems, order, direction, read: bookmark } });
 
   //update order according to selected tab
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function Notes() : ReactElement {
 
   useEffect(() => {
     refetch();
-  }, [order, direction]);
+  }, [order, direction, bookmark]);
 
   function computeGridColumns() {
     switch (size) {
@@ -130,6 +131,13 @@ export default function Notes() : ReactElement {
         <Button label={t("notes.create-note")} />
       </Link>
       <Box justify="end" direction="row" height="xsmall" pad={{bottom: "medium"}}>
+         <Tip content={t("notes.hint.bookmark")}>
+          <Button
+            icon={<Bookmark color={bookmark ? "brand" : "plain"} />}
+            hoverIndicator
+            onClick={() => setBookmark(!bookmark)}
+            />
+          </Tip>
          {
         direction === NoteDirection.DESC ?
         <Button icon={<Ascend />} size={"medium"}  onClick={() => setDirection(NoteDirection.ASC)} /> :
