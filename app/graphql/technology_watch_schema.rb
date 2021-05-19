@@ -1,3 +1,6 @@
+require 'search_object'
+require 'search_object/plugin/graphql'
+
 class TechnologyWatchSchema < GraphQL::Schema
   use GraphqlDevise::SchemaPlugin.new(
     query:            Types::QueryType,
