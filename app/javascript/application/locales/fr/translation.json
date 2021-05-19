@@ -74,7 +74,7 @@
     "description": "Description",
     "link": "Lien",
     "rating": "Note",
-    "time-to-read-in-minutes": "Temps de lecture",
+    "time-to-read-in-minutes": "Temps de lecture (en minutes)",
     "tags": "Tags",
     "submit": "Valider",
     "back": "Retour"
