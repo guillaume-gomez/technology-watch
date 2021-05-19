@@ -30,16 +30,25 @@
     "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
     "go-to-login": "Go to login"
   },
+  "confirm-account": {
+    "text": "Your account is confirmed !",
+    "go-to-login": "Go to login",
+    "errors": {
+      "token": "Cannot found the token in query string"
+    }
+  },
   "forgot-password": {
     "email": "Email",
     "text": "Enter your email to received instructions to change password",
     "send": "Send"
   },
   "forgot-password-token": {
+    "hint": "Please enter new password for your account",
     "password": "Password",
     "password-confirmation": "Password Confirmation",
     "submit": "Submit",
     "errors": {
+      "token": "Cannot found the token in query string",
       "password-size": "Password has minimum 8 characters",
       "password-confirmation": "Password and Password confirmation missmatch",
       "required": "This field is required"

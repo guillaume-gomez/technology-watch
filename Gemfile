@@ -53,7 +53,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "graphql", github: 'rmosolgo/graphql-ruby', branch: 'master'
 gem 'graphiql-rails', group: :development
-gem 'graphql_devise'
+gem 'graphql_devise', "0.14.2"
 
 # Query Filtering
 gem 'search_object'

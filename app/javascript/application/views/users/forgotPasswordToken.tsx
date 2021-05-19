@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import useQuery from "../../components/customHooks/useQuery";
 import {
-  Box, Form, FormField, TextInput, Button,
+  Box, Form, FormField, TextInput, Button, Heading
 } from "grommet";
 import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 
@@ -16,26 +16,19 @@ import { resetPasswordWithToken, resetPasswordWithTokenVariables } from "../../g
 import { ResetPasswordWithToken as ResetPasswordWithTokenQuery } from "../../graphql/userQueries";
 
 import {
-  privateRootPath,
+  publicRootPath,
+  confirmAccountPath,
   loginPath,
 } from "../../routesPath";
 
 export default function ResetPasswordWithToken() : ReactElement {
-  const query = useQuery();
   const { t } = useTranslation();
+  const query = useQuery();
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [resetPasswordTokenFunction] = useMutation<resetPasswordWithToken, resetPasswordWithTokenVariables>(ResetPasswordWithTokenQuery, {
-    onCompleted: ({userUpdatePasswordWithToken}) => {
-      if(userUpdatePasswordWithToken && userUpdatePasswordWithToken.credentials) {
-        const {
-            accessToken, expiry, client, uid,
-          } = userUpdatePasswordWithToken.credentials;
-          setToken(accessToken, expiry);
-          setClient(client, expiry);
-          setUID(uid, expiry);
-        history.push(privateRootPath);
-      }
+    onCompleted: () => {
+      history.push(publicRootPath);
     },
     onError: (errors) => {
       console.error(errors);
@@ -54,6 +47,13 @@ export default function ResetPasswordWithToken() : ReactElement {
     const token = query.get("variables[token]");
     if(token) {
       setValues({...values, resetPasswordToken: token })
+    } else {
+      setNetworkError(t("forgot-password-token.errors.token"));
+    }
+
+    // check if we come here for reset password or confirm account
+    if(location.search.slice(1).includes("userConfirmAccount")) {
+      history.replace({ pathname: confirmAccountPath, search: `?token=${token}`});
     }
   }, []);
 
@@ -71,6 +71,7 @@ export default function ResetPasswordWithToken() : ReactElement {
   return (
     <Box>
       {networkError !== "" && <ServerError messages={networkError} />}
+      <Heading level="3" fill>{t("forgot-password-token.hint")}</Heading>
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}

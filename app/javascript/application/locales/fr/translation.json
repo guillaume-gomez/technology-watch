@@ -30,16 +30,25 @@
     "text": "Vous etes bien enregistré. Il vous reste à confirmer votre compte en cliquant sur le lien dans le mail que vous avez reçu",
     "go-to-login": "Se connecter"
   },
+  "confirm-account": {
+    "text": "Votre compte est maintenant confirmé",
+    "go-to-login": "Se connecter",
+    "errors": {
+      "token": "Impossible de retrouver le token dans la queryString"
+    }
+  },
   "forgot-password": {
     "email": "Email",
     "text": "Veuillez entrer votre adresse mail pour recevoir des instructions par mail",
     "send": "Envoyer"
   },
   "forgot-password-token": {
+    "hint": "Veuillez entrer un nouveau mot de passe pour votre compte",
     "password": "Mot de passe",
     "password-confirmation": "Confirmation de mot de passe",
     "submit": "Valider",
     "errors": {
+      "token": "Impossible de retrouver le token dans la queryString",
       "password-size": "Le mot de passe doit contenir 8 caratères",
       "password-confirmation": "Mot de passe et la confirmation du mot de passe sont différents",
       "required": "Ce champ est obligatoire"

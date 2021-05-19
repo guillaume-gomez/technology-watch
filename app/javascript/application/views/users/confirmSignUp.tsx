@@ -6,7 +6,7 @@ import {
   Box, Text, Button,
 } from "grommet";
 import {
-  signUpPath,
+  loginPath,
 } from "../../routesPath";
 
 export default function ConfirmSignUp() : ReactElement {
@@ -14,7 +14,7 @@ export default function ConfirmSignUp() : ReactElement {
   return (
     <Box>
       <Text>{t("confirm-sign-up.text")}</Text>
-      <Link to={signUpPath}>
+      <Link to={loginPath}>
         <Button primary label={t("confirm-sign-up.go-to-login")} />
       </Link>
 

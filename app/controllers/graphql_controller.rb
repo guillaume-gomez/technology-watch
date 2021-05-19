@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    result = TechnologyWatchSchema.execute(query, variables: variables, context: gql_devise_context(:user), operation_name: operation_name)
+    result = TechnologyWatchSchema.execute(query, variables: variables, context: graphql_context(:user), operation_name: operation_name)
     render json: result unless performed?
   rescue => e
     raise e unless Rails.env.development?

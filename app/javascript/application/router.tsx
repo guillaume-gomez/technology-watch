@@ -9,6 +9,7 @@ import { theme } from "./theme";
 import {
   signUpPath,
   signUpMessagePath,
+  confirmAccountPath,
   loginPath,
   publicRootPath,
   privateRootPath,
@@ -25,6 +26,7 @@ import PrivateRoute from "./components/router/privateRoute";
 
 import SignUp from "./views/users/signUp";
 import ConfirmSignUp from "./views/users/confirmSignUp";
+import ConfirmAccount from "./views/users/confirmAccount";
 import Login from "./views/users/login";
 import ForgotPassword from "./views/users/forgotPassword";
 import ForgotPasswordWithToken from "./views/users/forgotPasswordToken";
@@ -50,6 +52,7 @@ export default function Router() : ReactElement {
               <PrivateRoute path={editUserPath} component={EditProfile} />
               <PrivateRoute path={tagsPath} component={Tags} />
               <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
+              <PublicRoute path={confirmAccountPath} component={ConfirmAccount} />
               <PublicRoute path={signUpPath} component={SignUp} />
               <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
               <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />
