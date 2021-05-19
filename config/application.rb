@@ -14,6 +14,6 @@ module TechnologyWatch
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.hosts << "9c10f8f77d83.ngrok.io"
+    #config.hosts << "9c10f8f77d83.ngrok.io"
   end
 end
