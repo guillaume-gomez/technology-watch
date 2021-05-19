@@ -54,6 +54,7 @@ export default function Tags() : ReactElement {
   const [networkError, setNetworkError] = useState<string>("");
   const { data, loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
     variables: { first: nbItems },
+    notifyOnNetworkStatusChange: true,
     onCompleted: ({getTags}) => {
       if(getTags.edges) {
         updateTagsFromQuery(getTags.edges);
