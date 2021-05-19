@@ -47,13 +47,13 @@ export default function ForgotPassword() : ReactElement {
   return (
     <Box>
       {networkError !== "" && <ServerError messages={networkError} />}
-      {message !== "" && <Heading level="4">{message}</Heading>}
+      {message !== "" && <Heading level="4" fill>{message}</Heading>}
       <Form
         value={values}
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => resetPassword({ variables: value })}
       >
-        <Heading level={3}>{t("forgot-password.text")}</Heading>
+        <Heading level={3} fill>{t("forgot-password.text")}</Heading>
         <FormField name="email" htmlFor="email" label={t("forgot-password.email") + t("required")} validate={[required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
