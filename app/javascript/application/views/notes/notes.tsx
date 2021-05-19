@@ -129,14 +129,13 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-      <Box justify="end" direction="row" height="xsmall">
+      <Box justify="end" direction="row" height="xsmall" pad={{bottom: "medium"}}>
          {
         direction === NoteDirection.DESC ?
         <Button icon={<Ascend />} size={"medium"}  onClick={() => setDirection(NoteDirection.ASC)} /> :
         <Button icon={<Descend />} size={"medium"}   onClick={() => setDirection(NoteDirection.DESC)} />
       }
      </Box>
-           {size}
      <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
       <Tab title={t("notes.recent")}>
         {displayNotes()}
