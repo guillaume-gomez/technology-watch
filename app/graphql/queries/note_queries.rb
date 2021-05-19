@@ -1,3 +1,6 @@
+require 'search_object'
+require 'search_object/plugin/graphql'
+
 module Queries
   module NoteQueries
 
