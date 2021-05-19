@@ -11,7 +11,7 @@ export function required(t: i18Next.TFunction) {
 
 export function emailValidation(t: i18Next.TFunction) {
   return (value: string) => {
-    const regexp = new RegExp("/^[^\s@]+@[^\s@]+$/");
+    const regexp = new RegExp(/^[^\s@]+@[^\s@]+$/);
     if (!value.match(regexp)) {
       return { status: "error", message: t("sign-up.errors.email") };
     }
