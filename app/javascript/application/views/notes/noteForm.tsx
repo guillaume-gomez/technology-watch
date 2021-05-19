@@ -58,11 +58,11 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
       onChange={(nextValues) => setValues(nextValues)}
       onSubmit={({ value }) => callMutation(value)}
     >
-      <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
-        <TextInput id="name" name="name" />
-      </FormField>
       <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[urlValidation(t), required(t)]}>
         <TextInput id="link" name="link" />
+      </FormField>
+      <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
+        <TextInput id="name" name="name" />
       </FormField>
       <FormField name="description" htmlFor="description" label={t("new-note.description")}>
         <TextArea id="description" name="description" resize />
@@ -72,7 +72,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         <Text>{values.rating}</Text>
       </FormField>
       <FormField name="timeToReadInMinutes" htmlFor="timeToReadInMinutes" label={t("new-note.time-to-read-in-minutes")}>
-        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes || 1} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })}/>
+        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes as number} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })}/>
       </FormField>
       <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
         <TagSelectRemote
