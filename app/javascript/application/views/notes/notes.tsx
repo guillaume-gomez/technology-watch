@@ -136,6 +136,7 @@ export default function Notes() : ReactElement {
         <Button icon={<Descend />} size={"medium"}   onClick={() => setDirection(NoteDirection.DESC)} />
       }
      </Box>
+           {size}
      <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
       <Tab title={t("notes.recent")}>
         {displayNotes()}

@@ -53,7 +53,7 @@ export default function SignUp() : ReactElement {
   }
 
   return (
-    <Box>
+    <Box overflow="auto">
       <Heading level="3">{t("sign-up.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
@@ -77,8 +77,8 @@ export default function SignUp() : ReactElement {
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>
         <Box direction="row" justify="between" gap="medium">
-          <Button primary label={t("sign-up.login")} onClick={() => history.push(loginPath)} />
-          <Button type="submit" primary label={t("sign-up.submit")} />
+          <Button label={t("sign-up.login")} onClick={() => history.push(loginPath)} />
+          <Button primary type="submit" label={t("sign-up.submit")} />
         </Box>
       </Form>
     </Box>

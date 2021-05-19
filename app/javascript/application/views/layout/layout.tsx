@@ -13,7 +13,7 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
   return (
     <div style={{width: "100vw", height: "100vh"}}>
   <Grid
-    rows={['auto', 'auto', 'auto']}
+    rows={['auto', 'auto']}
     fill
   >
     <Box fill>
@@ -22,12 +22,9 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
          : <PublicHeader />}
     </Box>
     <Box fill pad="small">
-       <Box elevation="medium" pad="small" margin="auto" width="xxlarge">
+       <Box elevation="medium" pad="small" margin="auto" width="xxlarge" height="xxlarge">
          {children}
        </Box>
-    </Box>
-    <Box fill>
-      <Footer />
     </Box>
   </Grid>
 </div>)

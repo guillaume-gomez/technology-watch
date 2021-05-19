@@ -157,46 +157,44 @@ export default function Tags() : ReactElement {
     }
 
     return (
-      <Box>
-        <Heading level={4}>{t("tags.name")}</Heading>
-        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium">
-        <InfiniteScroll
-            dataLength={tags.length}
-            next={getMore}
-            style={{display: "flex", flexDirection: "column", alignItems: "center"}}
-            hasMore={data.getTags.pageInfo.hasNextPage}
-            loader={<Refresh />}
-            scrollableTarget="scrollableDiv"
-          >
-          {tags.map((tag: TagBulkType, index: number) => {
-            if(tag.destroy) {
-              return null;
-            }
-            return (
-              <Box key={index} direction="row" align="center" gap="small" width="xxlarge">
-                <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
-                <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
-                <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
-              </Box>
-            );
-          })
-        }
-        </InfiniteScroll>
+        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
+          <InfiniteScroll
+              dataLength={tags.length}
+              next={getMore}
+              style={{display: "flex", flexDirection: "column", alignItems: "center", width: '100%', height: '100%'}}
+              hasMore={data.getTags.pageInfo.hasNextPage}
+              loader={<Refresh />}
+              scrollableTarget="scrollableDiv"
+            >
+            {tags.map((tag: TagBulkType, index: number) => {
+              if(tag.destroy) {
+                return null;
+              }
+              return (
+                <Box key={index} direction="row" align="center" gap="small" width="xxlarge">
+                  <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+                  <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
+                  <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
+                </Box>
+              );
+            })
+          }
+          </InfiniteScroll>
         </Box>
-      </Box>
     );
   }
 
   return (
-    <Box gap="small">
+    <Box>
       <Heading level="3">{t("tags.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Link to={addTagsPath}>
         <Button label={t("tags.create-tag")} onClick={addTag} />
       </Link>
-      <Box overflow="auto">
+      <Heading level={4}>{t("tags.name")}</Heading>
+      <Box height={"70%"}>
         {renderTags()}
-      </Box>
+     </Box>
       <Box direction="row" justify="end" gap="medium">
         <Button primary label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
         <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({variables: {tags }})} />

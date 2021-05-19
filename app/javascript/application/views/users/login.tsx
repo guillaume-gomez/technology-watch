@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading
+  Box, Form, FormField, TextInput, Button, Heading, Anchor
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -50,7 +50,7 @@ export default function Login() : ReactElement {
     },
   );
   return (
-    <Box>
+    <Box overflow="auto">
       <Heading level="3">{t("sign-in.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
@@ -64,10 +64,14 @@ export default function Login() : ReactElement {
         <FormField name="password" htmlFor="password" label={t("sign-in.password") + t("required")} validate={[required(t)]}>
           <TextInput type="password" id="password" name="password" />
         </FormField>
-        <Box direction="row" justify="between" gap="medium">
-          <Button primary label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
-          <Button label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
-          <Button type="submit" primary label={t("sign-in.submit")} />
+        <Box pad="xsmall" flex align="center">
+          <Box width="small">
+            <Button type="submit" primary label={t("sign-in.submit")} />
+          </Box>
+        </Box>
+        <Box direction="row" align="center" justify="between" gap="medium">
+          <Button  label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
+          <Anchor label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
         </Box>
 
       </Form>
