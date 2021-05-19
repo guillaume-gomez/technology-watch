@@ -5,7 +5,7 @@ import {
 
 export default function footer() : ReactElement {
   return (
-    <Footer background="brand" pad="medium">
+    <Footer background="brand" pad="xsmall">
       <Text>Copyright</Text>
       <Anchor label="About" href="https://github.com/guillaume-gomez/technology-watch" />
     </Footer>

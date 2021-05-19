@@ -61,13 +61,13 @@ export default function Notes() : ReactElement {
   function computeGridColumns() {
     switch (size) {
       case "large":
-        return ["medium", "medium", "medium"]
+        return ["auto", "auto", "auto", "auto", "auto"]
         break;
       case "medium":
-        return ["medium", "medium"]
+        return ["auto", "auto", "auto"]
       case "small":
       default:
-        return ["medium"]
+        return ["auto"]
         break;
     }
   }
@@ -84,11 +84,11 @@ export default function Notes() : ReactElement {
       }
 
       return (
-        <Box id="scrollableDiv" height={"90%"} overflow="auto" margin="medium"  animation="fadeIn">
+        <Box id="scrollableDiv" height="99%" overflow="auto" animation="fadeIn">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
-            style={{display: "flex", flexDirection: "column", alignItems: "center"}}
+            style={{display: "flex", flexDirection: "column", alignItems: "center", width: '100%', height: '100%'}}
             hasMore={data.getNotes.pageInfo.hasNextPage}
             loader={<Refresh />}
             scrollableTarget="scrollableDiv"
@@ -96,9 +96,11 @@ export default function Notes() : ReactElement {
           <Grid
               columns={computeGridColumns()}
               gap="small"
+              pad="small"
+              fill
             >
             {data.getNotes.edges.map(({node}) => (
-                <NoteCard key={node!.id} note={node!} />
+              <NoteCard key={node!.id} note={node!} />
             ))}
           </Grid>
           </InfiniteScroll>
@@ -122,7 +124,7 @@ export default function Notes() : ReactElement {
   }
 
   return (
-    <Box gap="small">
+    <Box fill>
       <Heading level="3">{t("notes.title")}</Heading>
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />

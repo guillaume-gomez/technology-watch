@@ -11,16 +11,39 @@ export interface LayoutProps {
 
 export default function Layout({ children, loggedIn = false } : LayoutProps) : ReactElement {
   return (
-    <>
-      { loggedIn
-        ? <PrivateHeader />
-        : <PublicHeader />}
-      <Main gridArea="main" pad="large" align="center" >
-        <Box elevation="medium" pad="medium" width="xxlarge">
-          {children}
-        </Box>
-      </Main>
+    <div style={{width: "100vw", height: "100vh"}}>
+  <Grid
+    rows={['auto', 'auto', 'auto']}
+    fill
+  >
+    <Box fill>
+       {loggedIn
+         ? <PrivateHeader />
+         : <PublicHeader />}
+    </Box>
+    <Box fill pad="small">
+       <Box elevation="medium" pad="small" margin="auto" width="xxlarge">
+         {children}
+       </Box>
+    </Box>
+    <Box fill>
       <Footer />
-    </>
-  );
+    </Box>
+  </Grid>
+</div>)
+  // return (
+  //   <Grid
+  //     rows={["small", "large","small"]}
+  //   >
+  //     { loggedIn
+  //       ? <PrivateHeader />
+  //       : <PublicHeader />}
+  //     <Main gridArea="main" pad="large" align="center" >
+  //       <Box elevation="medium" pad="medium" width="xxlarge">
+  //         {children}
+  //       </Box>
+  //     </Main>
+  //     <Footer />
+  //   </Grid>
+  // );
 }
