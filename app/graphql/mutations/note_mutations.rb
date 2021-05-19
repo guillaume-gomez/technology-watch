@@ -108,7 +108,7 @@ module Mutations
           record.save!
         end
 
-        if _tag_ids_params.present?
+        unless _tag_ids_params.nil?
           note_tag_ids_to_destroyed = record.tags.pluck(:id) - _tag_ids_params.map(&:to_i)
           NoteTag.where(tag_id: note_tag_ids_to_destroyed).destroy_all
           _tag_ids_params.each do |tag_id|
