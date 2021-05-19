@@ -14,7 +14,7 @@ john = User.create!(
 )
 john.confirm
 
-5.times.each do |index|
+25.times.each do |index|
   Tag.create!(name: "tag#{index + 1}", user: john)
 end
 
