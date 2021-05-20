@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import {
-  Box, Text, Button,
+  Box, Paragraph, Button,
 } from "grommet";
 import {
   loginPath,
@@ -12,12 +12,15 @@ import {
 export default function ConfirmSignUp() : ReactElement {
   const { t } = useTranslation();
   return (
-    <Box>
-      <Text>{t("confirm-sign-up.text")}</Text>
-      <Link to={loginPath}>
-        <Button primary label={t("confirm-sign-up.go-to-login")} />
-      </Link>
-
-    </Box>
+    <Box justify="center" align="center">
+      <Box width="xlarge">
+        <Paragraph fill>{t("confirm-sign-up.text")}</Paragraph>
+        <Box fill direction="row" justify="end">
+          <Link to={loginPath}>
+            <Button primary label={t("confirm-sign-up.go-to-login")} />
+          </Link>
+        </Box>
+      </Box>
+   </Box>
   );
 }
