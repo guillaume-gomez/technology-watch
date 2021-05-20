@@ -1,10 +1,10 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading, Anchor
+  Box, Form, FormField, TextInput, Button, Heading, Anchor, ResponsiveContext
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -23,6 +23,7 @@ import {
 
 export default function Login() : ReactElement {
   const { t } = useTranslation();
+  const size = useContext(ResponsiveContext);
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [signUp] = useMutation<userLogin, userLoginVariables>(LoginQuery, {
@@ -64,12 +65,12 @@ export default function Login() : ReactElement {
         <FormField name="password" htmlFor="password" label={t("sign-in.password") + t("required")} validate={[required(t)]}>
           <TextInput type="password" id="password" name="password" />
         </FormField>
-        <Box pad="xsmall" flex align="center">
+        <Box pad="xsmall" flex align={ size  === "small" ? "center" : "end"}>
           <Box width="small">
             <Button type="submit" primary label={t("sign-in.submit")} />
           </Box>
         </Box>
-        <Box direction="row" align="center" justify="between" gap="medium">
+        <Box direction={size === "small" ? "column" : "row"} align="center" justify="between" pad="xsmall">
           <Button  label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
           <Anchor label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
         </Box>
