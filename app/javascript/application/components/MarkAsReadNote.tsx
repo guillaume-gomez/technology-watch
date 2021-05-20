@@ -29,6 +29,23 @@ export default function MarkAsReadNote({ id, markAsRead } : MarkAsReadNoteProps)
     },
     onError: (errors) => {
       console.error(errors);
+    },
+    update:(cache, { data }) => {
+      const { id: noteId } = data!.editNote;
+      const getNotesCache: getNotes | null = cache.readQuery({ query: GetNotesQuery });
+      if(!getNotesCache) {
+        return;
+      }
+      //remove note, it will be fetch if we change the param read in the query
+      const newCacheEdges = getNotesCache.getNotes.edges.filter(({node}) => node!.id !== noteId);
+      console.log(getNotesCache.getNotes)
+      const newCache = {
+        getNotes: {
+          ...getNotesCache.getNotes,
+          edges: [...newCacheEdges],
+        }
+      };
+      cache.writeQuery({ query: GetNotesQuery, data: newCache });
     }
   });
   return (
