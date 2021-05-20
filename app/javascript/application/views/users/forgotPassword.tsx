@@ -57,7 +57,7 @@ export default function ForgotPassword() : ReactElement {
         <FormField name="email" htmlFor="email" label={t("forgot-password.email") + t("required")} validate={[required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
-        <Box direction="row" justify="between" gap="medium">
+        <Box direction="row" justify="end">
           <Button type="submit" primary label={t("forgot-password.send")} />
         </Box>
 

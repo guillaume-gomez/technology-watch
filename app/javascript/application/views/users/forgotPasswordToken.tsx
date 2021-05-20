@@ -83,7 +83,7 @@ export default function ResetPasswordWithToken() : ReactElement {
         <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("forgot-password-token.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>
-        <Box direction="row" justify="end" gap="medium">
+        <Box direction="row" justify="end">
           <Button type="submit" primary label={t("forgot-password-token.submit")} />
         </Box>
       </Form>

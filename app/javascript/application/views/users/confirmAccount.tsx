@@ -43,10 +43,11 @@ export default function ConfirmAccount() : ReactElement {
   return (
     <Box>
       <Text>{t("confirm-account.text")}</Text>
-      <Link to={loginPath}>
-        <Button primary label={t("confirm-account.go-to-login")} />
-      </Link>
-
+      <Box align="end">
+        <Link to={loginPath}>
+          <Button primary label={t("confirm-account.go-to-login")} />
+        </Link>
+      </Box>
     </Box>
   );
 }

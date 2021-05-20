@@ -53,12 +53,12 @@ export default function ResendConfirmAccount() : ReactElement {
         onChange={(nextValues) => setValues(nextValues)}
         onSubmit={({ value }) => resetPassword({ variables: value })}
       >
-        <Heading level={3} fill>{t("forgot-password.text")}</Heading>
-        <FormField name="email" htmlFor="email" label={t("forgot-password.email") + t("required")} validate={[required(t)]}>
+        <Heading level={3} fill>{t("resend-confirm-account.text")}</Heading>
+        <FormField name="email" htmlFor="email" label={t("resend-confirm-account.email") + t("required")} validate={[required(t)]}>
           <TextInput id="email" name="email" />
         </FormField>
-        <Box direction="row" justify="between" gap="medium">
-          <Button type="submit" primary label={t("forgot-password.send")} />
+        <Box direction="row" justify="end">
+          <Button type="submit" primary label={t("resend-confirm-account.send")} />
         </Box>
 
       </Form>
