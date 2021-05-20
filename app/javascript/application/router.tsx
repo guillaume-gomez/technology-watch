@@ -10,6 +10,7 @@ import {
   signUpPath,
   signUpMessagePath,
   confirmAccountPath,
+  resetConfirmAccountPath,
   loginPath,
   publicRootPath,
   privateRootPath,
@@ -27,6 +28,7 @@ import PrivateRoute from "./components/router/privateRoute";
 import SignUp from "./views/users/signUp";
 import ConfirmSignUp from "./views/users/confirmSignUp";
 import ConfirmAccount from "./views/users/confirmAccount";
+import ResendConfirmAccount from "./views/users/resendConfirmAccount";
 import Login from "./views/users/login";
 import ForgotPassword from "./views/users/forgotPassword";
 import ForgotPasswordWithToken from "./views/users/forgotPasswordToken";
@@ -53,6 +55,7 @@ export default function Router() : ReactElement {
               <PrivateRoute path={tagsPath} component={Tags} />
               <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
               <PublicRoute path={confirmAccountPath} component={ConfirmAccount} />
+              <PublicRoute path={resetConfirmAccountPath} component={ResendConfirmAccount} />
               <PublicRoute path={signUpPath} component={SignUp} />
               <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
               <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />

@@ -28,7 +28,8 @@
   },
   "confirm-sign-up": {
     "text": "You are successfuly registered. Please to confirm your account by click on link you received by email",
-    "go-to-login": "Go to login"
+    "go-to-login": "Go to login",
+    "resend-confirmation-email": "Resend confirmation email"
   },
   "confirm-account": {
     "text": "Your account is confirmed !",
@@ -36,6 +37,11 @@
     "errors": {
       "token": "Cannot found the token in query string"
     }
+  },
+  "resend-confirm-account": {
+    "email": "Email",
+    "text": "Enter your email to received the confirmation email again",
+    "send": "Send"
   },
   "forgot-password": {
     "email": "Email",

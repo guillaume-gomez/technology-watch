@@ -52,6 +52,15 @@ export const ResetPassword =  gql`
   }
 `;
 
+export const UserResendConfirmation =  gql`
+  mutation userResendConfirmation($email: String!, $redirectUrl: String!) {
+    userResendConfirmation(email: $email, redirectUrl: $redirectUrl) {
+      message
+    }
+  }
+`;
+
+
 export const ResetPasswordWithToken =  gql`
   mutation resetPasswordWithToken($password: String!, $passwordConfirmation: String!, $resetPasswordToken: String!) {
     userUpdatePasswordWithToken(password: $password, passwordConfirmation: $passwordConfirmation, resetPasswordToken: $resetPasswordToken) {

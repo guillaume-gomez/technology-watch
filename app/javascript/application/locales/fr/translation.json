@@ -28,7 +28,8 @@
   },
   "confirm-sign-up": {
     "text": "Vous etes bien enregistré. Il vous reste à confirmer votre compte en cliquant sur le lien dans le mail que vous avez reçu",
-    "go-to-login": "Se connecter"
+    "go-to-login": "Se connecter",
+    "resend-confirmation-email": "Renvoyer l'email de confirmation"
   },
   "confirm-account": {
     "text": "Votre compte est maintenant confirmé",
@@ -36,6 +37,11 @@
     "errors": {
       "token": "Impossible de retrouver le token dans la queryString"
     }
+  },
+  "resend-confirm-account": {
+    "email": "Email",
+    "text": "Veuillez entrer votre adresse mail pour recevoir à nouveau l'email de confirmation",
+    "send": "Envoyer"
   },
   "forgot-password": {
     "email": "Email",
