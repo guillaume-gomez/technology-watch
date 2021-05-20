@@ -18,7 +18,7 @@ john.confirm
   Tag.create!(name: "tag#{index + 1}", user: john)
 end
 
-10.times.each do |index|
+50.times.each do |index|
   note = Note.create!(name: "note#{index + 1}", link: "http://linux.com", rating: [*0..10].sample, user: john)
   NoteTag.create!(note: note, tag: Tag.all.sample)
 end

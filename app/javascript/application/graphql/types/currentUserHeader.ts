@@ -16,6 +16,7 @@ export interface currentUserHeader_currentUser {
   nickname: string;
   name: string;
   languageCode: string;
+  themeMode: string;
 }
 
 export interface currentUserHeader {

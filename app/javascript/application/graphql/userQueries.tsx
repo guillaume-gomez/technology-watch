@@ -1,5 +1,19 @@
 import gql from "graphql-tag";
 
+export const UserFragment = {
+  fragments: {
+    user: gql`
+      fragment UserFragment on User {
+        id
+        nickname
+        name
+        languageCode
+        themeMode
+      }
+    `,
+  },
+};
+
 export const SignUp = gql`
   mutation userSignUp($email: String!, $password: String!, $passwordConfirmation: String!, $name: String!, $nickname: String! ) {
     userSignUp(
@@ -54,13 +68,10 @@ export const ResetPasswordWithToken =  gql`
 export const UserHeader = gql`
   query currentUserHeader {
     currentUser {
-      id
-      nickname
-      name
-      languageCode
+      ...UserFragment
     }
   }
-`;
+${UserFragment.fragments.user}`;
 
 export const ConfirmAccount = gql`
   query userConfirmAccount($token: String!, $redirectUrl: String!) {
@@ -85,10 +96,16 @@ export const Logout = gql`
 export const EditUser = gql`
   mutation editUser($id: ID!, $name: String, $nickname: String, $languageCode: String) {
     editUser(input: { user: {id: $id, name: $name, nickname: $nickname, languageCode: $languageCode}}) {
-      id
-      name
-      nickname
-      languageCode
+      ...UserFragment
     }
   }
-`;
+${UserFragment.fragments.user}`;
+
+
+export const UpdateThemeMode = gql`
+  mutation updateThemeMode($id: ID!, $themeMode: String) {
+    editUser(input: { user: {id: $id, themeMode: $themeMode }}) {
+      ...UserFragment
+    }
+  }
+${UserFragment.fragments.user}`;

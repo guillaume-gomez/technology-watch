@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: editUser
+// GraphQL mutation operation: updateThemeMode
 // ====================================================
 
-export interface editUser_editUser {
+export interface updateThemeMode_editUser {
   __typename: "User";
   /**
    * ID from ActiveRecord
@@ -19,16 +19,14 @@ export interface editUser_editUser {
   themeMode: string;
 }
 
-export interface editUser {
+export interface updateThemeMode {
   /**
    * Edit a User
    */
-  editUser: editUser_editUser;
+  editUser: updateThemeMode_editUser;
 }
 
-export interface editUserVariables {
+export interface updateThemeModeVariables {
   id: string;
-  name?: string | null;
-  nickname?: string | null;
-  languageCode?: string | null;
+  themeMode?: string | null;
 }

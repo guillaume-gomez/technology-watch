@@ -6,6 +6,7 @@ module Types
     field :nickname, String, null: false
     field :language_code, String, null: false
     field :tags, Types::TagType.connection_type, null: false
+    field :theme_mode, String, null: false
   end
 
 end

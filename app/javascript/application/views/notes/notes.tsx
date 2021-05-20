@@ -133,7 +133,7 @@ export default function Notes() : ReactElement {
       <Box justify="end" direction="row" height="xsmall" pad={{bottom: "medium"}}>
          <Tip content={t("notes.hint.bookmark")}>
           <Button
-            icon={<Bookmark color={bookmark ? "brand" : "plain"} />}
+            icon={<Bookmark color={bookmark ? "brand": ""} />}
             hoverIndicator
             onClick={() => setBookmark(!bookmark)}
             />

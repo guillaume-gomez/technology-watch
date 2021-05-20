@@ -758,6 +758,7 @@ type User implements ActiveRecord {
     """
     last: Int
   ): TagConnection!
+  themeMode: String!
 
   """
   update_at field from ActiveRecord
@@ -826,9 +827,9 @@ input UserEditType {
   nickname: String
 
   """
-  list of suggested tags on notes
+  theme mode choose by the user
   """
-  tags: [String!]
+  themeMode: String
 }
 
 """

@@ -41,11 +41,9 @@ module Mutations
         description 'application language'
       end
 
-      argument :tags, [String], required: false, as: :tag_list do
-        description 'list of suggested tags on notes'
+      argument :theme_mode, String, required: false do
+        description "theme mode choose by the user"
       end
-
-
     end
 
     class CreateUser < BaseMutation

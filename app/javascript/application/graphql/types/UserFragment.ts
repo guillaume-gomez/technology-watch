@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: editUser
+// GraphQL fragment: UserFragment
 // ====================================================
 
-export interface editUser_editUser {
+export interface UserFragment {
   __typename: "User";
   /**
    * ID from ActiveRecord
@@ -17,18 +17,4 @@ export interface editUser_editUser {
   name: string;
   languageCode: string;
   themeMode: string;
-}
-
-export interface editUser {
-  /**
-   * Edit a User
-   */
-  editUser: editUser_editUser;
-}
-
-export interface editUserVariables {
-  id: string;
-  name?: string | null;
-  nickname?: string | null;
-  languageCode?: string | null;
 }
