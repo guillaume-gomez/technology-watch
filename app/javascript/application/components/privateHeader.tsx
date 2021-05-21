@@ -16,7 +16,9 @@ import CurrentUser from "./customHooks/currentUser";
 
 import { userLogout } from "../graphql/types/userLogout";
 import { updateThemeMode, updateThemeModeVariables } from "../graphql/types/updateThemeMode";
-import { publicRootPath, editUserPath, tagsPath, privateRootPath, aboutPath } from "../routesPath";
+import {
+  publicRootPath, editUserPath, tagsPath, privateRootPath, aboutPath,
+} from "../routesPath";
 
 import { clear } from "../authentication";
 

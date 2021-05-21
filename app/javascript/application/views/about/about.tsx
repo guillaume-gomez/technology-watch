@@ -7,14 +7,12 @@ import {
   Heading,
   Text,
   Paragraph,
-  Anchor
+  Anchor,
 } from "grommet";
 
 import {
-  addTagsPath,
-  privateRootPath
+  privateRootPath,
 } from "../../routesPath";
-
 
 export default function About() : ReactElement {
   const { t } = useTranslation();
@@ -22,26 +20,32 @@ export default function About() : ReactElement {
   return (
     <Box>
       <Heading level="3">{t("about.title")}</Heading>
-      <Paragraph fill >
+      <Paragraph fill>
         <Trans i18nKey="about.explanation">
-          {[<Anchor href="https://en.wikipedia.org/wiki/Technology_intelligence"/>]}
+          {[<Anchor href="https://en.wikipedia.org/wiki/Technology_intelligence" />]}
         </Trans>
       </Paragraph>
       <Paragraph>
-        {t("about.more-info")} <Anchor href="https://github.com/guillaume-gomez/technology-watch" label={t("about.github-repository")} />
+        {t("about.more-info")}
+        {" "}
+        <Anchor href="https://github.com/guillaume-gomez/technology-watch" label={t("about.github-repository")} />
       </Paragraph>
       <Paragraph fill>
         <Trans i18nKey="about.ticket">
-          {[<Anchor href="https://github.com/guillaume-gomez/technology-watch/issues"/>]}
+          {[<Anchor href="https://github.com/guillaume-gomez/technology-watch/issues" />]}
         </Trans>
       </Paragraph>
       <Paragraph>
         <Trans i18nKey="about.made">
-          {[<Anchor href="https://guillaume-gomez.github.io/"/>]}
+          {[<Anchor href="https://guillaume-gomez.github.io/" />]}
         </Trans>
-        {" "+ t("about.year")}
+        {` ${t("about.year")}`}
       </Paragraph>
-      <Text weight="bold" size="large" margin={{top: "medium", bottom: "medium"}}>{t("about.server")} 🙂</Text>
+      <Text weight="bold" size="large" margin={{ top: "medium", bottom: "medium" }}>
+        {t("about.server")}
+        {" "}
+        🙂
+      </Text>
       <Box direction="row" justify="start">
         <Link to={privateRootPath}>
           <Button label={t("about.back")} />
