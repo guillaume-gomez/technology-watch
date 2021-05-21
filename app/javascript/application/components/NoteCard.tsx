@@ -7,7 +7,7 @@ import {
   CardBody,
   CardFooter,
   Button,
-  ThemeContext
+  ThemeContext,
 } from "grommet";
 
 import { Edit, View, Clock } from "grommet-icons";
@@ -29,31 +29,37 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const { dark } : any = React.useContext(ThemeContext); // ThemeContext is bad typed by grommet
   const history = useHistory();
 
-
   return (
-    <Card background={dark ? "dark-1" : "light-1"} animation="fadeIn" height={{min: "200px"}}>
+    <Card background={dark ? "dark-1" : "light-1"} animation="fadeIn" height={{ min: "200px" }}>
       <CardHeader pad="small" background={dark ? "dark-3" : "light-3"}>
-        <Box direction="row" flex={true} justify="between">
+        <Box direction="row" flex justify="between">
           <div>{note.name}</div>
-          <div>{note.rating} /10</div>
+          <div>
+            {note.rating}
+            {" "}
+            /10
+          </div>
         </Box>
       </CardHeader>
       <CardBody pad="small" gap="small">
         {note.description}
         <Box align="center" direction="row" wrap>
-          {note.tags.edges.map(({node: tag}) =>
+          {note.tags.edges.map(({ node: tag }) => (
             <Tag key={tag!.id} color={tag!.color}>
               {tag!.name}
             </Tag>
-          )}
+          ))}
         </Box>
-        {note.timeToReadInMinutes ? 
-          <Box flex direction="row" alignContent="center" gap="xxsmall">
-            {note.timeToReadInMinutes} min <Clock />
-          </Box>
-          :
-          null
-        }
+        {note.timeToReadInMinutes
+          ? (
+            <Box flex direction="row" alignContent="center" gap="xxsmall">
+              {note.timeToReadInMinutes}
+              {" "}
+              min
+              <Clock />
+            </Box>
+          )
+          : null}
       </CardBody>
       <CardFooter background={dark ? "dark-3" : "light-3"}>
         <Button

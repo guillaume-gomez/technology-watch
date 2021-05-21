@@ -14,7 +14,7 @@ import ServerError from "../../components/serverError";
 import { editNote, editNoteVariables } from "../../graphql/types/editNote";
 import { getNotes } from "../../graphql/types/getNotes";
 
-import { getNote, getNoteVariables, getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
+import { getNote, getNoteVariables } from "../../graphql/types/getNote";
 
 import {
   EditNote as EditNoteQuery,
@@ -43,17 +43,21 @@ export default function EditNote() : ReactElement {
       link: "",
       description: "",
       rating: 1,
-      timeToReadInMinutes:1,
-      tags: []
+      timeToReadInMinutes: 1,
+      tags: [],
     },
   );
 
   useQuery<getNote, getNoteVariables>(GetNoteQuery, {
     variables: { id },
     onCompleted: ({ getNote }) => {
-      const { id, name, link, description, rating, timeToReadInMinutes } = getNote;
-      const tags = getNote.tags.edges.map(({node}) => (node!));
-      setValues({ id, name, description, link, rating, tags, timeToReadInMinutes });
+      const {
+        id, name, link, description, rating, timeToReadInMinutes,
+      } = getNote;
+      const tags = getNote.tags.edges.map(({ node }) => (node!));
+      setValues({
+        id, name, description, link, rating, tags, timeToReadInMinutes,
+      });
       setLoadingNote(false);
     },
   });

@@ -19,7 +19,7 @@ function renderTag(children : ReactNode, onRemove?: () => void, color: string = 
       round="xsmall"
       pad="xsmall"
       gap="xsmall"
-      margin={{right: "xsmall"}}
+      margin={{ right: "xsmall" }}
     >
       <Text size="small">{children}</Text>
       {onRemove && (

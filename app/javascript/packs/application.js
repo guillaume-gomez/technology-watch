@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import { render } from "react-dom";
-import { getToken, getUID, getClient } from "../application/authentication";
-import { ApolloClient, InMemoryCache, gql, ApolloProvider, createHttpLink } from "@apollo/client";
+import {
+  ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,
+} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { relayStylePagination } from "@apollo/client/utilities";
+import { getToken, getUID, getClient } from "../application/authentication";
 import Router from "../application/router";
 import ThemeMode from "../application/reducers/useThemeColor";
 
@@ -31,17 +33,16 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-
 const cache = new InMemoryCache({
   queryType: true,
   typePolicies: {
     Query: {
       fields: {
         getNotes: relayStylePagination(),
-        getTags : relayStylePagination(),
-      }
-    }
-  }
+        getTags: relayStylePagination(),
+      },
+    },
+  },
 });
 
 const client = new ApolloClient({

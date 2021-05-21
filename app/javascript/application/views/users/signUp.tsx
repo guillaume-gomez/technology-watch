@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
-  Box, Form, FormField, TextInput, Button, Heading
+  Box, Form, FormField, TextInput, Button, Heading,
 } from "grommet";
 import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 

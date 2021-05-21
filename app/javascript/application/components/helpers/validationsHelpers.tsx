@@ -29,4 +29,3 @@ export function urlValidation(t: i18Next.TFunction) {
     return false;
   };
 }
-
