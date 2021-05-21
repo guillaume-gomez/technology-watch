@@ -1,15 +1,19 @@
-import React, { ReactElement, useState, useEffect, useContext } from "react";
+import React, {
+  ReactElement, useState, useEffect, useContext,
+} from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, Button, Select, Tabs, Tab, Grid, ResponsiveContext, Tip
+  Box, Heading, Spinner, Text, Button, Tabs, Tab, Grid, ResponsiveContext, Tip,
 } from "grommet";
-import { Ascend, Descend, Refresh, Bookmark } from "grommet-icons";
+import {
+  Ascend, Descend, Refresh, Bookmark,
+} from "grommet-icons";
 
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
-import { getNotes, getNotesVariables, getNotes_getNotes_edges } from "../../graphql/types/getNotes";
+import { getNotes, getNotesVariables } from "../../graphql/types/getNotes";
 import { NoteOrder, NoteDirection } from "../../graphql/types/graphql-global-types";
 
 import NoteCard from "../../components/NoteCard";
@@ -20,11 +24,6 @@ import {
 
 import { nbItems } from "./noteConstants";
 
-interface FetchMoreResultQuery {
-  fetchMoreResult: getNotes;
-  variables: Object
-}
-
 export default function Notes() : ReactElement {
   const { t } = useTranslation();
   const size = useContext(ResponsiveContext);
@@ -33,53 +32,52 @@ export default function Notes() : ReactElement {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
   const {
-    loading, data, error, fetchMore, refetch
-  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, { variables: { first: nbItems, order, direction, read: bookmark } });
+    loading, data, fetchMore, refetch,
+  } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, {
+    variables: {
+      first: nbItems, order, direction, read: bookmark,
+    },
+  });
 
-  //update order according to selected tab
+  // update order according to selected tab
   useEffect(() => {
     switch (activeTabIndex) {
-      case 0:
-        setOrder(NoteOrder.RECENT);
-        break;
-      case 1:
-        setOrder(NoteOrder.RATING);
-        break;
-      case 2:
-        setOrder(NoteOrder.TIMES_TO_READ);
-        break;
-      default:
-        setOrder(NoteOrder.RECENT);
-        break;
+    case 0:
+      setOrder(NoteOrder.RECENT);
+      break;
+    case 1:
+      setOrder(NoteOrder.RATING);
+      break;
+    case 2:
+      setOrder(NoteOrder.TIMES_TO_READ);
+      break;
+    default:
+      setOrder(NoteOrder.RECENT);
+      break;
     }
-  }, [activeTabIndex])
-
+  }, [activeTabIndex]);
 
   useEffect(() => {
     refetch();
-  }, [order, direction, bookmark]);
+  }, [order, direction, bookmark, refetch]);
 
   function computeGridColumns() {
     switch (size) {
-      case "large":
-        return ["auto", "auto", "auto", "auto", "auto"]
-        break;
-      case "medium":
-        return ["auto", "auto", "auto"]
-      case "small":
-      default:
-        return ["auto"]
-        break;
+    case "large":
+      return ["auto", "auto", "auto", "auto", "auto"];
+    case "medium":
+      return ["auto", "auto", "auto"];
+    case "small":
+    default:
+      return ["auto"];
     }
   }
-
 
   function displayNotes() {
     if (loading) {
       return <Spinner />;
     }
     if (data && data.getNotes && data.getNotes.edges) {
-
       if (data.getNotes.edges.length === 0) {
         return <Text>{t("notes.no-notes")}</Text>;
       }
@@ -89,21 +87,23 @@ export default function Notes() : ReactElement {
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
-            style={{display: "flex", flexDirection: "column", alignItems: "center", width: '100%', height: '100%'}}
+            style={{
+              display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
+            }}
             hasMore={data.getNotes.pageInfo.hasNextPage}
             loader={<Refresh />}
             scrollableTarget="scrollableDiv"
           >
-          <Grid
+            <Grid
               columns={computeGridColumns()}
               gap="small"
               pad="small"
               fill
             >
-            {data.getNotes.edges.map(({node}) => (
-              <NoteCard key={node!.id} note={node!} />
-            ))}
-          </Grid>
+              {data.getNotes.edges.map(({ node }) => (
+                <NoteCard key={node!.id} note={node!} />
+              ))}
+            </Grid>
           </InfiniteScroll>
         </Box>
       );
@@ -119,7 +119,7 @@ export default function Notes() : ReactElement {
     fetchMore({
       variables: {
         first: nbItems,
-        after: data.getNotes.pageInfo.endCursor
+        after: data.getNotes.pageInfo.endCursor,
       },
     });
   }
@@ -130,31 +130,31 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
-      <Box justify="end" direction="row" height="xsmall" pad={{bottom: "medium"}}>
-         <Tip content={t("notes.hint.bookmark")}>
+      <Box justify="end" direction="row" height="xsmall" pad={{ bottom: "medium" }}>
+        <Tip content={t("notes.hint.bookmark")}>
           <Button
-            icon={<Bookmark color={bookmark ? "brand": ""} />}
+            icon={<Bookmark color={bookmark ? "brand" : ""} />}
             hoverIndicator
             onClick={() => setBookmark(!bookmark)}
-            />
-          </Tip>
-         {
-        direction === NoteDirection.DESC ?
-        <Button icon={<Ascend />} size={"medium"}  onClick={() => setDirection(NoteDirection.ASC)} /> :
-        <Button icon={<Descend />} size={"medium"}   onClick={() => setDirection(NoteDirection.DESC)} />
-      }
-     </Box>
-     <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
-      <Tab title={t("notes.recent")}>
-        {displayNotes()}
-      </Tab>
-      <Tab title={t("notes.rating")}>
-        {displayNotes()}
-      </Tab>
-       <Tab title={t("notes.times-to-read")}>
-        {displayNotes()}
-      </Tab>
-    </Tabs>
-  </Box>
+          />
+        </Tip>
+        {
+          direction === NoteDirection.DESC
+            ? <Button icon={<Ascend />} size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+            : <Button icon={<Descend />} size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+        }
+      </Box>
+      <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+        <Tab title={t("notes.recent")}>
+          {displayNotes()}
+        </Tab>
+        <Tab title={t("notes.rating")}>
+          {displayNotes()}
+        </Tab>
+        <Tab title={t("notes.times-to-read")}>
+          {displayNotes()}
+        </Tab>
+      </Tabs>
+    </Box>
   );
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -6,14 +6,12 @@ import {
   Box, Form, FormField, TextInput, Button, Text, TextArea, RangeInput,
 } from "grommet";
 
-import TagSelectRemote from  "../../components/tagSelectRemote";
-
+import TagSelectRemote from "../../components/tagSelectRemote";
 
 import { createNoteVariables } from "../../graphql/types/createNote";
 import { editNoteVariables } from "../../graphql/types/editNote";
 import { getNote_getNote_tags_edges_node } from "../../graphql/types/getNote";
 import { getTagsNameContains_getTags_edges_node } from "../../graphql/types/getTagsNameContains";
-import { currentUserHeader } from "../../graphql/types/currentUserHeader";
 
 import { required, urlValidation } from "../../components/helpers/validationsHelpers";
 
@@ -23,7 +21,6 @@ import {
 
 export type initialValuesTypes = Omit<createNoteVariables | editNoteVariables, "tags">
 & { tags: getNote_getNote_tags_edges_node[] };
-
 
 interface NoteFormProps {
  initialValues: initialValuesTypes;
@@ -38,18 +35,17 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
   function onRemoveTag(index: number) {
     const newTags = values.tags ? [...values.tags] : [];
     newTags.splice(index, 1);
-    setValues({...values, tags: newTags});
-  };
+    setValues({ ...values, tags: newTags });
+  }
 
-  function onSelectTag(newTag : getTagsNameContains_getTags_edges_node)  {
+  function onSelectTag(newTag : getTagsNameContains_getTags_edges_node) {
     const oldTags = values.tags ? values.tags : [];
-    setValues({...values, tags: [...oldTags, newTag] });
-  };
+    setValues({ ...values, tags: [...oldTags, newTag] });
+  }
 
   function callMutation(value: initialValuesTypes) {
-
-    const sanitizedTags = values.tags.map(tag => tag.id);
-    mutation({variables: { ...value, tags: sanitizedTags } })
+    const sanitizedTags = values.tags.map((tag) => tag.id);
+    mutation({ variables: { ...value, tags: sanitizedTags } });
   }
 
   return (
@@ -72,7 +68,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         <Text>{values.rating}</Text>
       </FormField>
       <FormField name="timeToReadInMinutes" htmlFor="timeToReadInMinutes" label={t("new-note.time-to-read-in-minutes")}>
-        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes as number} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })}/>
+        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes as number} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })} />
       </FormField>
       <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
         <TagSelectRemote

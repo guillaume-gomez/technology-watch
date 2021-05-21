@@ -3,8 +3,10 @@ import {
   BrowserRouter,
   Switch,
 } from "react-router-dom";
-import { Grommet, ResponsiveContext, Spinner, grommet } from "grommet";
-import { theme } from "./theme";
+import {
+  Grommet, Spinner, grommet,
+} from "grommet";
+// import { theme } from "./theme";
 
 import {
   signUpPath,
@@ -19,7 +21,7 @@ import {
   editUserPath,
   tagsPath,
   forgotPasswordPath,
-  forgotPasswordWithToken
+  forgotPasswordWithToken,
 } from "./routesPath";
 
 import PublicRoute from "./components/router/publicRoute";
@@ -39,7 +41,6 @@ import NewNote from "./views/notes/newNote";
 import EditNote from "./views/notes/editNote";
 
 import ThemeColor from "./reducers/useThemeColor";
-
 
 export default function Router() : ReactElement {
   const { themeMode } = ThemeColor.useContainer();

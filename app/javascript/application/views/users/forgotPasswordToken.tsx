@@ -2,13 +2,11 @@ import React, { ReactElement, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-import useQuery from "../../components/customHooks/useQuery";
 import {
-  Box, Form, FormField, TextInput, Button, Heading
+  Box, Form, FormField, TextInput, Button, Heading,
 } from "grommet";
-import { emailValidation, required } from "../../components/helpers/validationsHelpers";
-
-import { setToken, setUID, setClient } from "../../authentication";
+import useQuery from "../../components/customHooks/useQuery";
+import { required } from "../../components/helpers/validationsHelpers";
 
 import ServerError from "../../components/serverError";
 
@@ -18,7 +16,6 @@ import { ResetPasswordWithToken as ResetPasswordWithTokenQuery } from "../../gra
 import {
   publicRootPath,
   confirmAccountPath,
-  loginPath,
 } from "../../routesPath";
 
 export default function ResetPasswordWithToken() : ReactElement {
@@ -39,23 +36,23 @@ export default function ResetPasswordWithToken() : ReactElement {
     {
       password: "",
       passwordConfirmation: "",
-      resetPasswordToken: ""
+      resetPasswordToken: "",
     },
   );
 
   useEffect(() => {
     const token = query.get("variables[token]");
-    if(token) {
-      setValues({...values, resetPasswordToken: token })
+    if (token) {
+      setValues((values) => ({ ...values, resetPasswordToken: token }));
     } else {
       setNetworkError(t("forgot-password-token.errors.token"));
     }
 
     // check if we come here for reset password or confirm account
-    if(location.search.slice(1).includes("userConfirmAccount")) {
-      history.replace({ pathname: confirmAccountPath, search: `?token=${token}`});
+    if (window.location.search.slice(1).includes("userConfirmAccount")) {
+      history.replace({ pathname: confirmAccountPath, search: `?token=${token}` });
     }
-  }, []);
+  }, [history, query, t]);
 
   function passwordValidation(comparant: keyof resetPasswordWithTokenVariables) {
     return (value : string, otherValues : resetPasswordWithTokenVariables) => {

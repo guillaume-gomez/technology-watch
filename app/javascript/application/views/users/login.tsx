@@ -18,7 +18,7 @@ import { required } from "../../components/helpers/validationsHelpers";
 import {
   privateRootPath,
   signUpPath,
-  forgotPasswordPath
+  forgotPasswordPath,
 } from "../../routesPath";
 
 export default function Login() : ReactElement {

@@ -18,5 +18,3 @@ export const resetConfirmAccountPath = "/reset-confirm-account";
 
 export const publicRootPath = loginPath;
 export const privateRootPath = notePath;
-
-
