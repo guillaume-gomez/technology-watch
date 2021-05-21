@@ -44,7 +44,7 @@ export const Login = gql`
   }
 `;
 
-export const ResetPassword =  gql`
+export const ResetPassword = gql`
   mutation resetPassword($email: String!, $redirectUrl: String!) {
     userSendPasswordReset(email: $email, redirectUrl: $redirectUrl) {
       message
@@ -52,7 +52,7 @@ export const ResetPassword =  gql`
   }
 `;
 
-export const ResetPasswordWithToken =  gql`
+export const ResetPasswordWithToken = gql`
   mutation resetPasswordWithToken($password: String!, $passwordConfirmation: String!, $resetPasswordToken: String!) {
     userUpdatePasswordWithToken(password: $password, passwordConfirmation: $passwordConfirmation, resetPasswordToken: $resetPasswordToken) {
       credentials {
@@ -82,7 +82,6 @@ export const ConfirmAccount = gql`
   }
 `;
 
-
 export const Logout = gql`
   mutation userLogout {
     userLogout {
@@ -100,7 +99,6 @@ export const EditUser = gql`
     }
   }
 ${UserFragment.fragments.user}`;
-
 
 export const UpdateThemeMode = gql`
   mutation updateThemeMode($id: ID!, $themeMode: String) {

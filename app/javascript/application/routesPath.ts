@@ -19,5 +19,3 @@ export const aboutPath = "/about";
 
 export const publicRootPath = loginPath;
 export const privateRootPath = notePath;
-
-

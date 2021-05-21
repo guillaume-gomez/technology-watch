@@ -3,20 +3,20 @@ import { uniqBy } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 import {
   Box,
   Spinner,
   Button,
   Heading,
-  TextInput
+  TextInput,
 } from "grommet";
-import { Edit, Trash, Refresh } from "grommet-icons";
+import { Trash, Refresh } from "grommet-icons";
 
 import {
   addTagsPath,
-  privateRootPath
+  privateRootPath,
 } from "../../routesPath";
 
 import { getTags, getTagsVariables, getTags_getTags_edges } from "../../graphql/types/getTags";
@@ -34,17 +34,12 @@ import ServerError from "../../components/serverError";
 import { nbItems } from "./tagConstants";
 
 function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i += 1) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
-}
-
-interface FetchMoreResultQuery {
-  fetchMoreResult: getTags;
-  variables: Object
 }
 
 export default function Tags() : ReactElement {
@@ -52,17 +47,17 @@ export default function Tags() : ReactElement {
   const history = useHistory();
   const [tags, setTags] = useState<TagBulkType[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
-  const { data, loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, { 
+  const { data, loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, {
     variables: { first: nbItems },
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({getTags}) => {
-      if(getTags.edges) {
+    onCompleted: ({ getTags }) => {
+      if (getTags.edges) {
         updateTagsFromQuery(getTags.edges);
       }
     },
     onError: (errors) => {
       setNetworkError(errors.toString());
-    }
+    },
   });
   const [editTags] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
     onCompleted: () => {
@@ -81,37 +76,34 @@ export default function Tags() : ReactElement {
       const newCache = {
         getTags: {
           pageInfo: dataInCache.getTags.pageInfo,
-          ...elementsUpdated
+          ...elementsUpdated,
         },
       };
       cache.writeQuery({ query: GetTagsQuery, variables: { first: nbItems }, data: newCache });
-    }
+    },
   });
 
   function updateTagsFromQuery(tagEdges: getTags_getTags_edges[]) {
-    const tagsFromQuery = tagEdges.map(({node}) => (
-      { id: node!.id,
+    const tagsFromQuery = tagEdges.map(({ node }) => (
+      {
+        id: node!.id,
         name: node!.name,
         color: node!.color,
-        destroy: false
-      })
-    );
+        destroy: false,
+      }));
     setTags(uniqBy([...tags, ...tagsFromQuery], "id"));
   }
 
-
   function addTag() {
-    setTags([...tags, {name: "", color: getRandomColor()}]);
+    setTags([...tags, { name: "", color: getRandomColor() }]);
   }
 
   function removeTag(index: number) {
     const newTags = tags.map((tag, i) => {
-      if(index !== i) {
+      if (index !== i) {
         return tag;
-      } else {
-        return {...tag, destroy: true };
       }
-      
+      return { ...tag, destroy: true };
     });
     setTags(newTags);
   }
@@ -119,7 +111,7 @@ export default function Tags() : ReactElement {
   function updateTag(newTagValue: string, index: number) {
     const newTags = tags.map((tag, i) => {
       if (i === index) {
-        return {...tag, name: newTagValue };
+        return { ...tag, name: newTagValue };
       }
       return tag;
     });
@@ -129,58 +121,59 @@ export default function Tags() : ReactElement {
   function updateColorTag(newTagColor: string, index: number) {
     const newTags = tags.map((tag, i) => {
       if (i === index) {
-        return {...tag, color: newTagColor };
+        return { ...tag, color: newTagColor };
       }
       return tag;
     });
     setTags(newTags);
   }
 
-   function getMore() {
+  function getMore() {
     if (!data || !data.getTags.pageInfo.hasNextPage) {
       return;
     }
     fetchMore({
       variables: {
         cursor: data.getTags.pageInfo.endCursor,
-      }
+      },
     });
   }
 
   function renderTags() {
-    if(loading) {
-      return <Spinner/>;
+    if (loading) {
+      return <Spinner />;
     }
 
-    if(tags.length === 0 || !data) {
-      return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>
+    if (tags.length === 0 || !data) {
+      return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>;
     }
 
     return (
-        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
-          <InfiniteScroll
-              dataLength={tags.length}
-              next={getMore}
-              style={{display: "flex", flexDirection: "column", alignItems: "center", width: '100%', height: '100%'}}
-              hasMore={data.getTags.pageInfo.hasNextPage}
-              loader={<Refresh />}
-              scrollableTarget="scrollableDiv"
-            >
-            {tags.map((tag: TagBulkType, index: number) => {
-              if(tag.destroy) {
-                return null;
-              }
-              return (
-                <Box key={index} direction="row" align="center" gap="small" width="xxlarge">
-                  <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
-                  <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)}/>
-                  <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
-                </Box>
-              );
-            })
-          }
-          </InfiniteScroll>
-        </Box>
+      <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
+        <InfiniteScroll
+          dataLength={tags.length}
+          next={getMore}
+          style={{
+            display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
+          }}
+          hasMore={data.getTags.pageInfo.hasNextPage}
+          loader={<Refresh />}
+          scrollableTarget="scrollableDiv"
+        >
+          {tags.map((tag: TagBulkType, index: number) => {
+            if (tag.destroy) {
+              return null;
+            }
+            return (
+              <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
+                <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+                <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
+                <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
+              </Box>
+            );
+          })}
+        </InfiniteScroll>
+      </Box>
     );
   }
 
@@ -192,12 +185,12 @@ export default function Tags() : ReactElement {
         <Button label={t("tags.create-tag")} onClick={addTag} />
       </Link>
       <Heading level={4}>{t("tags.name")}</Heading>
-      <Box height={"70%"}>
+      <Box height="70%">
         {renderTags()}
-     </Box>
+      </Box>
       <Box direction="row" justify="end" gap="medium">
         <Button primary label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
-        <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({variables: {tags }})} />
+        <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({ variables: { tags } })} />
       </Box>
     </Box>
   );

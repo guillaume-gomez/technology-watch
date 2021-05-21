@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading, Anchor
+  Box, Form, FormField, TextInput, Button, Heading, Anchor,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -18,7 +18,7 @@ import { required } from "../../components/helpers/validationsHelpers";
 import {
   privateRootPath,
   signUpPath,
-  forgotPasswordPath
+  forgotPasswordPath,
 } from "../../routesPath";
 
 export default function Login() : ReactElement {
@@ -70,7 +70,7 @@ export default function Login() : ReactElement {
           </Box>
         </Box>
         <Box direction="row" align="center" justify="between" gap="medium">
-          <Button  label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
+          <Button label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
           <Anchor label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
         </Box>
 

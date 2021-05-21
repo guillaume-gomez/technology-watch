@@ -41,7 +41,7 @@ export default function About() : ReactElement {
         </Trans>
         {" "+ t("about.year")}
       </Paragraph>
-      <Text weight="bold" size="large" margin={{top: "medium", bottom: "medium"}}>{t("about.server")}</Text>
+      <Text weight="bold" size="large" margin={{top: "medium", bottom: "medium"}}>{t("about.server")} 🙂</Text>
       <Box direction="row" justify="start">
         <Link to={privateRootPath}>
           <Button label={t("about.back")} />

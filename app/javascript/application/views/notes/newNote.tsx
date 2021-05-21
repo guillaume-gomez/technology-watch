@@ -4,14 +4,12 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Heading, Spinner,
+  Box, Heading,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
 
-import CurrentUser from "../../components/customHooks/currentUser";
-
-import NoteForm, {initialValuesTypes } from "./noteForm";
+import NoteForm, { initialValuesTypes } from "./noteForm";
 
 import { createNote, createNoteVariables } from "../../graphql/types/createNote";
 import { getNotes } from "../../graphql/types/getNotes";
@@ -56,7 +54,7 @@ export default function NewNote() : ReactElement {
     },
   });
 
-  const [values, setValues] = React.useState<initialValuesTypes>(
+  const [values] = React.useState<initialValuesTypes>(
     {
       name: "",
       link: "",

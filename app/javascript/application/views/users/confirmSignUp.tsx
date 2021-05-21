@@ -21,6 +21,6 @@ export default function ConfirmSignUp() : ReactElement {
           </Link>
         </Box>
       </Box>
-   </Box>
+    </Box>
   );
 }

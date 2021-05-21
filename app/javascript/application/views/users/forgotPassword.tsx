@@ -1,35 +1,27 @@
 import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading
+  Box, Form, FormField, TextInput, Button, Heading,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
-import { setToken, setUID, setClient } from "../../authentication";
 
 import { resetPassword, resetPasswordVariables } from "../../graphql/types/resetPassword";
 import { ResetPassword as ResetPasswordQuery } from "../../graphql/userQueries";
 
 import { required } from "../../components/helpers/validationsHelpers";
 
-import {
-  privateRootPath,
-  signUpPath,
-} from "../../routesPath";
-
 export default function ForgotPassword() : ReactElement {
   const { t } = useTranslation();
-  const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [resetPassword] = useMutation<resetPassword, resetPasswordVariables>(ResetPasswordQuery, {
-    onCompleted: ({userSendPasswordReset}) => {
+    onCompleted: ({ userSendPasswordReset }) => {
       if (userSendPasswordReset) {
-         setMessage(userSendPasswordReset.message);
-         setNetworkError("");
+        setMessage(userSendPasswordReset.message);
+        setNetworkError("");
       } else {
         // set error
       }
@@ -41,7 +33,7 @@ export default function ForgotPassword() : ReactElement {
   const [values, setValues] = React.useState<resetPasswordVariables>(
     {
       email: "",
-      redirectUrl: "/reset-password-url"
+      redirectUrl: "/reset-password-url",
     },
   );
   return (
