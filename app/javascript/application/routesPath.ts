@@ -13,7 +13,9 @@ export const configPath = "/config";
 export const tagsPath = `${configPath}/tags`;
 export const addTagsPath = `${tagsPath}/new`;
 
-export const confirmAccountPath = "/confirm-account"
+export const confirmAccountPath = "/confirm-account";
+
+export const aboutPath = "/about";
 
 export const publicRootPath = loginPath;
 export const privateRootPath = notePath;

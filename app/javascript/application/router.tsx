@@ -7,6 +7,7 @@ import { Grommet, ResponsiveContext, Spinner, grommet } from "grommet";
 import { theme } from "./theme";
 
 import {
+  aboutPath,
   signUpPath,
   signUpMessagePath,
   confirmAccountPath,
@@ -33,6 +34,7 @@ import ForgotPasswordWithToken from "./views/users/forgotPasswordToken";
 import EditProfile from "./views/users/editProfile";
 import Notes from "./views/notes/notes";
 import Tags from "./views/tags/tags";
+import About from "./views/about/about";
 import NewNote from "./views/notes/newNote";
 import EditNote from "./views/notes/editNote";
 
@@ -51,6 +53,7 @@ export default function Router() : ReactElement {
               <PrivateRoute path={editNotePath} component={EditNote} />
               <PrivateRoute path={editUserPath} component={EditProfile} />
               <PrivateRoute path={tagsPath} component={Tags} />
+              <PrivateRoute path={aboutPath} component={About} />
               <PublicRoute path={signUpMessagePath} component={ConfirmSignUp} />
               <PublicRoute path={confirmAccountPath} component={ConfirmAccount} />
               <PublicRoute path={signUpPath} component={SignUp} />
