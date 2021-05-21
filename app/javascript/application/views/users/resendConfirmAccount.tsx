@@ -1,35 +1,27 @@
 import React, { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading
+  Box, Form, FormField, TextInput, Button, Heading,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
-import { setToken, setUID, setClient } from "../../authentication";
 
 import { userResendConfirmation, userResendConfirmationVariables } from "../../graphql/types/userResendConfirmation";
 import { UserResendConfirmation as UserResendConfirmationQuery } from "../../graphql/userQueries";
 
 import { required } from "../../components/helpers/validationsHelpers";
 
-import {
-  privateRootPath,
-  signUpPath,
-} from "../../routesPath";
-
 export default function ResendConfirmAccount() : ReactElement {
   const { t } = useTranslation();
-  const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [resetPassword] = useMutation<userResendConfirmation, userResendConfirmationVariables>(UserResendConfirmationQuery, {
-    onCompleted: ({userResendConfirmation}) => {
+    onCompleted: ({ userResendConfirmation }) => {
       if (userResendConfirmation) {
-         setMessage(userResendConfirmation.message);
-         setNetworkError("");
+        setMessage(userResendConfirmation.message);
+        setNetworkError("");
       } else {
         // set error
       }
@@ -41,7 +33,7 @@ export default function ResendConfirmAccount() : ReactElement {
   const [values, setValues] = React.useState<userResendConfirmationVariables>(
     {
       email: "",
-      redirectUrl: "/reset-confirm-account"
+      redirectUrl: "/reset-confirm-account",
     },
   );
   return (

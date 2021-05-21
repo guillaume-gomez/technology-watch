@@ -52,7 +52,7 @@ export const ResetPassword = gql`
   }
 `;
 
-export const UserResendConfirmation =  gql`
+export const UserResendConfirmation = gql`
   mutation userResendConfirmation($email: String!, $redirectUrl: String!) {
     userResendConfirmation(email: $email, redirectUrl: $redirectUrl) {
       message

@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import {
-  Box, Paragraph, Button, ResponsiveContext
+  Box, Paragraph, Button, ResponsiveContext,
 } from "grommet";
 import {
   loginPath,
-  resetConfirmAccountPath
+  resetConfirmAccountPath,
 } from "../../routesPath";
 
 export default function ConfirmSignUp() : ReactElement {
