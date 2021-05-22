@@ -85,7 +85,7 @@ export const Logout = gql`
   mutation userLogout {
     userLogout {
       authenticatable {
-        id
+        email
       }
     }
   }

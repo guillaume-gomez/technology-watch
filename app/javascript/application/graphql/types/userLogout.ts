@@ -9,10 +9,7 @@
 
 export interface userLogout_userLogout_authenticatable {
   __typename: "User";
-  /**
-   * ID from ActiveRecord
-   */
-  id: string;
+  email: string;
 }
 
 export interface userLogout_userLogout {
