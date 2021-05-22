@@ -523,6 +523,11 @@ type Query {
     get only read notes/unread.
     """
     read: Boolean
+
+    """
+    filter by tags name (cumulative)
+    """
+    taggedWith: [ID!]
   ): NoteConnection!
 
   """

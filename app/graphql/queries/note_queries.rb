@@ -76,7 +76,17 @@ module Queries
         scope.where("notes.name ILIKE ?", "%#{sanitized_value}%")
       end
       
-      option(:read, type: Boolean, description: "get only read notes/unread.") { |scope, value| value ? scope.read : scope.not_read }
+      option(:read, type: Boolean, description: "get only read notes/unread.") do |scope, value|
+        value ? scope.read : scope.not_read
+      end
+
+      option(:tagged_with, type: [ID], required: false, description: "filter by tags name (cumulative)") do |scope, tag_ids|
+        if tag_ids.blank?
+          scope
+        else
+          Note.joins(:tags).where("note_tags.tag_id in (?)", tag_ids).group(:id).having("COUNT(*) >= ?", tag_ids.count)
+        end
+      end
     end
   end
 end

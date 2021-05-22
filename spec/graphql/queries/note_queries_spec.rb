@@ -76,7 +76,7 @@ RSpec.describe Queries::NoteQueries, type: :graphql do
     let(:query) do
       <<~GQL
         query($order: NoteOrder!, $direction: NoteDirection!) {
-          getNotes(orderType: { order: $order, direction: $direction}) {
+          getNotes(orderType: { order: $order, direction: $direction }) {
             edges {
               node {
                 id
@@ -151,7 +151,54 @@ RSpec.describe Queries::NoteQueries, type: :graphql do
         it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note2.id, note1.id]) }
       end
     end
+  end
 
+   describe "resolve getNotes" do
+    let!(:variables) { {tagged_with: tagged_with } }
+    let(:query) do
+      <<~GQL
+        query($tagged_with: [ID!]) {
+          getNotes(taggedWith: $tagged_with) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      GQL
+    end
+    subject{ execute_graphql }
+
+    context "filter by tags" do
+      let(:tag1) { create(:tag, user: current_user ) }
+      let(:tag2) { create(:tag, user: current_user ) }
+      let(:tag3) { create(:tag, user: current_user ) }
+      let(:note1){ create(:note, user: current_user) }
+      let(:note2) { create(:note, user: current_user) }
+      let(:note3) { create(:note, user: current_user) }
+      let!(:note_tag1) { create(:note_tag, note: note1, tag: tag1) }
+      let!(:note_tag2) { create(:note_tag, note: note1, tag: tag2) }
+      let!(:note_tag3) { create(:note_tag, note: note1, tag: tag3) }
+      let!(:note_tag4) { create(:note_tag, note: note2, tag: tag2) }
+      let!(:note_tag5) { create(:note_tag, note: note3, tag: tag3) }
+
+      context "with no tag" do
+        let(:tagged_with) { [] }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id, note3.id]) }
+      end
+
+      context "with 1 tag" do
+        let(:tagged_with) { [tag2.id] }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id, note2.id]) }
+      end
+
+      context "with 3 tags" do
+        let(:tagged_with) { [tag1.id, tag2.id, tag3.id] }
+        it { expect(subject.to_h["data"]["getNotes"]["edges"].map{|node| node["node"]["id"].to_i }).to eq([note1.id]) }
+      end
+
+    end
   end
 
 
