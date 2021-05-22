@@ -12,9 +12,10 @@ interface TagSelectRemoteProps {
   values: getNote_getNote_tags_edges_node[];
   onRemove: (index: number) => void;
   onSelect: (tag: getTagsNameContains_getTags_edges_node) => void;
+  onBlur?: () => void;
 }
 
-export default function TagSelectRemote({ values = [], onRemove, onSelect } : TagSelectRemoteProps) : ReactElement {
+export default function TagSelectRemote({ values = [], onRemove, onSelect, onBlur } : TagSelectRemoteProps) : ReactElement {
   const [suggestions, setSuggestions] = useState<getTagsNameContains_getTags_edges_node[]>([]);
   const [getTagsSuggestions, { data }] = useLazyQuery<getTagsNameContains, getTagsNameContainsVariables>(GetTagsNameContainsQuery, { fetchPolicy: "no-cache" });
   const [search, setSearch] = useState<string>("");
@@ -42,6 +43,7 @@ export default function TagSelectRemote({ values = [], onRemove, onSelect } : Ta
       setSearch={setSearch}
       onRemove={onRemove}
       onSelect={onSelect}
+      onBlur={onBlur}
       suggestions={suggestions}
     />
   );

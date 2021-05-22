@@ -99,4 +99,5 @@ export interface getNotesVariables {
   order: NoteOrder;
   direction: NoteDirection;
   read?: boolean | null;
+  tagIds?: string[] | null;
 }

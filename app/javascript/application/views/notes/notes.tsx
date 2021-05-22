@@ -12,6 +12,9 @@ import {
   Ascend, Descend, Refresh, Bookmark,
 } from "grommet-icons";
 
+import TagSelectRemote from "../../components/tagSelectRemote";
+import { getTagsNameContains_getTags_edges_node } from "../../graphql/types/getTagsNameContains";
+
 import { GetNotes as GetNotesQuery } from "../../graphql/noteQueries";
 import { getNotes, getNotesVariables } from "../../graphql/types/getNotes";
 import { NoteOrder, NoteDirection } from "../../graphql/types/graphql-global-types";
@@ -31,11 +34,13 @@ export default function Notes() : ReactElement {
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
+  const [pendingTags, setPendingTags] = useState<getTagsNameContains_getTags_edges_node[]>([]);
+  const [tagIds, setTagsIds] = useState<string[]>([]);
   const {
     loading, data, fetchMore, refetch,
   } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, {
     variables: {
-      first: nbItems, order, direction, read: bookmark,
+      first: nbItems, order, direction, read: bookmark, tagIds
     },
   });
 
@@ -59,7 +64,8 @@ export default function Notes() : ReactElement {
 
   useEffect(() => {
     refetch();
-  }, [order, direction, bookmark, refetch]);
+    console.log(tagIds)
+  }, [order, direction, bookmark, tagIds, refetch]);
 
   function computeGridColumns() {
     switch (size) {
@@ -71,6 +77,22 @@ export default function Notes() : ReactElement {
     default:
       return ["auto"];
     }
+  }
+
+  function onRemoveTag(index: number) {
+    const newTags = [...pendingTags];
+    newTags.splice(index, 1);
+    setPendingTags(newTags);
+    // remove dont call onBlur on TagSelect
+    setTagsIds(newTags.map(tag => tag.id))
+  }
+
+  function onSelectTag(newTag : getTagsNameContains_getTags_edges_node) {
+    setPendingTags([...pendingTags, newTag]);
+  }
+
+  function onBlur() {
+    setTagsIds(pendingTags.map(tag => tag.id));
   }
 
   function displayNotes() {
@@ -130,6 +152,12 @@ export default function Notes() : ReactElement {
       <Link to={addNotePath}>
         <Button label={t("notes.create-note")} />
       </Link>
+        <TagSelectRemote
+          values={pendingTags}
+          onSelect={onSelectTag}
+          onRemove={onRemoveTag}
+          onBlur={onBlur}
+        />
       <Box justify="end" direction="row" height="xsmall" pad={{ bottom: "medium" }}>
         <Tip content={t("notes.hint.bookmark")}>
           <Button
