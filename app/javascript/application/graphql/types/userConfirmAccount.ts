@@ -9,10 +9,7 @@
 
 export interface userConfirmAccount_userConfirmAccount {
   __typename: "User";
-  /**
-   * ID from ActiveRecord
-   */
-  id: string;
+  email: string;
 }
 
 export interface userConfirmAccount {

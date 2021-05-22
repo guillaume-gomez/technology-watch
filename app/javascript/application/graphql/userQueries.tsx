@@ -76,8 +76,7 @@ ${UserFragment.fragments.user}`;
 export const ConfirmAccount = gql`
   query userConfirmAccount($token: String!, $redirectUrl: String!) {
     userConfirmAccount(confirmationToken: $token, redirectUrl: $redirectUrl) {
-      id
-      
+      email
     }
   }
 `;

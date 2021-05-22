@@ -29,7 +29,7 @@ export default function ConfirmAccount() : ReactElement {
     } else {
       setNetworkError(t("confirm-account.errors.token"));
     }
-  }, [confirmAccount, query, t]);
+  }, [confirmAccount, t]);
 
   if (loading) {
     return <Spinner />;
