@@ -42,7 +42,7 @@ export default function SignUp() : ReactElement {
 
   function passwordValidation(comparant: keyof userSignUpVariables) {
     return (value : string, otherValues : userSignUpVariables) => {
-      if (value.length <= 8) {
+      if (value.length < 8) {
         return { status: "error", message: t("sign-up.errors.password-size") };
       }
       if (value !== otherValues[comparant]) {
