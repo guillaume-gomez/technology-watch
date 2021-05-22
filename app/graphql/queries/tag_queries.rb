@@ -24,7 +24,7 @@ module Queries
       description 'Get all Tags'
       type Types::TagType.connection_type, null: false
 
-      scope { Tag.where(user: context[:current_resource]).order("created_at") }
+      scope { Tag.where(user: context[:current_resource]).order(:name) }
 
       option(:name_contains, type: String, description: "search by name with name_contains") do |scope, value|
         sanitized_value = ActiveRecord::Base.sanitize_sql_like(value)
