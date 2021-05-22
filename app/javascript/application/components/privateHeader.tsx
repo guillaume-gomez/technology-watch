@@ -55,7 +55,7 @@ export default function PrivateHeader() : ReactElement {
 
   function avatar() {
     if (loading) return <Spinner />;
-    if (data && data.currentUser && data.currentUser.nickname) {
+    if (data && data.currentUser) {
       return (
         <Menu
           label={data.currentUser.nickname}
