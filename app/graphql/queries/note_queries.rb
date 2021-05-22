@@ -84,7 +84,7 @@ module Queries
         if tag_ids.blank?
           scope
         else
-          Note.joins(:tags).where("note_tags.tag_id in (?)", tag_ids).group(:id).having("COUNT(*) >= ?", tag_ids.count)
+          scope.joins(:tags).where("note_tags.tag_id in (?)", tag_ids).group(:id).having("COUNT(*) >= ?", tag_ids.count)
         end
       end
     end
