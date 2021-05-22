@@ -64,7 +64,6 @@ export default function Notes() : ReactElement {
 
   useEffect(() => {
     refetch();
-    console.log(tagIds)
   }, [order, direction, bookmark, tagIds, refetch]);
 
   function computeGridColumns() {
