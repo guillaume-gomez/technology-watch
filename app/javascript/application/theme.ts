@@ -3,15 +3,15 @@ import { grommet } from "grommet";
 
 
 const customTheme = {
- global: {
+  global: {
    colors: {
      "background-web": {
        light: "#FEFEFE",
        dark: "#222222"
      },
      "mark-as-read": {
-       light: "#1b15c0",
-       dark: "#15bac0"
+       light: "#006978",
+       dark: "#56c8d8"
      },
      "status-critical": {
        light: "#c01565",
@@ -20,7 +20,12 @@ const customTheme = {
      brand: "#1565c0",
      "accent-1": "#ffa726"
    },
- },
+   focus: {
+     border: {
+       color: "#ffa726"
+     }
+   }
+  }
 };
 
 // export const theme = deepMerge(grommet, customTheme);
