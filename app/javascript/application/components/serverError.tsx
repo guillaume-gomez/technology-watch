@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import {
-  Text,
+  Text, Box
 } from "grommet";
 
 interface ServerErrorProps {
@@ -9,6 +9,8 @@ interface ServerErrorProps {
 
 export default function ServerError({ messages } : ServerErrorProps) : ReactElement {
   return (
-    <Text>{messages}</Text>
+    <Box background="status-error" pad="small" round="xsmall" animation="fadeIn">
+      <Text>{messages}</Text>
+    </Box>
   );
 }
