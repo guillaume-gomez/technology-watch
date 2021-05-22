@@ -59,7 +59,7 @@ export default function DestroyNote({ id } : DestroyNoteProps) : ReactElement {
   });
   return (
     <DropButton
-      icon={<Trash color="red" />}
+      icon={<Trash color="status-critical" />}
       open={open}
       onClick={() => setOpen(true)}
       hoverIndicator

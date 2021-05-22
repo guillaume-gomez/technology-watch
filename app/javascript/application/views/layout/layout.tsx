@@ -13,7 +13,7 @@ export interface LayoutProps {
 export default function Layout({ children, loggedIn = false } : LayoutProps) : ReactElement {
   const { themeMode } = ThemeColor.useContainer();
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <Box background="background-web" style={{ width: "100vw", height: "100vh" }}>
       <Grid
         rows={["auto", "auto"]}
         fill
@@ -29,6 +29,6 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
           </Box>
         </Box>
       </Grid>
-    </div>
+    </Box>
   );
 }

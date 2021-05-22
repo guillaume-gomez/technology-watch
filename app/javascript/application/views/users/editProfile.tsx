@@ -89,7 +89,7 @@ export default function EditProfile() : ReactElement {
           />
         </FormField>
         <Box direction="row" justify="end" gap="medium">
-          <Button primary label={t("edit-profile.back")} onClick={() => history.push(privateRootPath)} />
+          <Button label={t("edit-profile.back")} onClick={() => history.push(privateRootPath)} />
           <Button type="submit" primary label={t("edit-profile.submit")} />
         </Box>
       </Form>

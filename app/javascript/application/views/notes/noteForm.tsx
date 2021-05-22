@@ -78,7 +78,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         />
       </FormField>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")} onClick={() => history.push(notePath)} />
+        <Button label={t("new-note.back")} onClick={() => history.push(notePath)} />
         <Button type="submit" primary label={t("new-note.submit")} />
       </Box>
     </Form>

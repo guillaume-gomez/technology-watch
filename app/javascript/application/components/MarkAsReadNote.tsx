@@ -47,7 +47,7 @@ export default function MarkAsReadNote({ id, markAsRead } : MarkAsReadNoteProps)
   });
   return (
     <Button
-      icon={<Bookmark color={markAsRead ? "brand" : "plain"} />}
+      icon={<Bookmark color={markAsRead ? "mark-as-read" : "plain"} />}
       hoverIndicator
       onClick={() => markAsReadFunction()}
     />
