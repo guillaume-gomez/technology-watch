@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import {
-  Box, Heading, Spinner, Text, Button, Tabs, Tab, Grid, ResponsiveContext, Tip,
+  Box, Heading, Spinner, Button, Tabs, Tab, Grid, ResponsiveContext, Tip,
 } from "grommet";
 import {
   Ascend, Descend, Refresh, Bookmark,
@@ -101,7 +101,7 @@ export default function Notes() : ReactElement {
     }
     if (data && data.getNotes && data.getNotes.edges) {
       if (data.getNotes.edges.length === 0) {
-        return <Box align="center" pad="medium"><Text size="large">{t("notes.no-notes")}</Text></Box>;
+        return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
       }
       return (
         <Box id="scrollableDiv" height="99%" overflow="auto" animation="fadeIn">
@@ -146,15 +146,15 @@ export default function Notes() : ReactElement {
   }
 
   return (
-    <Box fill>
-      <Heading level="3">{t("notes.title")}</Heading>
+    <Box fill gap="small">
+      <Heading level="3" margin="none">{t("notes.title")}</Heading>
       <Box direction="row" justify="end">
         <Link to={addNotePath}>
           <Button primary label={t("notes.create-note")} />
         </Link>
       </Box>
-      <Box direction="row" align="center">
-        <Box fill="horizontal">
+      <Box direction={size === "small" ? "column" : "row"} align="center">
+        <Box fill="horizontal" pad="small">
           <TagSelectRemote
             values={pendingTags}
             onSelect={onSelectTag}
@@ -177,17 +177,19 @@ export default function Notes() : ReactElement {
           }
         </Box>
       </Box>
-      <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
-        <Tab title={t("notes.recent")}>
-          {displayNotes()}
-        </Tab>
-        <Tab title={t("notes.rating")}>
-          {displayNotes()}
-        </Tab>
-        <Tab title={t("notes.times-to-read")}>
-          {displayNotes()}
-        </Tab>
-      </Tabs>
+      <Box height={{max: "60%"}} >
+        <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+          <Tab title={t("notes.recent")}>
+            {displayNotes()}
+          </Tab>
+          <Tab title={t("notes.rating")}>
+            {displayNotes()}
+          </Tab>
+          <Tab title={t("notes.times-to-read")}>
+            {displayNotes()}
+          </Tab>
+        </Tabs>
+       </Box>
     </Box>
   );
 }

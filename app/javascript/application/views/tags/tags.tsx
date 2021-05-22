@@ -141,55 +141,59 @@ export default function Tags() : ReactElement {
 
   function renderTags() {
     if (loading) {
-      return <Spinner />;
+      return <Box align="center" pad="medium"><Spinner size="medium" /></Box>;
     }
 
     if (tags.length === 0 || !data) {
-      return <Heading margin="none" level="4">{t("tags.no-tag")}</Heading>;
+      return <Box align="center" pad="medium"><Heading fill margin="none" level="4">{t("tags.no-tag")}</Heading></Box>;
     }
 
     return (
-      <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
-        <InfiniteScroll
-          dataLength={tags.length}
-          next={getMore}
-          style={{
-            display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
-          }}
-          hasMore={data.getTags.pageInfo.hasNextPage}
-          loader={<Refresh />}
-          scrollableTarget="scrollableDiv"
-        >
-          {tags.map((tag: TagBulkType, index: number) => {
-            if (tag.destroy) {
-              return null;
-            }
-            return (
-              <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
-                <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
-                <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
-                <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
-              </Box>
-            );
-          })}
-        </InfiniteScroll>
+      <Box>
+      <Heading level={4}>{t("tags.name")}</Heading>
+        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
+          <InfiniteScroll
+            dataLength={tags.length}
+            next={getMore}
+            style={{
+              display: "flex", flexDirection: "column", alignItems: "center",
+            }}
+            hasMore={data.getTags.pageInfo.hasNextPage}
+            loader={<Refresh />}
+            scrollableTarget="scrollableDiv"
+          >
+            {tags.map((tag: TagBulkType, index: number) => {
+              if (tag.destroy) {
+                return null;
+              }
+              return (
+                <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
+                  <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+                  <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
+                  <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
+                </Box>
+              );
+            })}
+          </InfiniteScroll>
+        </Box>
       </Box>
     );
   }
 
   return (
-    <Box>
-      <Heading level="3">{t("tags.title")}</Heading>
+    <Box gap="small">
+      <Heading level="3" margin="none">{t("tags.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
-      <Link to={addTagsPath}>
-        <Button label={t("tags.create-tag")} onClick={addTag} />
-      </Link>
-      <Heading level={4}>{t("tags.name")}</Heading>
-      <Box height="70%">
+      <Box align="end">
+        <Link to={addTagsPath}>
+          <Button primary label={t("tags.create-tag")} onClick={addTag} />
+        </Link>
+      </Box>
+      <Box height={{max: "70%"}}>
         {renderTags()}
       </Box>
       <Box direction="row" justify="end" gap="medium">
-        <Button primary label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
+        <Button label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
         <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({ variables: { tags } })} />
       </Box>
     </Box>
