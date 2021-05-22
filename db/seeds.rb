@@ -23,7 +23,7 @@ john = User.create!(
 john.confirm
 
 25.times.each do |index|
-  Tag.create!(name: "tag#{index + 1}", user: john)
+  Tag.create!(name: "tag#{index + 1}", user: john, color: Faker::Color.hex_color)
 end
 
 50.times.each do |index|

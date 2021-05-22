@@ -17,7 +17,7 @@ import CurrentUser from "./customHooks/currentUser";
 import { userLogout } from "../graphql/types/userLogout";
 import { updateThemeMode, updateThemeModeVariables } from "../graphql/types/updateThemeMode";
 import {
-  publicRootPath, editUserPath, tagsPath, privateRootPath,
+  publicRootPath, editUserPath, tagsPath, privateRootPath, aboutPath,
 } from "../routesPath";
 
 import { clear } from "../authentication";
@@ -61,6 +61,7 @@ export default function PrivateHeader() : ReactElement {
           label={data.currentUser.nickname}
           items={[
             { label: t("header.edit"), onClick: () => history.push(editUserPath) },
+            { label: t("header.about"), onClick: () => history.push(aboutPath) },
             { label: t("header.logout"), onClick: () => logout() },
           ]}
         />

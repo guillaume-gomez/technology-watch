@@ -66,7 +66,8 @@
   },
   "header": {
     "logout": "Se deconnecter",
-    "edit": "Editer profil"
+    "edit": "Editer profil",
+    "about": "A propos"
   },
   "notes": {
     "title": "Notes",
@@ -103,5 +104,16 @@
     "name": "Tag",
     "placeholder": "Entrez un tag",
     "submit": "Sauvegarder"
+  },
+  "about": {
+    "title": "A props",
+    "explanation": "Ce projet a été réalisé dans le but de stocker/ranger et organiser les liens que je trouve lors de ma <0>veille technologique<0>",
+    "made": "Fait par <0> Guillaume Gomez<0>",
+    "year": "en 2021",
+    "more-info": "Plus d'info dans le repository",
+    "github-repository": "github",
+    "ticket": "N'hesitez pas à faire des suggestions pour ameliorer le site <0>ici<0> en ouvrant un ticket",
+    "server": "Soyez indulgent sur le serveur, il est gratuit. Il passe donc en hibernation en fonction des usages",
+    "back": "Retour"
   }
 }

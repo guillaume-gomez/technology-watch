@@ -15,5 +15,7 @@ export const addTagsPath = `${tagsPath}/new`;
 
 export const confirmAccountPath = "/confirm-account";
 
+export const aboutPath = "/about";
+
 export const publicRootPath = loginPath;
 export const privateRootPath = notePath;
