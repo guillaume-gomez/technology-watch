@@ -97,13 +97,12 @@ export default function Notes() : ReactElement {
 
   function displayNotes() {
     if (loading) {
-      return <Spinner />;
+      return <Box align="center" pad="medium"><Spinner size="medium"/></Box>;
     }
     if (data && data.getNotes && data.getNotes.edges) {
       if (data.getNotes.edges.length === 0) {
-        return <Text>{t("notes.no-notes")}</Text>;
+        return <Box align="center" pad="medium"><Text size="large">{t("notes.no-notes")}</Text></Box>;
       }
-
       return (
         <Box id="scrollableDiv" height="99%" overflow="auto" animation="fadeIn">
           <InfiniteScroll
@@ -149,28 +148,34 @@ export default function Notes() : ReactElement {
   return (
     <Box fill>
       <Heading level="3">{t("notes.title")}</Heading>
-      <Link to={addNotePath}>
-        <Button label={t("notes.create-note")} />
-      </Link>
-        <TagSelectRemote
-          values={pendingTags}
-          onSelect={onSelectTag}
-          onRemove={onRemoveTag}
-          onBlur={onBlur}
-        />
-      <Box justify="end" direction="row" height="xsmall" pad={{ bottom: "medium" }}>
-        <Tip content={t("notes.hint.bookmark")}>
-          <Button
-            icon={<Bookmark color={bookmark ? "brand" : ""} />}
-            hoverIndicator
-            onClick={() => setBookmark(!bookmark)}
+      <Box direction="row" justify="end">
+        <Link to={addNotePath}>
+          <Button primary label={t("notes.create-note")} />
+        </Link>
+      </Box>
+      <Box direction="row" align="center">
+        <Box fill="horizontal">
+          <TagSelectRemote
+            values={pendingTags}
+            onSelect={onSelectTag}
+            onRemove={onRemoveTag}
+            onBlur={onBlur}
           />
-        </Tip>
-        {
-          direction === NoteDirection.DESC
-            ? <Button icon={<Ascend />} size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
-            : <Button icon={<Descend />} size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
-        }
+        </Box>
+        <Box justify="end" direction="row" height="xsmall">
+          <Tip content={t("notes.hint.bookmark")}>
+            <Button
+              icon={<Bookmark color={bookmark ? "brand" : ""} />}
+              hoverIndicator
+              onClick={() => setBookmark(!bookmark)}
+            />
+          </Tip>
+          {
+            direction === NoteDirection.DESC
+              ? <Button icon={<Ascend />} size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+              : <Button icon={<Descend />} size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+          }
+        </Box>
       </Box>
       <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
         <Tab title={t("notes.recent")}>
