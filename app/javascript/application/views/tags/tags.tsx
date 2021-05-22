@@ -30,6 +30,7 @@ import {
 import { TagBulkType } from "../../graphql/types/graphql-global-types";
 
 import ServerError from "../../components/serverError";
+import ThemeColor from "../../reducers/useThemeColor";
 
 import { nbItems } from "./tagConstants";
 
@@ -44,6 +45,7 @@ function getRandomColor() {
 
 export default function Tags() : ReactElement {
   const { t } = useTranslation();
+  const { themeMode } = ThemeColor.useContainer();
   const history = useHistory();
   const [tags, setTags] = useState<TagBulkType[]>([]);
   const [networkError, setNetworkError] = useState<string>("");
@@ -150,7 +152,9 @@ export default function Tags() : ReactElement {
 
     return (
       <Box>
-      <Heading level={4}>{t("tags.name")}</Heading>
+         <Box pad="small">
+          <Heading level={4} margin="none">{t("tags.name")}</Heading>
+        </Box>
         <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
           <InfiniteScroll
             dataLength={tags.length}
@@ -167,7 +171,7 @@ export default function Tags() : ReactElement {
                 return null;
               }
               return (
-                <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
+                <Box background={themeMode === "dark" ? "dark-2" : "light-2"} key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
                   <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
                   <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
                   <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />

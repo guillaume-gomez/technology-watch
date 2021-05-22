@@ -30,8 +30,8 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const history = useHistory();
 
   return (
-    <Card background={dark ? "dark-1" : "light-1"} round="xsmall" animation="fadeIn" height={{ min: "200px" }}>
-      <CardHeader pad="small" background={dark ? "dark-3" : "light-3"}>
+    <Card elevation="none" background={dark ? "dark-2" : "light-4"} round="xsmall" animation="fadeIn" height={{ min: "200px" }}>
+      <CardHeader pad="small" background={dark ? "accent-1" : "brand"}>
         <Box direction="row" flex justify="between">
           <div>{note.name}</div>
           <div>
@@ -61,7 +61,7 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
           )
           : null}
       </CardBody>
-      <CardFooter background={dark ? "dark-3" : "light-3"}>
+      <CardFooter background={dark ? "accent-1" : "brand"}>
         <Button
           icon={<View color="plain" />}
           hoverIndicator

@@ -6,7 +6,7 @@ import {
 import {
   Grommet, Spinner, grommet,
 } from "grommet";
-// import { theme } from "./theme";
+import { theme } from "./theme";
 
 import {
   signUpPath,
@@ -43,7 +43,7 @@ import ThemeColor from "./reducers/useThemeColor";
 export default function Router() : ReactElement {
   const { themeMode } = ThemeColor.useContainer();
   return (
-    <Grommet theme={grommet} full themeMode={themeMode}>
+    <Grommet theme={theme} full themeMode={themeMode}>
       <BrowserRouter>
         <Suspense fallback={<Spinner />}>
           <Switch>
