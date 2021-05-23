@@ -74,7 +74,7 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
           onClick={() => history.push(`${notePath}/${note.id}`)}
         />
         <MarkAsReadNote id={note.id} markAsRead={note.markAsRead} />
-        <DestroyNote id={note.id} />
+        <DestroyNote id={note.id} markAsRead={note.markAsRead} />
       </CardFooter>
     </Card>
   );

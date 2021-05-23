@@ -97,3 +97,9 @@ export const EditNote = gql`
     }
   }
 ${NoteFragment.fragments.note}`;
+
+export const GetTotalNotes = gql`
+  query getTotalNotes($markAsRead: Boolean!) {
+    getTotalNotes(markAsRead: $markAsRead)
+  }
+`;

@@ -13,6 +13,7 @@ import {
 } from "../graphql/noteQueries";
 
 import { getNotes } from "../graphql/types/getNotes";
+import { GetTotalNotes as GetTotalNotesQuery } from "../graphql/noteQueries";
 
 interface MarkAsReadNoteProps {
   id: string;
@@ -25,6 +26,10 @@ export default function MarkAsReadNote({ id, markAsRead } : MarkAsReadNoteProps)
       id,
       markAsRead: !markAsRead,
     },
+    refetchQueries: [
+      { query: GetTotalNotesQuery, variables: { markAsRead: false }},
+      { query: GetTotalNotesQuery, variables: { markAsRead: true }}
+    ],
     onError: (errors) => {
       console.error(errors);
     },

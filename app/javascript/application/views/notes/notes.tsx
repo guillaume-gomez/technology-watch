@@ -20,6 +20,7 @@ import { getNotes, getNotesVariables } from "../../graphql/types/getNotes";
 import { NoteOrder, NoteDirection } from "../../graphql/types/graphql-global-types";
 
 import NoteCard from "../../components/NoteCard";
+import NoteTotalCount from "../../components/NoteTotalCount";
 
 import {
   addNotePath,
@@ -176,6 +177,7 @@ export default function Notes() : ReactElement {
           }
         </Box>
       </Box>
+      <NoteTotalCount markAsRead={bookmark} />
       <Box height={{max: "60%"}} >
         <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
           <Tab title={t("notes.recent")}>

@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface userConfirmAccount_userConfirmAccount {
-  __typename: "User";
+  __typename: "Authenticatable";
   email: string;
 }
 

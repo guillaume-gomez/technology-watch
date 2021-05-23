@@ -116,5 +116,8 @@
     "ticket": "Feel free to suggest improvements <0>here</0> by creating a ticket.",
     "server": "Be indulgent with the server latency because it is free. So it sometimes hibernate when there is no usage for a long time",
     "back": "Back"
+  },
+  "note-total-count": {
+    "notes": "Notes"
   }
 }

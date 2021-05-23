@@ -18,15 +18,18 @@ import {
   GetNotes as GetNotesQuery,
 } from "../graphql/noteQueries";
 
+import { GetTotalNotes as GetTotalNotesQuery } from "../graphql/noteQueries";
+
 import { getNotes } from "../graphql/types/getNotes";
 
 import { nbItems } from "../views/notes/noteConstants";
 
 interface DestroyNoteProps {
   id: string;
+  markAsRead: boolean
 }
 
-export default function DestroyNote({ id } : DestroyNoteProps) : ReactElement {
+export default function DestroyNote({ id, markAsRead } : DestroyNoteProps) : ReactElement {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [networkError, setNetworkError] = useState<string>("");
@@ -34,6 +37,9 @@ export default function DestroyNote({ id } : DestroyNoteProps) : ReactElement {
     variables: {
       id,
     },
+    refetchQueries: [
+      { query: GetTotalNotesQuery, variables: { markAsRead }}
+    ],
     onCompleted: () => {
       setOpen(false);
     },

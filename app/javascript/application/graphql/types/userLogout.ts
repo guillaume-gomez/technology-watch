@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface userLogout_userLogout_authenticatable {
-  __typename: "User";
+  __typename: "Authenticatable";
   email: string;
 }
 
