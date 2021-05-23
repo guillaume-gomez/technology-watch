@@ -14,13 +14,13 @@ module Types
       "Hello World!"
     end
 
-
     field :current_user, resolver: Queries::UserQueries::CurrentUser, authenticate: true
     field :get_user, resolver: Queries::UserQueries::GetUser, authenticate: true
     field :get_users, resolver: Queries::UserQueries::GetUsers, authenticate: true
 
     field :get_note, resolver: Queries::NoteQueries::GetNote, authenticate: true
     field :get_notes, resolver: Queries::NoteQueries::GetNotes, authenticate: true
+    field :get_total_notes, resolver: Queries::NoteQueries::GetTotalNotes, authenticate: true
 
     field :get_tag, resolver: Queries::TagQueries::GetTag, authenticate: true
     field :get_tags, resolver: Queries::TagQueries::GetTags, authenticate: true

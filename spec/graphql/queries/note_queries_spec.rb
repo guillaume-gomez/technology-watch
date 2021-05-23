@@ -201,5 +201,37 @@ RSpec.describe Queries::NoteQueries, type: :graphql do
     end
   end
 
+  describe "resolve getTotalNote" do
+    let(:variables) { {mark_as_read: mark_as_read } }
+    let(:query) do
+      <<~GQL
+        query($mark_as_read: Boolean!) {
+          getTotalNotes(markAsRead: $mark_as_read)
+        }
+      GQL
+    end
+    subject{ execute_graphql }
+
+    let!(:note1) { create(:note, user: current_user, mark_as_read: false)}
+    let!(:note2) { create(:note, user: current_user, mark_as_read: false)}
+    let!(:note3) { create(:note, user: current_user, mark_as_read: false)}
+    let!(:note4) { create(:note, user: current_user, mark_as_read: false)}
+    let!(:note5) { create(:note, user: current_user, mark_as_read: true)}
+    let!(:note6) { create(:note, user: current_user, mark_as_read: true)}
+
+    context "when user tries to get the number of unread notes" do
+      let(:mark_as_read) { true }
+      let!(:note7) { create(:note, mark_as_read: false)}
+      it { expect(subject.to_h["data"]["getTotalNotes"].to_i ).to eq(2) }
+    end
+
+    context "when user tries to get the number of read notes" do
+      let(:mark_as_read) { false }
+      let!(:note7) { create(:note, mark_as_read: true)}
+
+      it { expect(subject.to_h["data"]["getTotalNotes"].to_i ).to eq(4) }
+    end
+  end
+
 
 end
