@@ -9,6 +9,10 @@ const customTheme = {
        light: "#FEFEFE",
        dark: "#222222"
      },
+     "destroy-card": {
+       light: "#222222",
+       dark: "#EDEDED"
+     },
      "mark-as-read": {
        light: "#006978",
        dark: "#56c8d8"
