@@ -108,12 +108,12 @@
   },
   "about": {
     "title": "About",
-    "explanation": "This project was design in order store, tidy and organize links found during my <0>technological watch<0>",
-    "made": "Made by <0> Guillaume Gomez<0>",
-    "year": "in 2021",
-    "more-info": "More info in the repository",
+    "explanation": "This project was design in order store, tidy and organize links found during my <0>technological watch</0>.",
+    "made": "Made by <0> Guillaume Gomez</0>",
+    "year": "in 2021.",
+    "more-info": "More info in the <0></0> repository.",
     "github-repository": "github",
-    "ticket": "Feel free to suggest improvements <0>here<0> by creating a ticket",
+    "ticket": "Feel free to suggest improvements <0>here</0> by creating a ticket.",
     "server": "Be indulgent with the server latency because it is free. So it sometimes hibernate when there is no usage for a long time",
     "back": "Back"
   }

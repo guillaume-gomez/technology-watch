@@ -26,9 +26,9 @@ export default function About() : ReactElement {
         </Trans>
       </Paragraph>
       <Paragraph>
-        {t("about.more-info")}
-        {" "}
-        <Anchor href="https://github.com/guillaume-gomez/technology-watch" label={t("about.github-repository")} />
+        <Trans i18nKey="about.more-info">
+          {[<Anchor href="https://github.com/guillaume-gomez/technology-watch" label={t("about.github-repository")} />]}
+        </Trans>
       </Paragraph>
       <Paragraph fill>
         <Trans i18nKey="about.ticket">
