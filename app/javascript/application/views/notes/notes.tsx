@@ -98,42 +98,43 @@ export default function Notes() : ReactElement {
   }
 
   function renderFilters() {
-    if(!displayFilters) {
-      return(
-      <Box justify="end" align="end" alignSelf="end" direction="row">
-        <Button size="small" label={t("notes.show")} onClick={() => setDisplayFilters(true)}/>
-      </Box>
+    if (!displayFilters) {
+      return (
+        <Box justify="end" align="end" alignSelf="end" direction="row">
+          <Button size="small" label={t("notes.show")} onClick={() => setDisplayFilters(true)} />
+        </Box>
       );
     }
 
     return (
       <Box direction={size === "small" ? "column" : "row"} align="center">
-      <Box fill="horizontal" pad="small">
-            <TagSelectRemote
-              values={pendingTags}
-              onSelect={onSelectTag}
-              onRemove={onRemoveTag}
-              onBlur={memoizedOnBlur}
-            />
-          </Box>
-          <Box justify="end" align="center" direction="row">
-
-            <Tip content={t("notes.hint.bookmark")}>
-              <Button
-                size="small"
-                icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
-                hoverIndicator
-                onClick={() => setBookmark(!bookmark)}
-              />
-            </Tip>
-            {
-              direction === NoteDirection.DESC
-                ? <Ascend size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
-                : <Descend size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
-            }
-          <Button size="small" label={t("notes.hide")} onClick={() => setDisplayFilters(false)}/>
+        <Box fill="horizontal" pad="small">
+          <TagSelectRemote
+            values={pendingTags}
+            onSelect={onSelectTag}
+            onRemove={onRemoveTag}
+            onBlur={memoizedOnBlur}
+          />
         </Box>
-        </Box>)
+        <Box justify="end" align="center" direction="row">
+
+          <Tip content={t("notes.hint.bookmark")}>
+            <Button
+              size="small"
+              icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
+              hoverIndicator
+              onClick={() => setBookmark(!bookmark)}
+            />
+          </Tip>
+          {
+            direction === NoteDirection.DESC
+              ? <Ascend size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+              : <Descend size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+          }
+          <Button size="small" label={t("notes.hide")} onClick={() => setDisplayFilters(false)} />
+        </Box>
+      </Box>
+    );
   }
 
   function displayNotes() {
@@ -198,7 +199,7 @@ export default function Notes() : ReactElement {
           <Button primary label={t("notes.create-note")} />
         </Link>
       </Box>
-     {renderFilters()}
+      {renderFilters()}
       <Box fill="vertical">
         <Grid fill rows={[size === "small" ? "xsmall" : "xxsmall", "flex"]}>
           <Box>

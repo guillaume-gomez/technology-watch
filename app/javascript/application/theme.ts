@@ -43,9 +43,9 @@ const customTheme = {
   },
   formField: {
     error: {
-      color: "status-error"
-    }
-  }
+      color: "status-error",
+    },
+  },
 
 };
 
