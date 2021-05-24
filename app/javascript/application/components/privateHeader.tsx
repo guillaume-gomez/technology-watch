@@ -58,6 +58,7 @@ export default function PrivateHeader() : ReactElement {
     if (data && data.currentUser) {
       return (
         <Menu
+          dropBackground={themeMode === "light" ? "light-1" : "dark-1"}
           label={data.currentUser.nickname}
           items={[
             { label: t("header.edit"), onClick: () => history.push(editUserPath) },
