@@ -20,6 +20,7 @@ import { getNotes, getNotesVariables } from "../../graphql/types/getNotes";
 import { NoteOrder, NoteDirection } from "../../graphql/types/graphql-global-types";
 
 import NoteCard from "../../components/NoteCard";
+import useDeviceDetect from "../../components/customHooks/useDeviceDetect";
 
 import {
   addNotePath,
@@ -50,6 +51,7 @@ export default function Notes() : ReactElement {
       first: nbItems, order, direction, read: bookmark, tagIds,
     },
   });
+  const { isMobile } = useDeviceDetect();
 
   // update order according to selected tab
   useEffect(() => {
@@ -117,15 +119,24 @@ export default function Notes() : ReactElement {
           />
         </Box>
         <Box justify="end" align="center" direction="row">
-
-          <Tip content={t("notes.hint.bookmark")}>
+          {
+             isMobile ? 
+             (<Button
+              size="small"
+              icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
+              hoverIndicator
+              onClick={() => setBookmark(!bookmark)}
+            />) : 
+             (<Tip content={t("notes.hint.bookmark")}>
             <Button
               size="small"
               icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
               hoverIndicator
               onClick={() => setBookmark(!bookmark)}
             />
-          </Tip>
+          </Tip>)
+          }
+          
           {
             direction === NoteDirection.DESC
               ? <Ascend size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
