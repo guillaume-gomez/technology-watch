@@ -81,7 +81,9 @@
     "hint": {
       "bookmark": "Display notes if read/unread"
     },
-    "load-more": "Load more"
+    "load-more": "Load more",
+    "show": "show",
+    "hide": "hide"
   },
   "new-note": {
     "title": "Add a note",

@@ -79,6 +79,8 @@
     "rating": "Par note",
     "times-to-read": "temps de lecture",
     "load-more": "Plus de notes",
+    "show": "voir",
+    "hide": "cacher",
     "hint": {
       "bookmark": "Afficher les notes lues/non lues"
     }
