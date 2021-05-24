@@ -36,7 +36,7 @@ export default function Notes() : ReactElement {
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
   const [pendingTags, setPendingTags] = useState<getTagsNameContains_getTags_edges_node[]>([]);
   const [tagIds, setTagsIds] = useState<string[]>([]);
-  const [displayFilters, setDisplayFilters] = useState<boolean>(true);
+  const [displayFilters, setDisplayFilters] = useState<boolean>(size !== "small");
   const memoizedOnBlur = useCallback(
     () => {
       setTagsIds(pendingTags.map((tag) => tag.id));
