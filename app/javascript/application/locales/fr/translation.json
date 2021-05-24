@@ -105,7 +105,8 @@
     "no-tag": "Aucun tag existant, vous pouvez en créer avec le button plus haut",
     "name": "Tag",
     "placeholder": "Entrez un tag",
-    "submit": "Sauvegarder"
+    "submit": "Sauvegarder",
+    "load-more": "Plus de tags"
   },
   "about": {
     "title": "A props",

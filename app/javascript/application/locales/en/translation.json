@@ -106,7 +106,8 @@
     "name": "Tag",
     "edit": "Edit",
     "placeholder": "Write a tag",
-    "submit": "Update"
+    "submit": "Update",
+    "load-more": "Load more"
   },
   "about": {
     "title": "About",

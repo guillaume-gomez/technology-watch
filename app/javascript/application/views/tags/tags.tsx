@@ -11,6 +11,7 @@ import {
   Button,
   Heading,
   TextInput,
+  Grid
 } from "grommet";
 import { Trash, Refresh } from "grommet-icons";
 
@@ -151,11 +152,14 @@ export default function Tags() : ReactElement {
     }
 
     return (
-      <Box>
-         <Box pad="small">
+      <Grid
+       fill
+        rows={["xxsmall", "auto"]}
+         gap="xxsmall">
+         <Box justify="end" pad="xsmall">
           <Heading level={4} margin="none">{t("tags.name")}</Heading>
         </Box>
-        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small">
+        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small"  background={themeMode === "dark" ? "dark-2" : "light-2"} round="xxsmall">
           <InfiniteScroll
             dataLength={tags.length}
             next={getMore}
@@ -163,7 +167,7 @@ export default function Tags() : ReactElement {
               display: "flex", flexDirection: "column", alignItems: "center",
             }}
             hasMore={data.getTags.pageInfo.hasNextPage}
-            loader={<Refresh />}
+            loader={<Button margin="small" label={t("tags.load-more")} onClick={() => getMore()} />}
             scrollableTarget="scrollableDiv"
           >
             {tags.map((tag: TagBulkType, index: number) => {
@@ -171,7 +175,7 @@ export default function Tags() : ReactElement {
                 return null;
               }
               return (
-                <Box background={themeMode === "dark" ? "dark-2" : "light-2"} key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
+                <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
                   <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
                   <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
                   <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
@@ -180,26 +184,30 @@ export default function Tags() : ReactElement {
             })}
           </InfiniteScroll>
         </Box>
-      </Box>
+      </Grid>
     );
   }
 
   return (
-    <Box gap="small">
-      <Heading level="3" margin="none">{t("tags.title")}</Heading>
-      {networkError !== "" && <ServerError messages={networkError} />}
-      <Box align="end">
+    <Grid
+       fill
+        rows={["xxsmall", "auto", "xxsmall"]}
+         gap="xsmall">
+      <Box direction="row" justify="between" align="center">
+
+        <Heading level="3" margin="small">{t("tags.title")}</Heading>
         <Link to={addTagsPath}>
           <Button primary label={t("tags.create-tag")} onClick={addTag} />
         </Link>
       </Box>
-      <Box height={{max: "70%"}}>
+      {networkError !== "" && <ServerError messages={networkError} />}
+      <Box fill={"vertical"}>
         {renderTags()}
       </Box>
-      <Box direction="row" justify="end" gap="medium">
+      <Box fill="horizontal" direction="row" justify="end" gap="medium">
         <Button label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
         <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({ variables: { tags } })} />
       </Box>
-    </Box>
+    </Grid>
   );
 }
