@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
-  Box, Form, FormField, TextInput, Button, Heading, Text
+  Box, Form, FormField, TextInput, Button, Heading, Text,
 } from "grommet";
 import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 
@@ -74,8 +74,8 @@ export default function SignUp() : ReactElement {
           <TextInput type="password" id="password" name="password" />
         </FormField>
         <Box direction="row" justify="end">
-            <Text size="small">{t("sign-up.password-hint")}</Text>
-          </Box>
+          <Text size="small">{t("sign-up.password-hint")}</Text>
+        </Box>
         <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>

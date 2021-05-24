@@ -1,5 +1,5 @@
 import React, {
-  ReactElement, useState, useEffect, useContext,
+  ReactElement, useState, useEffect, useContext, useCallback,
 } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -36,11 +36,17 @@ export default function Notes() : ReactElement {
   const [direction, setDirection] = useState<NoteDirection>(NoteDirection.DESC);
   const [pendingTags, setPendingTags] = useState<getTagsNameContains_getTags_edges_node[]>([]);
   const [tagIds, setTagsIds] = useState<string[]>([]);
+  const memoizedOnBlur = useCallback(
+    () => {
+      setTagsIds(pendingTags.map((tag) => tag.id));
+    },
+    [pendingTags],
+  );
   const {
     loading, data, fetchMore, refetch,
   } = useQuery<getNotes, getNotesVariables>(GetNotesQuery, {
     variables: {
-      first: nbItems, order, direction, read: bookmark, tagIds
+      first: nbItems, order, direction, read: bookmark, tagIds,
     },
   });
 
@@ -83,27 +89,23 @@ export default function Notes() : ReactElement {
     newTags.splice(index, 1);
     setPendingTags(newTags);
     // remove dont call onBlur on TagSelect
-    setTagsIds(newTags.map(tag => tag.id))
+    setTagsIds(newTags.map((tag) => tag.id));
   }
 
   function onSelectTag(newTag : getTagsNameContains_getTags_edges_node) {
     setPendingTags([...pendingTags, newTag]);
   }
 
-  function onBlur() {
-    setTagsIds(pendingTags.map(tag => tag.id));
-  }
-
   function displayNotes() {
     if (loading) {
-      return <Box align="center" pad="medium"><Spinner size="medium"/></Box>;
+      return <Box align="center" pad="medium"><Spinner size="medium" /></Box>;
     }
     if (data && data.getNotes && data.getNotes.edges) {
       if (data.getNotes.edges.length === 0) {
-        return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
+        return <Box align="center" pad="medium"><Heading level="4">{t("notes.no-notes")}</Heading></Box>;
       }
       return (
-        <Box fill={"vertical"} id="scrollableDiv" overflow="auto" animation="fadeIn">
+        <Box fill="vertical" id="scrollableDiv" overflow="auto" animation="fadeIn">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -162,7 +164,7 @@ export default function Notes() : ReactElement {
             values={pendingTags}
             onSelect={onSelectTag}
             onRemove={onRemoveTag}
-            onBlur={onBlur}
+            onBlur={memoizedOnBlur}
           />
         </Box>
         <Box justify="end" align="center" direction="row" height="xxsmall">
@@ -176,23 +178,23 @@ export default function Notes() : ReactElement {
           </Tip>
           {
             direction === NoteDirection.DESC
-              ? <Ascend  size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
-              : <Descend  size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+              ? <Ascend size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+              : <Descend size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
           }
         </Box>
       </Box>
-      <Box fill={"vertical"} >
-         <Grid fill rows={[ size === "small" ? "xsmall" : "xxsmall", "flex"]}>
-           <Box>
-             <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+      <Box fill="vertical">
+        <Grid fill rows={[size === "small" ? "xsmall" : "xxsmall", "flex"]}>
+          <Box>
+            <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
               <Tab title={t("notes.recent")} />
-              <Tab title={t("notes.times-to-read")}/>
+              <Tab title={t("notes.times-to-read")} />
               <Tab title={t("notes.rating")} />
             </Tabs>
-           </Box>
-           <Box>{displayNotes()}</Box>
-         </Grid>
-       </Box>
+          </Box>
+          <Box>{displayNotes()}</Box>
+        </Grid>
+      </Box>
     </Grid>
   );
 }

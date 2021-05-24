@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import {
-  Text, Box
+  Text, Box,
 } from "grommet";
 
 interface ServerErrorProps {

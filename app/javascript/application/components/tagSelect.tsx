@@ -34,17 +34,17 @@ export default function TagSelect({
   onSelect,
   onBlur,
   search,
-  setSearch
+  setSearch,
 } : TagSelectProps) : ReactElement {
   const [onBlurInput, setOnBlurInput] = useState<boolean>(false);
   const [onBlurSuggestion, setOnBlurSuggestion] = useState<boolean>(false);
 
   // detect manually on blur by checking if suggestion and input are on blur at the same time
   useEffect(() => {
-    if(onBlur && onBlurInput && onBlurSuggestion) {
+    if (onBlur && onBlurInput && onBlurSuggestion) {
       onBlur();
     }
-  }, [onBlurInput, onBlurSuggestion]);
+  }, [onBlurInput, onBlur, onBlurSuggestion]);
 
   return (
     <Box
