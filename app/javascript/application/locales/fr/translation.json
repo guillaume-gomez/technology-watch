@@ -73,8 +73,8 @@
   "notes": {
     "title": "Notes",
     "no-notes": "Pas de notes",
-    "create-note": "Creer une nouvelle note",
-    "edit-note": "Editer une nouvelle note",
+    "create-note": "Creer note",
+    "edit-note": "Editer note",
     "recent": "Recent",
     "rating": "Par note",
     "times-to-read": "temps de lecture",
