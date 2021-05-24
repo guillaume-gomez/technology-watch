@@ -182,7 +182,7 @@ export default function Notes() : ReactElement {
         </Box>
       </Box>
       <Box fill={"vertical"} >
-         <Grid fill rows={["xxsmall", "flex"]}>
+         <Grid fill rows={[ size === "small" ? "xsmall" : "xxsmall", "flex"]}>
            <Box>
              <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
               <Tab title={t("notes.recent")} />
