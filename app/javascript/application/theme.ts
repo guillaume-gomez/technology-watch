@@ -41,6 +41,12 @@ const customTheme = {
       round: "xsmall",
     },
   },
+  formField: {
+    error: {
+      color: "status-error"
+    }
+  }
+
 };
 
 // export const theme = deepMerge(grommet, customTheme);
