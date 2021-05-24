@@ -103,7 +103,7 @@ export default function Notes() : ReactElement {
         return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
       }
       return (
-        <Box height={"99%"} id="scrollableDiv" overflow="auto" animation="fadeIn">
+        <Box height={"99%"} id="scrollableDiv" overflow="auto" animation="fadeIn"  style={{border: "2px solid orange"}}>
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -145,14 +145,18 @@ export default function Notes() : ReactElement {
   }
 
   return (
-    <Box fill gap="small">
-      <Heading level="3" margin="none">{t("notes.title")}</Heading>
-      <Box direction="row" justify="end">
+    <Grid
+      fill
+      rows={["auto", "auto", "flex"]}
+      gap="small"
+    >
+      <Box direction="row" justify="between" align="center" style={{border: "2px solid blue"}}>
+        <Heading level="3" margin="none">{t("notes.title")}</Heading>
         <Link to={addNotePath}>
           <Button primary label={t("notes.create-note")} />
         </Link>
       </Box>
-      <Box direction={size === "small" ? "column" : "row"} align="center">
+      <Box direction={size === "small" ? "column" : "row"} align="center"  style={{border: "2px solid pink"}}>
         <Box fill="horizontal" pad="small">
           <TagSelectRemote
             values={pendingTags}
@@ -176,8 +180,8 @@ export default function Notes() : ReactElement {
           }
         </Box>
       </Box>
-      <Box height={"100%"}>
-        <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+      <Box fill={"vertical"} style={{border: "2px solid red"}}>
+        <Tabs  activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
           <Tab title={t("notes.recent")}>
             {displayNotes()}
           </Tab>
@@ -189,6 +193,6 @@ export default function Notes() : ReactElement {
           </Tab>
         </Tabs>
        </Box>
-    </Box>
+    </Grid>
   );
 }
