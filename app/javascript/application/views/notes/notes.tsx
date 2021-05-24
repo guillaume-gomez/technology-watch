@@ -103,7 +103,7 @@ export default function Notes() : ReactElement {
         return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
       }
       return (
-        <Box id="scrollableDiv" height="99%" overflow="auto" animation="fadeIn">
+        <Box height={"99%"} id="scrollableDiv" overflow="auto" animation="fadeIn">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -176,7 +176,7 @@ export default function Notes() : ReactElement {
           }
         </Box>
       </Box>
-      <Box height={{max: "60%"}} >
+      <Box height={"100%"}>
         <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
           <Tab title={t("notes.recent")}>
             {displayNotes()}
