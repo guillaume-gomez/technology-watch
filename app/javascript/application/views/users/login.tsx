@@ -70,7 +70,7 @@ export default function Login() : ReactElement {
           </Box>
         </Box>
         <Box direction="row" align="center" justify="between" gap="medium">
-          <Button label={t("sign-in.sign-up")} onClick={() => history.push(signUpPath)} />
+          <Button label={t("sign-in.sign-up")} type="submit" onClick={() => history.push(signUpPath)} />
           <Anchor label={t("sign-in.forgot-password")} onClick={() => history.push(forgotPasswordPath)} />
         </Box>
 
