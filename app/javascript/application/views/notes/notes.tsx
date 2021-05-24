@@ -201,7 +201,7 @@ export default function Notes() : ReactElement {
       </Box>
       {renderFilters()}
       <Box fill="vertical">
-        <Grid fill rows={[size === "small" ? "xsmall" : "xxsmall", "flex"]}>
+        <Grid fill rows={["xxsmall%", "auto"]} gap="xsmall">
           <Box>
             <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
               <Tab title={t("notes.recent")} />
