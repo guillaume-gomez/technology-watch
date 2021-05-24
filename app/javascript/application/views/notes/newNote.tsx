@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Heading,
+  Box, Heading, Grid,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -66,10 +66,18 @@ export default function NewNote() : ReactElement {
   );
 
   return (
-    <Box>
-      <Heading level="3">{t("new-note.title")}</Heading>
-      {networkError !== "" && <ServerError messages={networkError} />}
-      <NoteForm initialValues={values} mutation={createNoteFunction} />
-    </Box>
+    <Grid
+      rows={["xxsmall", "auto"]}
+      gap="small"
+      fill
+    >
+      <Box>
+        <Heading margin="small" level="3">{t("new-note.title")}</Heading>
+      </Box>
+      <Box>
+        {networkError !== "" && <ServerError messages={networkError} />}
+        <NoteForm initialValues={values} mutation={createNoteFunction} />
+      </Box>
+    </Grid>
   );
 }
