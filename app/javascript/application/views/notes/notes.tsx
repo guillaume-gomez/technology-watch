@@ -9,7 +9,7 @@ import {
   Box, Heading, Spinner, Button, Tabs, Tab, Grid, ResponsiveContext, Tip,
 } from "grommet";
 import {
-  Ascend, Descend, Bookmark,
+  Ascend, Descend, Archive,
 } from "grommet-icons";
 
 import TagSelectRemote from "../../components/tagSelectRemote";
@@ -123,14 +123,14 @@ export default function Notes() : ReactElement {
              isMobile ? 
              (<Button
               size="small"
-              icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
+              icon={<Archive color={bookmark ? "mark-as-read" : ""} />}
               hoverIndicator
               onClick={() => setBookmark(!bookmark)}
             />) : 
              (<Tip content={t("notes.hint.bookmark")}>
             <Button
               size="small"
-              icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
+              icon={<Archive color={bookmark ? "mark-as-read" : ""} />}
               hoverIndicator
               onClick={() => setBookmark(!bookmark)}
             />
