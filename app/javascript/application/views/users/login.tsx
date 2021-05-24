@@ -50,7 +50,7 @@ export default function Login() : ReactElement {
     },
   );
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" pad="xxsmall">
       <Heading level="3">{t("sign-in.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form

@@ -53,7 +53,7 @@ export default function SignUp() : ReactElement {
   }
 
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" pad="xxsmall">
       <Heading level="3">{t("sign-up.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
