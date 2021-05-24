@@ -103,7 +103,7 @@ export default function Notes() : ReactElement {
         return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
       }
       return (
-        <Box height={"99%"} id="scrollableDiv" overflow="auto" animation="fadeIn"  style={{border: "2px solid orange"}}>
+        <Box fill={"vertical"} id="scrollableDiv" overflow="auto" animation="fadeIn"  style={{border: "2px solid orange"}}>
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -111,7 +111,7 @@ export default function Notes() : ReactElement {
               display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
             }}
             hasMore={data.getNotes.pageInfo.hasNextPage}
-            loader={<Refresh />}
+            loader={<Button margin="small" label="load more" onClick={() => getMore()} />}
             scrollableTarget="scrollableDiv"
           >
             <Grid
@@ -148,10 +148,10 @@ export default function Notes() : ReactElement {
     <Grid
       fill
       rows={["auto", "auto", "flex"]}
-      gap="small"
+      gap="xsmall"
     >
       <Box direction="row" justify="between" align="center" style={{border: "2px solid blue"}}>
-        <Heading level="3" margin="none">{t("notes.title")}</Heading>
+        <Heading level="3" margin="small">{t("notes.title")}</Heading>
         <Link to={addNotePath}>
           <Button primary label={t("notes.create-note")} />
         </Link>
@@ -165,9 +165,10 @@ export default function Notes() : ReactElement {
             onBlur={onBlur}
           />
         </Box>
-        <Box justify="end" direction="row" height="xsmall">
+        <Box justify="end" align="center" direction="row" height="xxsmall">
           <Tip content={t("notes.hint.bookmark")}>
             <Button
+              size="small"
               icon={<Bookmark color={bookmark ? "mark-as-read" : ""} />}
               hoverIndicator
               onClick={() => setBookmark(!bookmark)}
@@ -175,23 +176,24 @@ export default function Notes() : ReactElement {
           </Tip>
           {
             direction === NoteDirection.DESC
-              ? <Button icon={<Ascend />} size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
-              : <Button icon={<Descend />} size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+              ? <Ascend  size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+              : <Descend  size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
           }
         </Box>
       </Box>
       <Box fill={"vertical"} style={{border: "2px solid red"}}>
-        <Tabs  activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
-          <Tab title={t("notes.recent")}>
-            {displayNotes()}
-          </Tab>
-          <Tab title={t("notes.times-to-read")}>
-            {displayNotes()}
-          </Tab>
-          <Tab title={t("notes.rating")}>
-            {displayNotes()}
-          </Tab>
-        </Tabs>
+         <Grid fill rows={["xxsmall", "flex"]}>
+           <Box style={{border: "2px solid green"}}>
+             <Tabs>
+              <Tab title="tab 1">
+
+              </Tab>
+              <Tab title="tab 2">
+              </Tab>
+            </Tabs>
+           </Box>
+           <Box>{displayNotes()}</Box>
+         </Grid>
        </Box>
     </Grid>
   );
