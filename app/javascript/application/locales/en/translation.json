@@ -16,7 +16,8 @@
       "password-size": "Password has minimum 8 characters",
       "password-confirmation": "Password and Password confirmation missmatch",
       "required": "This field is required"
-    }
+    },
+    "password-hint": "(8 characters minimum)"
   },
   "sign-in": {
     "title": "Sign in",
@@ -72,14 +73,17 @@
   "notes": {
     "title": "Notes",
     "no-notes": "No notes",
-    "create-note": "Create a new note",
+    "create-note": "New note",
     "edit-note": "Edit note",
     "recent": "Recent",
     "rating": "Rating",
     "times-to-read": "Times to read",
     "hint": {
       "bookmark": "Display notes if read/unread"
-    }
+    },
+    "load-more": "Load more",
+    "show": "show",
+    "hide": "hide"
   },
   "new-note": {
     "title": "Add a note",
@@ -104,7 +108,8 @@
     "name": "Tag",
     "edit": "Edit",
     "placeholder": "Write a tag",
-    "submit": "Update"
+    "submit": "Update",
+    "load-more": "Load more"
   },
   "about": {
     "title": "About",

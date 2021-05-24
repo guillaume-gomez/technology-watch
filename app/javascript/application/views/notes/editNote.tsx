@@ -7,6 +7,7 @@ import {
   Box,
   Heading,
   Spinner,
+  Grid,
 } from "grommet";
 
 import ServerError from "../../components/serverError";
@@ -94,14 +95,22 @@ export default function EditNote() : ReactElement {
   });
 
   return (
-    <Box>
-      <Heading level="3">{t("notes.edit-note")}</Heading>
-      {networkError !== "" && <ServerError messages={networkError} />}
-      {
-        loadingNote
-          ? <Spinner />
-          : <NoteForm initialValues={values} mutation={editNoteFunction} />
-      }
-    </Box>
+    <Grid
+      rows={["xxsmall", "auto"]}
+      gap="small"
+      fill
+    >
+      <Box>
+        <Heading level="3" margin="small">{t("notes.edit-note")}</Heading>
+      </Box>
+      <Box>
+        {networkError !== "" && <ServerError messages={networkError} />}
+        {
+          loadingNote
+            ? <Spinner />
+            : <NoteForm initialValues={values} mutation={editNoteFunction} />
+        }
+      </Box>
+    </Grid>
   );
 }

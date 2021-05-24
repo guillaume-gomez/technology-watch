@@ -49,38 +49,40 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
   }
 
   return (
-    <Form
-      value={values}
-      onChange={(nextValues) => setValues(nextValues)}
-      onSubmit={({ value }) => callMutation(value)}
-    >
-      <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[urlValidation(t), required(t)]}>
-        <TextInput id="link" name="link" />
-      </FormField>
-      <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
-        <TextInput id="name" name="name" />
-      </FormField>
-      <FormField name="description" htmlFor="description" label={t("new-note.description")}>
-        <TextArea id="description" name="description" resize />
-      </FormField>
-      <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
-        <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
-        <Text>{values.rating}</Text>
-      </FormField>
-      <FormField name="timeToReadInMinutes" htmlFor="timeToReadInMinutes" label={t("new-note.time-to-read-in-minutes")}>
-        <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes as number} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })} />
-      </FormField>
-      <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
-        <TagSelectRemote
-          values={values.tags}
-          onSelect={onSelectTag}
-          onRemove={onRemoveTag}
-        />
-      </FormField>
-      <Box direction="row" justify="end" gap="medium">
-        <Button label={t("new-note.back")} onClick={() => history.push(notePath)} />
-        <Button type="submit" primary label={t("new-note.submit")} />
-      </Box>
-    </Form>
+    <Box overflow="auto">
+      <Form
+        value={values}
+        onChange={(nextValues) => setValues(nextValues)}
+        onSubmit={({ value }) => callMutation(value)}
+      >
+        <FormField name="link" htmlFor="link" label={t("new-note.link") + t("required")} validate={[urlValidation(t), required(t)]}>
+          <TextInput id="link" name="link" />
+        </FormField>
+        <FormField name="name" htmlFor="name" label={t("new-note.name") + t("required")} validate={[required(t)]}>
+          <TextInput id="name" name="name" />
+        </FormField>
+        <FormField name="description" htmlFor="description" label={t("new-note.description")}>
+          <TextArea id="description" name="description" resize />
+        </FormField>
+        <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
+          <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />
+          <Text>{values.rating}</Text>
+        </FormField>
+        <FormField name="timeToReadInMinutes" htmlFor="timeToReadInMinutes" label={t("new-note.time-to-read-in-minutes")}>
+          <TextInput type="number" id="timeToReadInMinutes" name="timeToReadInMinutes" value={values.timeToReadInMinutes as number} onChange={(e) => setValues({ ...values, timeToReadInMinutes: parseInt(e.target.value, 10) })} />
+        </FormField>
+        <FormField name="tags" htmlFor="tags" label={t("new-note.tags")}>
+          <TagSelectRemote
+            values={values.tags}
+            onSelect={onSelectTag}
+            onRemove={onRemoveTag}
+          />
+        </FormField>
+        <Box direction="row" justify="end" gap="medium">
+          <Button label={t("new-note.back")} onClick={() => history.push(notePath)} />
+          <Button type="submit" primary label={t("new-note.submit")} />
+        </Box>
+      </Form>
+    </Box>
   );
 }

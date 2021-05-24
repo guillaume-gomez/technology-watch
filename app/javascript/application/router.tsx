@@ -4,7 +4,7 @@ import {
   Switch,
 } from "react-router-dom";
 import {
-  Grommet, Spinner, grommet,
+  Grommet, Spinner,
 } from "grommet";
 import { theme } from "./theme";
 

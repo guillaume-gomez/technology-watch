@@ -52,7 +52,7 @@ module Queries
       type Types::NoteType.connection_type, null: false
 
       scope { Note.where(user: context[:current_resource]) }
-
+      
       option :order_type, type: NoteOrderInputType do |scope, value|
         value_to_h = value.to_h
         direction = value_to_h[:direction]
@@ -61,11 +61,11 @@ module Queries
         when "RECENT"
           scope.order(created_at: direction)
         when "RATING"
-          scope.order(rating: direction)
+          scope.order(rating: direction, created_at: "DESC")
         when "TIMES_TO_READ"
-          scope.order(time_to_read_in_minutes: direction)
+          scope.order(time_to_read_in_minutes: direction, created_at: "DESC")
         when "MARK_AS_READ"
-          scope.order(mark_as_read: direction)
+          scope.order(mark_as_read: direction, created_at: "DESC")
         else
           scope.order("created_at DESC")
         end

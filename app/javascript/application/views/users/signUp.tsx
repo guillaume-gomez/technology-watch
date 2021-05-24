@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
-  Box, Form, FormField, TextInput, Button, Heading,
+  Box, Form, FormField, TextInput, Button, Heading, Text,
 } from "grommet";
 import { emailValidation, required } from "../../components/helpers/validationsHelpers";
 
@@ -53,7 +53,7 @@ export default function SignUp() : ReactElement {
   }
 
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" pad="xxsmall">
       <Heading level="3">{t("sign-up.title")}</Heading>
       {networkError !== "" && <ServerError messages={networkError} />}
       <Form
@@ -73,6 +73,9 @@ export default function SignUp() : ReactElement {
         <FormField name="password" htmlFor="password" label={t("sign-up.password") + t("required")} validate={[passwordValidation("passwordConfirmation"), required(t)]}>
           <TextInput type="password" id="password" name="password" />
         </FormField>
+        <Box direction="row" justify="end">
+          <Text size="small">{t("sign-up.password-hint")}</Text>
+        </Box>
         <FormField name="passwordConfirmation" htmlFor="password-confirmation" label={t("sign-up.password-confirmation") + t("required")} validate={[passwordValidation("password"), required(t)]}>
           <TextInput type="password" id="password-confirmation" name="passwordConfirmation" />
         </FormField>

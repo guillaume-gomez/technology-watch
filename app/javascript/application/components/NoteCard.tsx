@@ -63,13 +63,13 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
       </CardBody>
       <CardFooter background={dark ? "accent-1" : "brand"}>
         <Button
-          icon={<View color="plain" />}
+          icon={<View />}
           hoverIndicator
           href={note.link}
           target="_blank"
         />
         <Button
-          icon={<Edit color="plain" />}
+          icon={<Edit />}
           hoverIndicator
           onClick={() => history.push(`${notePath}/${note.id}`)}
         />

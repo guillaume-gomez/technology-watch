@@ -58,6 +58,7 @@ export default function PrivateHeader() : ReactElement {
     if (data && data.currentUser) {
       return (
         <Menu
+          dropBackground={themeMode === "light" ? "light-1" : "dark-1"}
           label={data.currentUser.nickname}
           items={[
             { label: t("header.edit"), onClick: () => history.push(editUserPath) },
@@ -79,7 +80,7 @@ export default function PrivateHeader() : ReactElement {
 
   return (
     <Header background="brand">
-      <Heading margin="medium" level="3" style={{ cursor: "pointer" }} onClick={() => history.push(privateRootPath)}>Tech' Watch</Heading>
+      <Heading margin="medium" level="3" style={{ cursor: "pointer" }} onClick={() => history.push(privateRootPath)}>Tech&apos; Watch</Heading>
       <Box direction="row">
         <Button icon={themeMode === "light" ? <Moon /> : <Sun />} hoverIndicator onClick={onChangeTheme} />
         <Button icon={<Performance />} hoverIndicator onClick={() => history.push(tagsPath)} />
