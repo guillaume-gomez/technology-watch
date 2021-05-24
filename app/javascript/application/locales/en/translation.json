@@ -16,7 +16,8 @@
       "password-size": "Password has minimum 8 characters",
       "password-confirmation": "Password and Password confirmation missmatch",
       "required": "This field is required"
-    }
+    },
+    "password-hint": "(8 characters minimum)"
   },
   "sign-in": {
     "title": "Sign in",

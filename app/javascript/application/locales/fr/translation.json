@@ -16,7 +16,8 @@
       "password-size": "Le mot de passe doit contenir 8 caratères",
       "password-confirmation": "Mot de passe et la confirmation du mot de passe sont différents",
       "required": "Ce champ est obligatoire"
-    }
+    },
+    "password-hint": "(8 caractères minimum)"
   },
   "sign-in": {
     "title": "Connexion",

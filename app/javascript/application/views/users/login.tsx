@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import {
-  Box, Form, FormField, TextInput, Button, Heading, Anchor,
+  Box, Form, FormField, TextInput, Button, Heading, Anchor
 } from "grommet";
 
 import ServerError from "../../components/serverError";
