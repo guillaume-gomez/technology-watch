@@ -9,7 +9,7 @@ import {
   Box, Heading, Spinner, Button, Tabs, Tab, Grid, ResponsiveContext, Tip,
 } from "grommet";
 import {
-  Ascend, Descend, Refresh, Bookmark,
+  Ascend, Descend, Bookmark,
 } from "grommet-icons";
 
 import TagSelectRemote from "../../components/tagSelectRemote";
@@ -103,7 +103,7 @@ export default function Notes() : ReactElement {
         return <Box align="center" pad="medium"><Heading level="4" >{t("notes.no-notes")}</Heading></Box>;
       }
       return (
-        <Box fill={"vertical"} id="scrollableDiv" overflow="auto" animation="fadeIn"  style={{border: "2px solid orange"}}>
+        <Box fill={"vertical"} id="scrollableDiv" overflow="auto" animation="fadeIn">
           <InfiniteScroll
             dataLength={data.getNotes.edges.length}
             next={getMore}
@@ -111,7 +111,7 @@ export default function Notes() : ReactElement {
               display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
             }}
             hasMore={data.getNotes.pageInfo.hasNextPage}
-            loader={<Button margin="small" label="load more" onClick={() => getMore()} />}
+            loader={<Button margin="small" label={t("notes.load-more")} onClick={() => getMore()} />}
             scrollableTarget="scrollableDiv"
           >
             <Grid
@@ -150,13 +150,13 @@ export default function Notes() : ReactElement {
       rows={["auto", "auto", "flex"]}
       gap="xsmall"
     >
-      <Box direction="row" justify="between" align="center" style={{border: "2px solid blue"}}>
+      <Box direction="row" justify="between" align="center">
         <Heading level="3" margin="small">{t("notes.title")}</Heading>
         <Link to={addNotePath}>
           <Button primary label={t("notes.create-note")} />
         </Link>
       </Box>
-      <Box direction={size === "small" ? "column" : "row"} align="center"  style={{border: "2px solid pink"}}>
+      <Box direction={size === "small" ? "column" : "row"} align="center">
         <Box fill="horizontal" pad="small">
           <TagSelectRemote
             values={pendingTags}
@@ -181,15 +181,13 @@ export default function Notes() : ReactElement {
           }
         </Box>
       </Box>
-      <Box fill={"vertical"} style={{border: "2px solid red"}}>
+      <Box fill={"vertical"} >
          <Grid fill rows={["xxsmall", "flex"]}>
-           <Box style={{border: "2px solid green"}}>
-             <Tabs>
-              <Tab title="tab 1">
-
-              </Tab>
-              <Tab title="tab 2">
-              </Tab>
+           <Box>
+             <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+              <Tab title={t("notes.recent")} />
+              <Tab title={t("notes.times-to-read")}/>
+              <Tab title={t("notes.rating")} />
             </Tabs>
            </Box>
            <Box>{displayNotes()}</Box>

@@ -78,6 +78,7 @@
     "recent": "Recent",
     "rating": "Par note",
     "times-to-read": "temps de lecture",
+    "load-more": "Plus de notes",
     "hint": {
       "bookmark": "Afficher les notes lues/non lues"
     }

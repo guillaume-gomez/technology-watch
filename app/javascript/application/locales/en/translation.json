@@ -80,7 +80,8 @@
     "times-to-read": "Times to read",
     "hint": {
       "bookmark": "Display notes if read/unread"
-    }
+    },
+    "load-more": "Load more"
   },
   "new-note": {
     "title": "Add a note",
