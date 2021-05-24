@@ -51,10 +51,10 @@ export default function Notes() : ReactElement {
       setOrder(NoteOrder.RECENT);
       break;
     case 1:
-      setOrder(NoteOrder.RATING);
+      setOrder(NoteOrder.TIMES_TO_READ);
       break;
     case 2:
-      setOrder(NoteOrder.TIMES_TO_READ);
+      setOrder(NoteOrder.RATING);
       break;
     default:
       setOrder(NoteOrder.RECENT);
@@ -181,10 +181,10 @@ export default function Notes() : ReactElement {
           <Tab title={t("notes.recent")}>
             {displayNotes()}
           </Tab>
-          <Tab title={t("notes.rating")}>
+          <Tab title={t("notes.times-to-read")}>
             {displayNotes()}
           </Tab>
-          <Tab title={t("notes.times-to-read")}>
+          <Tab title={t("notes.rating")}>
             {displayNotes()}
           </Tab>
         </Tabs>
