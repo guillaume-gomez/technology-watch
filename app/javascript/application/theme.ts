@@ -22,13 +22,25 @@ const customTheme = {
        dark: "#7015c0"
      },
      brand: "#1565c0",
-     "accent-1": "#ffa726"
+     "accent-1": "#ffa726",
    },
    focus: {
      border: {
        color: "#ffa726"
      }
    }
+  },
+  menu: {
+    drop: {
+      elevation: "none",
+      round: "xsmall"
+    }
+  },
+  tip: {
+    content: {
+      elevation: "none",
+      "round": "xsmall"
+    },
   }
 };
 
