@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { uniqBy } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@apollo/client";
@@ -11,6 +11,7 @@ import {
   Button,
   Heading,
   TextInput,
+  Text,
   Grid
 } from "grommet";
 import { Trash, Refresh } from "grommet-icons";
@@ -52,16 +53,16 @@ export default function Tags() : ReactElement {
   const [networkError, setNetworkError] = useState<string>("");
   const { data, loading, fetchMore } = useQuery<getTags, getTagsVariables>(GetTagsQuery, {
     variables: { first: nbItems },
-    notifyOnNetworkStatusChange: true,
-    onCompleted: ({ getTags }) => {
-      if (getTags.edges) {
-        updateTagsFromQuery(getTags.edges);
-      }
-    },
     onError: (errors) => {
       setNetworkError(errors.toString());
     },
   });
+
+  useEffect(() => {
+    if(data && data.getTags.edges.length > tags.length) {
+       updateTagsFromQuery(data.getTags.edges);
+    }
+  }, [data]);
   const [editTags] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
     onCompleted: () => {
       history.push(privateRootPath);
@@ -94,7 +95,7 @@ export default function Tags() : ReactElement {
         color: node!.color,
         destroy: false,
       }));
-    setTags(uniqBy([...tags, ...tagsFromQuery], "id"));
+    setTags(tagsFromQuery);
   }
 
   function addTag() {
@@ -152,47 +153,56 @@ export default function Tags() : ReactElement {
     }
 
     return (
-      <Grid
+    <Grid
        fill
         rows={["xxsmall", "auto"]}
          gap="xxsmall">
          <Box justify="end" pad="xsmall">
           <Heading level={4} margin="none">{t("tags.name")}</Heading>
         </Box>
-        <Box id="scrollableDiv" overflow="auto" animation="fadeIn" pad="small"  background={themeMode === "dark" ? "dark-2" : "light-2"} round="xxsmall">
-          <InfiniteScroll
-            dataLength={tags.length}
-            next={getMore}
-            style={{
-              display: "flex", flexDirection: "column", alignItems: "center",
-            }}
-            hasMore={data.getTags.pageInfo.hasNextPage}
-            loader={<Button margin="small" label={t("tags.load-more")} onClick={() => getMore()} />}
-            scrollableTarget="scrollableDiv"
-          >
-            {tags.map((tag: TagBulkType, index: number) => {
-              if (tag.destroy) {
-                return null;
+        <Box fill={"vertical"} id="scrollableDiv" overflow="auto" animation="fadeIn" background={themeMode === "dark" ? "dark-2" : "light-2"} round="xxsmall">
+            <InfiniteScroll
+              dataLength={data.getTags.edges.length}
+              next={getMore}
+              style={{
+                display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%",
+              }}
+              hasMore={data.getTags.pageInfo.hasNextPage}
+              loader={<Button margin="small" label={t("notes.load-more")} onClick={() => getMore()} />}
+              scrollableTarget="scrollableDiv"
+            >
+              <Box
+                gap="xsmall"
+                pad="small"
+                fill
+              >
+            {
+              tags.map((tag: TagBulkType, index: number) => {
+                
+                 if (tag.destroy) {
+                   return null;
+                 }
+                 return (
+                   <Box key={tag.id} direction="row" align="center" gap="small">
+                     <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
+                     <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
+                     <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
+                   </Box>
+                 );
               }
-              return (
-                <Box key={tag.id} direction="row" align="center" gap="small" width="xxlarge">
-                  <TextInput placeholder={t("tags.placeholder")} defaultValue={tag.name || ""} onBlur={(e) => updateTag(e.target.value, index)} />
-                  <input type="color" id="head" name="head" value={tag.color || "#000"} onChange={(e) => updateColorTag(e.target.value, index)} />
-                  <Button hoverIndicator icon={<Trash />} disabled={tag.destroy || tags.length <= 1} onClick={() => removeTag(index)} />
-                </Box>
-              );
-            })}
-          </InfiniteScroll>
-        </Box>
-      </Grid>
-    );
+             )
+            }
+            </Box>
+            </InfiniteScroll>
+          </Box>
+          </Grid>)
   }
 
   return (
     <Grid
        fill
-        rows={["xxsmall", "auto", "xxsmall"]}
-         gap="xsmall">
+        rows={["xxsmall", "flex", "xxsmall"]}
+         gap="small">
       <Box direction="row" justify="between" align="center">
 
         <Heading level="3" margin="small">{t("tags.title")}</Heading>
