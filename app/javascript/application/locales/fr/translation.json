@@ -120,5 +120,8 @@
     "ticket": "N'hesitez pas à faire des suggestions pour ameliorer le site <0>ici</0> en ouvrant un ticket.",
     "server": "Soyez indulgent sur le serveur, il est gratuit. Il passe donc en hibernation en fonction des usages",
     "back": "Retour"
+  },
+  "note-card": {
+    "no-description": "Pas de description..."
   }
 }

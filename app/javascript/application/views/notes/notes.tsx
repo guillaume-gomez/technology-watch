@@ -212,9 +212,9 @@ export default function Notes() : ReactElement {
       </Box>
       {renderFilters()}
       <Box fill="vertical">
-        <Grid fill rows={["xxsmall%", "auto"]} gap="xsmall">
+        <Grid fill rows={["min-content", "auto"]} gap="xsmall">
           <Box>
-            <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+            <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex} style={{fontSize: "14px"}}>
               <Tab title={t("notes.recent")} />
               <Tab title={t("notes.times-to-read")} />
               <Tab title={t("notes.rating")} />
