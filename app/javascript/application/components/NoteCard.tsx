@@ -32,7 +32,6 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
   const { dark } : any = React.useContext(ThemeContext); // ThemeContext is bad typed by grommet
   const history = useHistory();
 
-  console.log(note.description)
   return (
     <Card elevation="none" background={dark ? "dark-2" : "light-4"} round="xsmall" animation="fadeIn" height={{ min: "200px" }}>
       <CardHeader pad="small" background={dark ? "accent-1" : "brand"}>

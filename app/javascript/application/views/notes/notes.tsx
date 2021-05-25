@@ -103,7 +103,7 @@ export default function Notes() : ReactElement {
   function renderFilters() {
     if (!displayFilters) {
       return (
-        <Box justify="between" align="center" direction="row">
+        <Box justify="between" align="center" direction="row" pad="small">
           <NoteTotalCount markAsRead={bookmark} />
           <Button size="small" label={t("notes.show")} onClick={() => setDisplayFilters(true)} />
         </Box>
