@@ -62,7 +62,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
           <TextInput id="name" name="name" />
         </FormField>
         <FormField name="description" htmlFor="description" label={t("new-note.description")}>
-          <TextArea id="description" name="description" resize />
+          <TextArea id="description" name="description" resize maxLength={500}/>
         </FormField>
         <FormField name="rating" htmlFor="rating" label={t("new-note.rating")}>
           <RangeInput id="rating" name="rating" min={1} max={10} step={1} value={values.rating || 1} onChange={(e) => setValues({ ...values, rating: parseInt(e.target.value, 10) })} />

@@ -4,7 +4,7 @@ import {
   Button,
 } from "grommet";
 
-import { Bookmark } from "grommet-icons";
+import { Archive } from "grommet-icons";
 
 import { markAsRead, markAsReadVariables } from "../graphql/types/markAsRead";
 import {
@@ -52,7 +52,7 @@ export default function MarkAsReadNote({ id, markAsRead } : MarkAsReadNoteProps)
   });
   return (
     <Button
-      icon={<Bookmark color={markAsRead ? "mark-as-read" : ""} />}
+      icon={<Archive color={markAsRead ? "mark-as-read" : ""} />}
       hoverIndicator
       onClick={() => markAsReadFunction()}
     />

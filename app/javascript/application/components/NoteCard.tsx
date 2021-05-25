@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Card,
@@ -8,9 +9,10 @@ import {
   CardFooter,
   Button,
   ThemeContext,
+  Text
 } from "grommet";
 
-import { Edit, View, Clock } from "grommet-icons";
+import { Edit, View, Clock, Validate } from "grommet-icons";
 
 import Tag from "./tag";
 
@@ -26,23 +28,18 @@ interface NoteCardProps {
 }
 
 export default function NoteCard({ note } : NoteCardProps) : ReactElement {
+  const { t } = useTranslation();
   const { dark } : any = React.useContext(ThemeContext); // ThemeContext is bad typed by grommet
   const history = useHistory();
 
+  console.log(note.description)
   return (
     <Card elevation="none" background={dark ? "dark-2" : "light-4"} round="xsmall" animation="fadeIn" height={{ min: "200px" }}>
       <CardHeader pad="small" background={dark ? "accent-1" : "brand"}>
-        <Box direction="row" flex justify="between">
-          <div>{note.name}</div>
-          <div>
-            {note.rating}
-            {" "}
-            /10
-          </div>
-        </Box>
+        <Text truncate>{note.name}</Text>
       </CardHeader>
-      <CardBody pad="small" gap="small">
-        {note.description}
+      <CardBody pad="small" gap="small" justify="end">
+       {note.description !== null ? note.description : t("note-card.no-description")}
         <Box align="center" direction="row" wrap>
           {note.tags.edges.map(({ node: tag }) => (
             <Tag key={tag!.id} color={tag!.color}>
@@ -50,9 +47,10 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
             </Tag>
           ))}
         </Box>
+        <Box direction="row" justify="between">
         {note.timeToReadInMinutes
           ? (
-            <Box flex direction="row" alignContent="center" gap="xxsmall">
+            <Box flex direction="row" gap="xxsmall">
               {note.timeToReadInMinutes}
               {" "}
               min
@@ -60,6 +58,13 @@ export default function NoteCard({ note } : NoteCardProps) : ReactElement {
             </Box>
           )
           : null}
+          <Box flex direction="row" align="end" justify="end" gap="xxsmall">
+            {note.rating}
+            {" "}
+            /10
+            <Validate />
+          </Box>
+         </Box>
       </CardBody>
       <CardFooter background={dark ? "accent-1" : "brand"}>
         <Button

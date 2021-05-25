@@ -24,7 +24,7 @@
     "email": "Email",
     "password": "Mot de passe",
     "submit": "Se connecter",
-    "sign-up": "Creer un compte",
+    "sign-up": "Créer un compte",
     "forgot-password": "Mot de passe oublié"
   },
   "confirm-sign-up": {
@@ -73,7 +73,7 @@
   "notes": {
     "title": "Notes",
     "no-notes": "Pas de notes",
-    "create-note": "Creer note",
+    "create-note": "Créer note",
     "edit-note": "Editer note",
     "recent": "Recent",
     "rating": "Par note",
@@ -123,5 +123,8 @@
   },
   "note-total-count": {
     "notes": "Notes"
+  },
+  "note-card": {
+    "no-description": "Pas de description..."
   }
 }

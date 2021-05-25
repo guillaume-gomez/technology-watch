@@ -124,5 +124,8 @@
   },
   "note-total-count": {
     "notes": "Notes"
+  },
+  "note-card": {
+    "no-description": "No description..."
   }
 }
