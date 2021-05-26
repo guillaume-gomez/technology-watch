@@ -199,7 +199,7 @@ export default function Tags() : ReactElement {
   return (
     <Grid
       fill
-      rows={["xxsmall", "flex", "xxsmall"]}
+      rows={["xxsmall", "flex", "min-content"]}
       gap="small"
     >
       <Box direction="row" justify="between" align="center">
