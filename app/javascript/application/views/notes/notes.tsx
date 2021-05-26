@@ -103,8 +103,8 @@ export default function Notes() : ReactElement {
   function renderFilters() {
     if (!displayFilters) {
       return (
-        <Box justify="between" align="center" direction="row" pad="small">
-          <NoteTotalCount markAsRead={bookmark} />
+        <Box justify="between" align="center" direction="row">
+          <NoteTotalCount markAsRead={bookmark} currentNotes={data ? data.getNotes.edges.length : 0} />
           <Button size="small" label={t("notes.show")} onClick={() => setDisplayFilters(true)} />
         </Box>
       );
@@ -112,7 +112,7 @@ export default function Notes() : ReactElement {
 
     return (
       <Box direction={size === "small" ? "column" : "row"} align="center">
-        <Box fill="horizontal" pad="small">
+        <Box fill="horizontal">
           <TagSelectRemote
             values={pendingTags}
             onSelect={onSelectTag}
@@ -216,7 +216,7 @@ export default function Notes() : ReactElement {
       <Box fill="vertical">
         <Grid fill rows={["min-content", "auto"]} gap="xsmall">
           <Box>
-            <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex} style={{fontSize: "14px"}}>
+            <Tabs activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
               <Tab title={t("notes.recent")} />
               <Tab title={t("notes.times-to-read")} />
               <Tab title={t("notes.rating")} />

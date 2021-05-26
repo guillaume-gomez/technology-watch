@@ -10,9 +10,10 @@ import {
 
 interface NoteTotalCount {
   markAsRead: boolean;
+  currentNotes: number;
 }
 
-export default function NoteTotalCount({ markAsRead } : NoteTotalCount) : ReactElement {
+export default function NoteTotalCount({ markAsRead, currentNotes } : NoteTotalCount) : ReactElement {
   const { t } = useTranslation();
   const [getTotalNotes, { data }] = useLazyQuery<getTotalNotes, getTotalNotesVariables>(GetTotalNotesQuery);
 
@@ -26,7 +27,7 @@ export default function NoteTotalCount({ markAsRead } : NoteTotalCount) : ReactE
     <Box pad="xsmall">
       {
         data ? 
-        <Text>{data.getTotalNotes}{" "}{t("note-total-count.notes")}</Text> :
+        <Text>{currentNotes}{" / "}{data.getTotalNotes}{" "}{t("note-total-count.notes")}</Text> :
         <Spinner size="small" />
       }
     </Box>
