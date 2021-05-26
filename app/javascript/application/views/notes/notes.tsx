@@ -103,15 +103,40 @@ export default function Notes() : ReactElement {
   function renderFilters() {
     if (!displayFilters) {
       return (
-        <Box justify="between" align="center" direction="row">
+        <Box justify="between" align="center" direction="row" gap="xsmall">
           <NoteTotalCount markAsRead={bookmark} currentNotes={data ? data.getNotes.edges.length : 0} />
+          <Box justify="end" align="center" direction="row">
+          {
+             isMobile ? 
+             (<Button
+              size="small"
+              icon={<Archive color={bookmark ? "mark-as-read" : ""} />}
+              hoverIndicator
+              onClick={() => setBookmark(!bookmark)}
+            />) : 
+             (<Tip content={t("notes.hint.bookmark")}>
+            <Button
+              size="small"
+              icon={<Archive color={bookmark ? "mark-as-read" : ""} />}
+              hoverIndicator
+              onClick={() => setBookmark(!bookmark)}
+            />
+          </Tip>)
+          }
+          
+          {
+            direction === NoteDirection.DESC
+              ? <Ascend size="medium" onClick={() => setDirection(NoteDirection.ASC)} />
+              : <Descend size="medium" onClick={() => setDirection(NoteDirection.DESC)} />
+          }
           <Button size="small" label={t("notes.show")} onClick={() => setDisplayFilters(true)} />
+          </Box>
         </Box>
       );
     }
 
     return (
-      <Box direction={size === "small" ? "column" : "row"} align="center">
+      <Box direction={size === "small" ? "column" : "row"} gap="xsmall" align="center">
         <Box fill="horizontal">
           <TagSelectRemote
             values={pendingTags}
