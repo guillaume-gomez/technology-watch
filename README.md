@@ -1,6 +1,6 @@
 # Technology watch
 
-This project was design in order store, tidy and organize links found during my technological watch.
+This project was design in order to store, tidy and organize links found during my technological watch.
 
 [Sign up and try here](https://technology-watch.herokuapp.com/)
 
