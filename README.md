@@ -9,3 +9,22 @@ Feel free to suggest improvements by creating an issue.
 
 
 **Be indulgent with the server latency because it is free. So it sometimes hibernate when there is no usage for a long time** 🙂
+
+## Run locally
+
+Clone or download the repository.
+
+```
+bundle
+yarn install
+```
+On two separate terminal
+
+```
+bundle exec rails server
+```
+and
+
+```
+./bin/webpacker-dev
+```
