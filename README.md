@@ -27,7 +27,7 @@ bundle exec rails server
 ```
 and
 
-For the transpiration
+For the tranpilation
 
 ```
 ./bin/webpacker-dev
