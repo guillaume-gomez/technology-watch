@@ -44,14 +44,18 @@ export default function PrivateHeader() : ReactElement {
   const [logout] = useMutation<userLogout>(LogoutQuery, {
     onCompleted: () => {
       client.clearStore().then(() => {
-        clear();
-        history.push(publicRootPath);
+        clearAndRedirect();
       });
     },
     onError: (errors) => {
       console.error(errors);
     },
   });
+
+  function clearAndRedirect() {
+    clear();
+    history.push(publicRootPath);
+  }
 
   function avatar() {
     if (loading) return <Spinner />;
@@ -68,7 +72,9 @@ export default function PrivateHeader() : ReactElement {
         />
       );
     }
-    return <></>;
+    // in case of expired cookie issue
+    return (
+     <Button label={t("header.logout")} hoverIndicator onClick={clearAndRedirect} />);
   }
 
   function onChangeTheme() {
