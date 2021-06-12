@@ -20,10 +20,14 @@ yarn install
 ```
 On two separate terminal
 
+For the server
+
 ```
 bundle exec rails server
 ```
 and
+
+For the transpilation
 
 ```
 ./bin/webpacker-dev
