@@ -4,6 +4,7 @@ This project was design in order to store, tidy and organize links found during 
 
 [Sign up and try here](https://technology-watch.herokuapp.com/)
 
+[preview](preview.mp4)
 
 Feel free to suggest improvements by creating an issue.
 
