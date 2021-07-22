@@ -28,7 +28,7 @@ export default function NewNote() : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
-  const [createNoteFunction] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
+  const [createNoteFunction, { loading }] = useMutation<createNote, createNoteVariables>(CreateNoteQuery, {
     onCompleted: () => {
       history.push(notePath);
     },
@@ -65,6 +65,8 @@ export default function NewNote() : ReactElement {
     },
   );
 
+  console.log(loading)
+
   return (
     <Grid
       rows={["xxsmall", "auto"]}
@@ -76,7 +78,7 @@ export default function NewNote() : ReactElement {
       </Box>
       <Box>
         {networkError !== "" && <ServerError messages={networkError} />}
-        <NoteForm initialValues={values} mutation={createNoteFunction} />
+        <NoteForm initialValues={values} mutation={createNoteFunction} loadingMutation={loading} />
       </Box>
     </Grid>
   );

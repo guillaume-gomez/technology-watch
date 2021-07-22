@@ -25,9 +25,10 @@ export type initialValuesTypes = Omit<createNoteVariables | editNoteVariables, "
 interface NoteFormProps {
  initialValues: initialValuesTypes;
  mutation: Function;
+ loadingMutation: boolean;
 }
 
-export default function NoteForm({ initialValues, mutation }: NoteFormProps) : ReactElement {
+export default function NoteForm({ initialValues, mutation, loadingMutation }: NoteFormProps) : ReactElement {
   const { t } = useTranslation();
   const history = useHistory();
   const [values, setValues] = React.useState<initialValuesTypes>(initialValues);
@@ -80,7 +81,7 @@ export default function NoteForm({ initialValues, mutation }: NoteFormProps) : R
         </FormField>
         <Box direction="row" justify="end" gap="medium">
           <Button label={t("new-note.back")} onClick={() => history.push(notePath)} />
-          <Button type="submit" primary label={t("new-note.submit")} />
+          <Button type="submit" disabled={loadingMutation} primary label={t("new-note.submit")} />
         </Box>
       </Form>
     </Box>

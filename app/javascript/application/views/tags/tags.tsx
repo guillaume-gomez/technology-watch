@@ -61,7 +61,7 @@ export default function Tags() : ReactElement {
       updateTagsFromQuery(data.getTags.edges);
     }
   }, [data, tags.length]);
-  const [editTags] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
+  const [editTags, { loading: loadingBulkUpdateTags }] = useMutation<bulkUpdateTags, bulkUpdateTagsVariables>(BulkUpdateTagsQuery, {
     onCompleted: () => {
       history.push(privateRootPath);
     },
@@ -215,7 +215,7 @@ export default function Tags() : ReactElement {
       </Box>
       <Box fill="horizontal" direction="row" justify="end" gap="medium">
         <Button label={t("new-note.back")} onClick={() => history.push(privateRootPath)} />
-        <Button type="submit" primary label={t("tags.submit")} onClick={() => editTags({ variables: { tags } })} />
+        <Button type="submit" primary disabled={loadingBulkUpdateTags} label={t("tags.submit")} onClick={() => editTags({ variables: { tags } })} />
       </Box>
     </Grid>
   );

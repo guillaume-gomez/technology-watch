@@ -62,7 +62,7 @@ export default function EditNote() : ReactElement {
       setLoadingNote(false);
     },
   });
-  const [editNoteFunction] = useMutation<editNote, editNoteVariables>(EditNoteQuery, {
+  const [editNoteFunction, { loading }] = useMutation<editNote, editNoteVariables>(EditNoteQuery, {
     onCompleted: () => {
       history.push(notePath);
     },
@@ -108,7 +108,7 @@ export default function EditNote() : ReactElement {
         {
           loadingNote
             ? <Spinner />
-            : <NoteForm initialValues={values} mutation={editNoteFunction} />
+            : <NoteForm initialValues={values} mutation={editNoteFunction} loadingMutation={!!loading} />
         }
       </Box>
     </Grid>
