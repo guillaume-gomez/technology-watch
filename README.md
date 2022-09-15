@@ -31,5 +31,5 @@ and
 For the transpilation
 
 ```
-./bin/webpacker-dev
+./bin/webpack-dev-server 
 ```
