@@ -22,7 +22,7 @@ gem 'webpacker', '>= 5.2.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'jbuilder', '~> 2.11', '>= 2.11.2'
+gem 'jbuilder', '~> 2.11', '>= 2.11.3'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -53,11 +53,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "graphql", github: 'rmosolgo/graphql-ruby', branch: 'master'
 gem 'graphiql-rails', '>= 1.8.0', group: :development
-gem 'graphql_devise', '0.14.3'
+gem 'graphql_devise', '1.5.0'
 
 # Query Filtering
 gem 'search_object'
-gem 'search_object_graphql'
+gem 'search_object_graphql', '>= 1.0.2'
 
 # only useful when migrate from scratch
 # gem 'acts-as-taggable-on', '~> 7.0'
