@@ -39,7 +39,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'faker'
   gem 'factory_bot_rails', '>= 6.2.0'
-  gem 'rspec-rails', '>= 4.1.0'
+  gem 'rspec-rails', '>= 8.0.0'
   gem "letter_opener"
 end
 
