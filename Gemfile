@@ -8,7 +8,7 @@ end
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1.0.0'
+gem 'rails', '~> 6.1.7.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -53,7 +53,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "graphql", github: 'rmosolgo/graphql-ruby', branch: 'master'
 gem 'graphiql-rails', '>= 1.8.0', group: :development
-gem 'graphql_devise', '1.5.0'
+gem 'graphql_devise', '0.14.3'
 
 # Query Filtering
 gem 'search_object'
