@@ -10,18 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_05_164323) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_05_165650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "note_tags", force: :cascade do |t|
+    t.bigint "note_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["note_id"], name: "index_note_tags_on_note_id"
+    t.index ["tag_id"], name: "index_note_tags_on_tag_id"
+  end
 
   create_table "notes", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "link"
-    t.integer "rating"
-    t.time "time_to_read"
+    t.integer "rating", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.boolean "mark_as_read", default: false
+    t.integer "time_to_read_in_minutes"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,6 +65,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_05_164323) do
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_super_admin", default: false
+    t.string "language_code", default: "en"
+    t.string "theme_mode", default: "light"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

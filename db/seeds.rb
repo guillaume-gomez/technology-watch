@@ -8,29 +8,24 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-[
-  User,
-  #Tag,
-  Note,
-].each(&:delete_all)
 
 
 
-john = User.create!(
+john = User.create(
   email: "john.doe@example.com",
   first_name: "john",
   last_name: "doe",
   nickname: "Jojo",
   password: "password",
-  #is_super_admin: true
+  is_super_admin: true
 )
 john.confirm
 
-# 25.times.each do |index|
-#   Tag.create!(name: "tag#{index + 1}", user: john, color: Faker::Color.hex_color)
-# end
+25.times.each do |index|
+  Tag.create!(name: "tag#{index + 1}", user: john, color: Faker::Color.hex_color)
+end
 
-# 50.times.each do |index|
-#   note = Note.create!(name: "note_'#{index + 1}'", link: "http://linux.com", rating: [*0..10].sample, user: john)
-#   NoteTag.create!(note: note, tag: Tag.all.sample)
-# end
+50.times.each do |index|
+  note = Note.create!(name: "note_'#{index + 1}'", link: "http://linux.com", rating: [*0..10].sample, user: john)
+  NoteTag.create!(note: note, tag: Tag.all.sample)
+end
