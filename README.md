@@ -1,35 +1,24 @@
-# Technology watch
+# README
 
-This project was design in order to store, tidy and organize links found during my technological watch.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-[Sign up and try here](https://technology-watch.herokuapp.com/)
+Things you may want to cover:
 
-[preview](https://github.com/guillaume-gomez/technology-watch/blob/7e1d4b4ccee5b6a7cc81fce3453389739cee9c36/preview.mp4)
+* Ruby version
 
-Feel free to suggest improvements by creating an issue.
+* System dependencies
 
+* Configuration
 
-**Be indulgent with the server latency because it is free. So it sometimes hibernate when there is no usage for a long time** 🙂
+* Database creation
 
-## Run locally
+* Database initialization
 
-Clone or download the repository.
+* How to run the test suite
 
-```
-bundle
-yarn install
-```
-On two separate terminal
+* Services (job queues, cache servers, search engines, etc.)
 
-For the server
+* Deployment instructions
 
-```
-bundle exec rails server
-```
-and
-
-For the transpilation
-
-```
-./bin/webpack-dev-server 
-```
+* ...
