@@ -1,4 +1,11 @@
-class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+class ApplicationController < ActionController::API
+  def auth_header
+    request.headers['Authorization']&.split&.last
+  end
+
+  def current_user
+    #Current.user = User.find_by_token_for(:auth_token, auth_header)
+    user = User.first
+    @current_user ||= user
+  end
 end
