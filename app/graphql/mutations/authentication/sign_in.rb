@@ -6,14 +6,16 @@ module Mutations
       
       null true
       argument :email, String, required: true
+      argument :password, String, required: true
       
       field :token, String, null: true
       field :user, Types::Users::UserType
       field :errors, [String], null: false
 
-      def resolve(email:)
+      def resolve(email:, password:)
         user = User.find_by_email(email)
-        return mock_user unless user
+        is_authenticated = user.valid_password?(password)
+        return mock_user if !user || !is_authenticated
 
         token = jwt_encode(user_id: user.id)
         
