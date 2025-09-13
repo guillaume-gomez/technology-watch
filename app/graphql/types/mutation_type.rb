@@ -10,6 +10,9 @@ module Types
       "Hello World"
     end
 
+    field :sign_in, mutation: Mutations::Authentication::SignIn
+
+    field :sign_up, mutation: Mutations::Users::CreateUser
     field :update_user, mutation: Mutations::Users::UpdateUser
   end
 end
