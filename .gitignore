@@ -26,3 +26,6 @@ yarn-debug.log*
 .yarn-integrity
 
 .rspec
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -20,9 +20,12 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body>
+    <h1>vjdsklfjdfjlkesqfjklds</h1>
+    <p>Alixe<p>
     <%= yield %>
   </body>
 </html>

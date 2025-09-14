@@ -74,3 +74,5 @@ end
 gem "graphql", "~> 2.5"
 gem "jwt"
 gem "bcrypt"
+
+gem "jsbundling-rails", "~> 1.3"
