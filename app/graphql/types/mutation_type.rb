@@ -11,8 +11,8 @@ module Types
     end
 
     field :sign_in, mutation: Mutations::Authentication::SignIn
-
-    field :sign_up, mutation: Mutations::Users::CreateUser
+    field :sign_up, mutation: Mutations::Authentication::SignUp
+    
     field :update_user, mutation: Mutations::Users::UpdateUser
   end
 end
