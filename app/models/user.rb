@@ -7,6 +7,7 @@ class User < ApplicationRecord
   DEFAULT_TAGS = %w(awesome interesting fun).freeze
   after_create :create_default_tag
 
+
   has_many :notes, dependent: :destroy
   has_many :tags, dependent: :destroy
 
