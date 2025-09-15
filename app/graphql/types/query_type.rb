@@ -30,5 +30,6 @@ module Types
     end
 
     field :current_user, resolver: Resolvers::Users::Me
+    field :get_users, resolver: Resolvers::Users::GetUsers
   end
 end

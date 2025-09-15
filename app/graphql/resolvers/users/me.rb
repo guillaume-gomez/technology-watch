@@ -6,8 +6,11 @@ module Resolvers
       description 'Returns the current user'
 
       def resolve
+        authenticate_user!
+        
         context[:current_user]
       end
     end
   end
 end
+
