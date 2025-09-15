@@ -50,6 +50,14 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  gem 'rubocop'
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-graphql', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rake', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem 'rspec-rails'
