@@ -35,5 +35,8 @@ module Types
     field :get_note, resolver: Resolvers::Notes::GetNote
     field :get_notes, resolver: Resolvers::Notes::GetNotes
     field :get_total_notes, resolver: Resolvers::Notes::GetTotalNotes
+
+    field :get_tag, resolver: Resolvers::Tags::GetTag
+    field :get_tags, resolver: Resolvers::Tags::GetTags
   end
 end
