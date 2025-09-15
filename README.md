@@ -1,24 +1,38 @@
-# README
+# Technology watch
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was design in order to store, tidy and organize links found during my technological watch.
 
-Things you may want to cover:
+[Sign up and try here](https://technology-watch.herokuapp.com/)
 
-* Ruby version
+[preview](https://github.com/guillaume-gomez/technology-watch/blob/7e1d4b4ccee5b6a7cc81fce3453389739cee9c36/preview.mp4)
 
-* System dependencies
+Feel free to suggest improvements by creating an issue.
 
-* Configuration
 
-* Database creation
+**Be indulgent with the server latency because it is free. So it sometimes hibernate when there is no usage for a long time** 🙂
 
-* Database initialization
+## Run locally
 
-* How to run the test suite
+Clone or download the repository.
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+bundle
+yarn install
+```
+On two separate terminal
 
-* Deployment instructions
+For the server
 
-* ...
+```
+bundle exec rails server
+```
+and
+
+For the transpilation
+
+```
+./bin/webpack-dev-server 
+```
+
+
+https://evilmartians.com/chronicles/graphql-on-rails-1-from-zero-to-the-first-query
