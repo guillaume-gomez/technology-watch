@@ -3,13 +3,13 @@ module Resolvers
     # Get current user object
     class GetUsers < Resolvers::BaseResolver
       description 'Get all Users'
-      type [Types::Users::UserType], null: false
+      type Types::Users::UserType.connection_type, null: false
 
       def resolve
         authenticate_user!
-        
-        return User.all if context[:current_resource].is_super_admin?
-        return [context[:current_resource]]
+
+        return User.all if current_user.is_super_admin?
+        return [current_user]
       end
 
     end
