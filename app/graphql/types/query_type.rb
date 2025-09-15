@@ -31,5 +31,9 @@ module Types
 
     field :current_user, resolver: Resolvers::Users::Me
     field :get_users, resolver: Resolvers::Users::GetUsers
+
+    field :get_note, resolver: Resolvers::Notes::GetNote
+    field :get_notes, resolver: Resolvers::Notes::GetNotes
+    field :get_total_notes, resolver: Resolvers::Notes::GetTotalNotes
   end
 end

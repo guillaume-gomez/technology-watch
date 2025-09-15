@@ -36,8 +36,8 @@ module Mutations
           }
         else
           {
-            comment: nil,
-            errors: comment.errors.full_messages
+            user: nil,
+            errors: user.errors.full_messages
           }
         end
       end
