@@ -14,5 +14,8 @@ module Types
     field :sign_up, mutation: Mutations::Authentication::SignUp
     
     field :update_user, mutation: Mutations::Users::UpdateUser
+
+    field :create_note, mutation: Mutations::Notes::CreateNote
+    field :destroy_note, mutation: Mutations::Notes::DestroyNote
   end
 end

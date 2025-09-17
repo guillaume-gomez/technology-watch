@@ -3,13 +3,15 @@ module Mutations
 
     class DestroyNote < BaseMutation
       description 'Destroy a Note'
-      type Types::Notes::NoteType
 
       argument :id, ID, required: true
-
+      field :note, Types::Notes::NoteType, null: true
+      
       def resolve(id:)
-        record = current_user.notes.find(id)
-        record.destroy
+        note = current_user.notes.find(id)
+        note.destroy
+
+        { note: note }
       end
     end
 
