@@ -16,6 +16,7 @@ module Types
     field :update_user, mutation: Mutations::Users::UpdateUser
 
     field :create_note, mutation: Mutations::Notes::CreateNote
+    field :update_note, mutation: Mutations::Notes::UpdateNote
     field :destroy_note, mutation: Mutations::Notes::DestroyNote
   end
 end

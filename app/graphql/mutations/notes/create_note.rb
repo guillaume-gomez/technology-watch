@@ -37,7 +37,8 @@ module Mutations
       field :note, Types::Notes::NoteType, null: true
 
       def resolve(attributes:)
-        debugger
+        authenticate_user!
+
         _attributes = attributes.to_h
         _tag_ids_params = _attributes.delete(:tags)
 

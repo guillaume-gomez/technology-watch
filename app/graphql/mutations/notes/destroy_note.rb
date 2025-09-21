@@ -8,6 +8,8 @@ module Mutations
       field :note, Types::Notes::NoteType, null: true
       
       def resolve(id:)
+        authenticate_user!
+
         note = current_user.notes.find(id)
         note.destroy
 
