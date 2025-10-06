@@ -20,5 +20,6 @@ module Types
     field :destroy_note, mutation: Mutations::Notes::DestroyNote
 
     field :create_tag, mutation: Mutations::Tags::CreateTag
+    field :update_tag, mutation: Mutations::Tags::UpdateTag
   end
 end
