@@ -25,7 +25,7 @@ module Mutations
       description 'Add/Update and Destroy Tags'
       
       argument :attributes, [TagBulkType], required: true
-      field :records, Types::Tags::TagType.connection_type, null: false
+      type Types::Tags::TagType.connection_type, null: false
 
 
       def resolve(attributes:)
