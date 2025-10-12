@@ -3,14 +3,10 @@ import ReactDOM from "react-dom/client";
 import { setContext } from "@apollo/client/link/context";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
+import { relayStylePagination } from "@apollo/client/utilities";
 
-
-const App = () => <h1>Hello Rails</h1>;
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(<App />);
+import Router from "../front-end-app/router";
+import ThemeMode from "../front-end-app/reducers/useThemeColor";
 
 const client = new ApolloClient({
   link: new HttpLink({  uri: "/graphql", credentials: "same-origin", }),
@@ -26,6 +22,24 @@ const client = new ApolloClient({
     }
   }),
 });
+
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <ThemeMode.Provider>
+        <Router />
+      </ThemeMode.Provider>
+    </ApolloProvider>
+  );
+}
+
+//const App = () => <h1>Hello jsdlkfjd</h1>;
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(<App />);
+
 
 // original file 
 /* eslint-disable react/jsx-filename-extension */
