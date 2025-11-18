@@ -29,11 +29,11 @@ export default function Login() : ReactElement {
     onCompleted: ({ userLogin }) => {
       if (userLogin) {
         const {
-          accessToken, expiry, client, uid,
-        } = userLogin.credentials;
-        setToken(accessToken, expiry);
-        setClient(client, expiry);
-        setUID(uid, expiry);
+          token, user: { id, cacheKey },
+        } = userLogin;
+        setToken(token, expiry);
+        setClient(id, expiry);
+        setUID(cacheKey, expiry);
         history.push(privateRootPath);
       } else {
         // set error

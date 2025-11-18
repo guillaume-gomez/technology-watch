@@ -33,12 +33,11 @@ export const SignUp = gql`
 
 export const Login = gql`
   mutation userLogin($email: String!, $password: String!) {
-    userLogin(email: $email, password: $password) {
-      credentials {
-        accessToken
-        client
-        expiry
-        uid
+    signIn(input:{ email: $email, password: $password }) {
+      token
+      user {
+        id
+        cacheKey
       }
     }
   }

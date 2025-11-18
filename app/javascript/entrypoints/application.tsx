@@ -4,12 +4,36 @@ import { setContext } from "@apollo/client/link/context";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { relayStylePagination } from "@apollo/client/utilities";
+import { getToken, getUID, getClient, csrfToken } from "../front-end-app/authentication";
 
 import Router from "../front-end-app/router";
 import ThemeMode from "../front-end-app/reducers/useThemeColor";
 
+const httpLink = new HttpLink({
+  uri: "/graphql", credentials: "same-origin", 
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = getToken();
+  const uid = getUID();
+  const client = getClient();
+  const csrfToken = csrfToken();
+  console.log(csrfToken)
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      accept: "application/json",
+      "Content-Type": "application/json",
+      "access-token": token,
+      'X-CSRF-Token': csrfToken
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: new HttpLink({  uri: "/graphql", credentials: "same-origin", }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache({
     queryType: true,
     typePolicies: {
@@ -63,8 +87,7 @@ root.render(<App />);
 //       accept: "application/json",
 //       "Content-Type": "application/json",
 //       "access-token": token,
-//       uid,
-//       client,
+//       'X-CSRF-Token': csrfToken(),
 //     },
 //   };
 // });

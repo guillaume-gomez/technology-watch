@@ -31,7 +31,7 @@ and
 For the transpilation
 
 ```
-./bin/webpack-dev-server 
+yarn build --watch
 ```
 
 
