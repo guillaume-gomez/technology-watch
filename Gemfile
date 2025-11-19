@@ -79,7 +79,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "graphql", "~> 2.5"
+gem "graphql", "~> 2.5.14"
 gem "jwt"
 gem "bcrypt"
 

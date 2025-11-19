@@ -18,8 +18,7 @@ const authLink = setContext((_, { headers }) => {
   const token = getToken();
   const uid = getUID();
   const client = getClient();
-  const csrfToken = csrfToken();
-  console.log(csrfToken)
+  const csrf = csrfToken();
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -27,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
       accept: "application/json",
       "Content-Type": "application/json",
       "access-token": token,
-      'X-CSRF-Token': csrfToken
+      'X-CSRF-Token': csrf
     },
   };
 });
