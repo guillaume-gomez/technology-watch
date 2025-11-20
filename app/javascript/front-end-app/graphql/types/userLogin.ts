@@ -7,21 +7,26 @@
 // GraphQL mutation operation: userLogin
 // ====================================================
 
-export interface userLogin_userLogin_credentials {
-  __typename: "Credential";
-  accessToken: string;
-  client: string;
-  expiry: number;
-  uid: string;
+export interface userLogin_signIn_user {
+  __typename: "User";
+  /**
+   * ID from ActiveRecord
+   */
+  id: string;
+  /**
+   * Active Record cache key
+   */
+  cacheKey: string | null;
 }
 
-export interface userLogin_userLogin {
-  __typename: "UserLoginPayload";
-  credentials: userLogin_userLogin_credentials;
+export interface userLogin_signIn {
+  __typename: "SignInPayload";
+  token: string | null;
+  user: userLogin_signIn_user | null;
 }
 
 export interface userLogin {
-  userLogin: userLogin_userLogin | null;
+  signIn: userLogin_signIn | null;
 }
 
 export interface userLoginVariables {

@@ -18,11 +18,11 @@ export default function Layout({ children, loggedIn = false } : LayoutProps) : R
         rows={["auto", "auto"]}
         fill
       >
-        <Box fill>
+        {/*<Box fill>
           {loggedIn
             ? <PrivateHeader />
             : <PublicHeader />}
-        </Box>
+        </Box>*/}
         <Box fill pad="small">
           <Box round="xsmall" background={themeMode === "light" ? "light-1" : "dark-1"} pad="small" margin="auto" width="xxlarge" height="xxlarge">
             {children}

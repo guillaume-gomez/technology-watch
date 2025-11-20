@@ -42,64 +42,64 @@ export const GetNotes = gql`
   }
 ${NoteFragment.fragments.note}`;
 
-export const GetNote = gql`
-  query getNote($id: ID!) {
-    getNote(id: $id) {
-      ...NoteFragment
-    }
-  }
-${NoteFragment.fragments.note}`;
+// export const GetNote = gql`
+//   query getNote($id: ID!) {
+//     getNote(id: $id) {
+//       ...NoteFragment
+//     }
+//   }
+// ${NoteFragment.fragments.note}`;
 
-export const CreateNote = gql`
-  mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
-    createNote(input: { note: {
-      name: $name,
-      link: $link,
-      description: $description,
-      rating: $rating,
-      tags: $tags
-      timeToReadInMinutes: $timeToReadInMinutes
-    }}) {
-      ...NoteFragment
-    }
-  }
-${NoteFragment.fragments.note}`;
+// export const CreateNote = gql`
+//   mutation createNote($name: String!, $link: String!, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
+//     createNote(input: { note: {
+//       name: $name,
+//       link: $link,
+//       description: $description,
+//       rating: $rating,
+//       tags: $tags
+//       timeToReadInMinutes: $timeToReadInMinutes
+//     }}) {
+//       ...NoteFragment
+//     }
+//   }
+// ${NoteFragment.fragments.note}`;
 
-export const DestroyNote = gql`
-  mutation destroyNote($id: ID!) {
-    destroyNote(input: { id: $id }) {
-      id
-    }
-  }
-`;
+// export const DestroyNote = gql`
+//   mutation destroyNote($id: ID!) {
+//     destroyNote(input: { id: $id }) {
+//       id
+//     }
+//   }
+// `;
 
-export const MarkAsRead = gql`
-  mutation markAsRead($id: ID!, $markAsRead: Boolean!) {
-    editNote(input: { note: {id: $id, markAsRead: $markAsRead} }) {
-      id
-      markAsRead
-    }
-  }
-`;
+// export const MarkAsRead = gql`
+//   mutation markAsRead($id: ID!, $markAsRead: Boolean!) {
+//     editNote(input: { note: {id: $id, markAsRead: $markAsRead} }) {
+//       id
+//       markAsRead
+//     }
+//   }
+// `;
 
-export const EditNote = gql`
-  mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
-    editNote(input: { note: {
-      id: $id,
-      name: $name,
-      link: $link,
-      description: $description,
-      rating: $rating,
-      timeToReadInMinutes: $timeToReadInMinutes,
-      tags: $tags
-    }}) {
-      ...NoteFragment
-    }
-  }
-${NoteFragment.fragments.note}`;
+// export const EditNote = gql`
+//   mutation editNote($id: ID!, $name: String, $link: String, $description: String, $rating: Int, $tags: [ID!], $timeToReadInMinutes: Int) {
+//     editNote(input: { note: {
+//       id: $id,
+//       name: $name,
+//       link: $link,
+//       description: $description,
+//       rating: $rating,
+//       timeToReadInMinutes: $timeToReadInMinutes,
+//       tags: $tags
+//     }}) {
+//       ...NoteFragment
+//     }
+//   }
+// ${NoteFragment.fragments.note}`;
 
-export const GetTotalNotes = gql`
-  query getTotalNotes($markAsRead: Boolean!) {
-    getTotalNotes(markAsRead: $markAsRead)
-  }
-`;
+// export const GetTotalNotes = gql`
+//   query getTotalNotes($markAsRead: Boolean!) {
+//     getTotalNotes(markAsRead: $markAsRead)
+//   }
+// `;

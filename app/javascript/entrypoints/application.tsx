@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
       ...headers,
       accept: "application/json",
       "Content-Type": "application/json",
-      "access-token": token,
+      "Authorization": token,
       'X-CSRF-Token': csrf
     },
   };

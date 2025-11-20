@@ -26,11 +26,11 @@ export default function Login() : ReactElement {
   const history = useHistory();
   const [networkError, setNetworkError] = useState<string>("");
   const [signUp] = useMutation<userLogin, userLoginVariables>(LoginQuery, {
-    onCompleted: ({ userLogin }) => {
-      if (userLogin) {
+    onCompleted: ({signIn}) => {
+      if (signIn) {
         const {
           token, user: { id, cacheKey },
-        } = userLogin;
+        } = signIn;
         setToken(token, expiry);
         setClient(id, expiry);
         setUID(cacheKey, expiry);

@@ -50,7 +50,7 @@ export default function Router() : ReactElement {
         <Suspense fallback={<Spinner />}>
           <Switch>
             <PrivateRoute exact path={privateRootPath} component={Notes} />
-            <PrivateRoute path={addNotePath} component={NewNote} />
+            {/*<PrivateRoute path={addNotePath} component={NewNote} />
             <PrivateRoute path={editNotePath} component={EditNote} />
             <PrivateRoute path={editUserPath} component={EditProfile} />
             <PrivateRoute path={tagsPath} component={Tags} />
@@ -59,7 +59,7 @@ export default function Router() : ReactElement {
             <PublicRoute path={confirmAccountPath} component={ConfirmAccount} />
             <PublicRoute path={signUpPath} component={SignUp} />
             <PublicRoute path={forgotPasswordPath} component={ForgotPassword} />
-            <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />
+            <PublicRoute path={forgotPasswordWithToken} component={ForgotPasswordWithToken} />*/}
             <PublicRoute path={[loginPath, publicRootPath, "/"]} component={Login} />
           </Switch>
         </Suspense>
